@@ -1,149 +1,234 @@
-<!-- Navbar-->
-<header class="header">
-    <nav class="navbar navbar-expand-lg navbar-light py-3">
-        <div class="container">
-            <!-- Navbar Brand -->
-            <a href="#" class="navbar-brand">
-                <img src="https://bootstrapious.com/i/snippets/sn-registeration/logo.svg" alt="logo" width="150">
-            </a>
-        </div>
-    </nav>
-</header>
-
-
-<div class="container">
-    <div class="row py-5 mt-4 align-items-center">
-        <!-- For Demo Purpose -->
-        <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
-            <img src="https://bootstrapious.com/i/snippets/sn-registeration/illustration.svg" alt="" class="img-fluid mb-3 d-none d-md-block">
-            <h1>Create an Account</h1>
-            <p class="font-italic text-muted mb-0">Create a minimal registeration page using Bootstrap 4 HTML form elements.</p>
-            <p class="font-italic text-muted">Snippet By <a href="https://bootstrapious.com" class="text-muted">
-                <u>Bootstrapious</u></a>
-            </p>
-        </div>
-
-        <!-- Registeration Form -->
-        <div class="col-md-7 col-lg-6 ml-auto">
-            <form action="#">
-                <div class="row">
-
-                    <!-- First Name -->
-                    <div class="input-group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-user text-muted"></i>
-                            </span>
+<section class="h-100 h-custom gradient-custom-2">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12">
+          <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+            <div class="card-body p-0">
+              <div class="row g-0">
+                <div class="col-lg-6">
+                  <div class="p-5">
+                    <h3 class="fw-normal mb-5" style="color: #4835d4;">General Infomation</h3>
+  
+                    <!-- <div class="mb-4 pb-2">
+                      <select class="select">
+                        <option value="1">Title</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                        <option value="4">Four</option>
+                      </select>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-md-6 mb-4 pb-2">
+                          <div class="form-outline">
+                            <input type="text" id="form3Examplev2" class="form-control form-control-lg" />
+                            <label class="form-label" for="form3Examplev2">Employee name</label>
+                          </div>
                         </div>
-                        <input id="firstName" type="text" name="firstname" placeholder="First Name" class="form-control bg-white border-left-0 border-md">
-                    </div>
-
-                    <!-- Last Name -->
-                    <div class="input-group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-user text-muted"></i>
-                            </span>
+                        <div class="col-md-6 mb-4 pb-2">
+                          <div class="form-outline">
+                            <label class="form-label" for="form3Examplev3">Gender</label>
+                            <select class="select">
+                              <option value="M">Male</option>
+                              <option value="F">Female</option>
+                              <option value="Others">Others</option>
+                            </select>
+                          </div>
                         </div>
-                        <input id="lastName" type="text" name="lastname" placeholder="Last Name" class="form-control bg-white border-left-0 border-md">
                     </div>
-
-                    <!-- Email Address -->
-                    <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-envelope text-muted"></i>
-                            </span>
+                    <div class="row">
+                        <div class="col-md-6 mb-4 pb-2">
+                          <div class="form-outline">
+                            <input type="text" id="form3Examplev2" class="form-control form-control-lg" />
+                            <label class="form-label" for="form3Examplev2">Employee ID</label>
+                          </div>
                         </div>
-                        <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md">
-                    </div>
-
-                    <!-- Phone Number -->
-                    <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-phone-square text-muted"></i>
-                            </span>
+                        <div class="col-md-6 mb-4 pb-2">
+                          <div class="form-outline">
+                            <label class="form-label" for="form3Examplev3">Select Portal Type</label>
+                            <select class="select">
+                              <option value="FSSAI Marketing Portal">FSSAI Marketing Portal</option>
+                              <option value="DPIIT Marketing Portal">DPIIT Marketing Portal</option>
+                              <option value="NSDC Marketing Portal">NSDC Marketing Portal</option>
+                              <option value="Fostac Portal">Fostac Portal</option>
+                              <option value="Hygiene Portal">Hygiene Portal</option>
+                              <option value="Foscos - Filling Portal">Foscos - Filling Portal</option>
+                              <option value="Foscos - Revert Portal">Foscos - Revert Portal</option>
+                              <option value="Account Portal">Account Portal</option>
+                              <option value="HR - TA Portal">HR - TA Portal</option>
+                              <option value="HR - TD Portal">HR - TD Portal</option>
+                              <option value="HR - General Portal">HR - General Portal</option>
+                              <option value="Cowork Portal">Cowork Portal</option>
+                            </select>
+                          </div>
                         </div>
-                        <select id="countryCode" name="countryCode" style="max-width: 80px" class="custom-select form-control bg-white border-left-0 border-md h-100 font-weight-bold text-muted">
-                            <option value="">+12</option>
-                            <option value="">+10</option>
-                            <option value="">+15</option>
-                            <option value="">+18</option>
-                        </select>
-                        <input id="phoneNumber" type="tel" name="phone" placeholder="Phone Number" class="form-control bg-white border-md border-left-0 pl-3">
-                    </div>.
-
-
-                    <!-- Job -->
-                    <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-black-tie text-muted"></i>
-                            </span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-4 pb-2 mb-md-0 pb-md-0">
+                          <div class="form-outline">
+                            <input type="text" id="form3Examplev5" class="form-control form-control-lg" />
+                            <label class="form-label" for="form3Examplev5">Department</label>
+                          </div>
                         </div>
-                        <select id="job" name="jobtitle" class="form-control custom-select bg-white border-left-0 border-md">
-                            <option value="">Choose your job</option>
-                            <option value="">Designer</option>
-                            <option value="">Developer</option>
-                            <option value="">Manager</option>
-                            <option value="">Accountant</option>
-                        </select>
-                    </div>
-
-                    <!-- Password -->
-                    <div class="input-group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-lock text-muted"></i>
-                            </span>
+                        <div class="col-md-6">
+                          <input type="date" id="form3Examplev6" class="form-control form-control-lg" />
+                          <label class="form-label" for="form3Examplev6">Date Of Birth</label>
                         </div>
-                        <input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md">
                     </div>
-
-                    <!-- Password Confirmation -->
-                    <div class="input-group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-lock text-muted"></i>
-                            </span>
+                    <p></p>
+                    <div class="row">
+                        <div class="col-md-6 mb-4 pb-2">
+                          <div class="form-outline">
+                            <input type="text" id="form3Examplev7" class="form-control form-control-lg" />
+                            <label class="form-label" for="form3Examplev7">Designation</label>
+                          </div>
                         </div>
-                        <input id="passwordConfirmation" type="text" name="passwordConfirmation" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md">
+                        <div class="col-md-6 mb-4 pb-2">
+                          <div class="form-outline">
+                            <input type="text" id="form3Examplev8" class="form-control form-control-lg" />
+                            <label class="form-label" for="form3Examplev8">Salary</label>
+                          </div>
+                        </div>
                     </div>
-
-                    <!-- Submit Button -->
-                    <div class="form-group col-lg-12 mx-auto mb-0">
-                        <a href="#" class="btn btn-primary btn-block py-2">
-                            <span class="font-weight-bold">Create your account</span>
-                        </a>
+                    <div class="row">
+                        <div class="col-md-6 mb-4 pb-2">
+                            <div class="form-outline">
+                                <label class="form-label" for="form3Examplev3">Grade Pay</label>
+                                <select class="select">
+                                    <option value="500">500</option>
+                                    <option value="700">700</option>
+                                    <option value="1000">1000</option>
+                                    <option value="2000">2000</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4 pb-2">
+                            <div class="form-outline">
+                                <label class="form-label" for="form3Examplev3">Under Company</label>
+                                <select class="select">
+                                  <option value="IIEST Federation">IIEST Federation</option>
+                                  <option value="Business Center"> Business Center</option>
+    
+                                </select>
+                            </div>
+                        </div>
+                        
+                        
+                        
                     </div>
-
-                    <!-- Divider Text -->
-                    <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
-                        <div class="border-bottom w-100 ml-5"></div>
-                        <span class="px-2 small text-muted font-weight-bold text-muted">OR</span>
-                        <div class="border-bottom w-100 mr-5"></div>
+                    <div class="row">
+                        <div class="col-md-6 mb-4 pb-2">
+                            <div class="form-outline">
+                                <label class="form-label" for="form3Examplev3">Project Name</label>
+                                <select class="select">
+                                    <option value=" FSSAI"> FSSAI</option>
+                                    <option value=" DPIIT"> DPIIT</option>
+                                    <option value="NSDC">NSDC</option>
+                                    <option value="Under Agies of IIEST">Under Agies of IIEST</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="date" id="form3Examplev6" class="form-control form-control-lg" />
+                            <label class="form-label" for="form3Examplev6">Date Of Joining</label>
+                          </div>
+                        
+                        
+                        
                     </div>
-
-                    <!-- Social Login -->
-                    <div class="form-group col-lg-12 mx-auto">
-                        <a href="#" class="btn btn-primary btn-block py-2 btn-facebook">
-                            <i class="fa fa-facebook-f mr-2"></i>
-                            <span class="font-weight-bold">Continue with Facebook</span>
-                        </a>
-                        <a href="#" class="btn btn-primary btn-block py-2 btn-twitter">
-                            <i class="fa fa-twitter mr-2"></i>
-                            <span class="font-weight-bold">Continue with Twitter</span>
-                        </a>
-                    </div>
-
-                    <!-- Already Registered -->
-                    <div class="text-center w-100">
-                        <p class="text-muted font-weight-bold">Already Registered? <a href="#" class="text-primary ml-2">Login</a></p>
-                    </div>
-
+  
+                    
+  
+                  </div>
                 </div>
-            </form>
+                <div class="col-lg-6 bg-indigo text-white">
+                  <div class="p-5">
+                    <h3 class="fw-normal mb-5">Contact Details</h3>
+  
+                    <div class="mb-4 pb-2">
+                      <div class="form-outline form-white">
+                        <input type="email" id="form3Examplea2" class="form-control form-control-lg" />
+                        <label class="form-label" for="form3Examplea2">Email</label>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5 mb-4 pb-2">
+    
+                          <div class="form-outline form-white">
+                            <input type="text" id="form3Examplea4" class="form-control form-control-lg" />
+                            <label class="form-label" for="form3Examplea4">Contact</label>
+                          </div>
+    
+                        </div>
+                        <div class="col-md-7 mb-4 pb-2">
+    
+                          <div class="form-outline form-white">
+                            <input type="text" id="form3Examplea5" class="form-control form-control-lg" />
+                            <label class="form-label" for="form3Examplea5">Alternative Contact</label>
+                          </div>
+    
+                        </div>
+                      </div>
+  
+                    <div class="mb-4 pb-2">
+                      <div class="form-outline form-white">
+                        <input type="text" id="form3Examplea3" class="form-control form-control-lg" />
+                        <label class="form-label" for="form3Examplea3">Address</label>
+                      </div>
+                    </div>
+  
+                    
+  
+                    <div class="mb-4 pb-2">
+                      <div class="form-outline form-white">
+                        <input type="text" id="form3Examplea6" class="form-control form-control-lg" />
+                        <label class="form-label" for="form3Examplea6">Zip Code</label>
+                      </div>
+                    </div>
+  
+                    <!-- <div class="row">
+                      <div class="col-md-5 mb-4 pb-2">
+  
+                        <div class="form-outline form-white">
+                          <input type="text" id="form3Examplea7" class="form-control form-control-lg" />
+                          <label class="form-label" for="form3Examplea7">Code +</label>
+                        </div>
+  
+                      </div>
+                      <div class="col-md-7 mb-4 pb-2">
+  
+                        <div class="form-outline form-white">
+                          <input type="text" id="form3Examplea8" class="form-control form-control-lg" />
+                          <label class="form-label" for="form3Examplea8">Phone Number</label>
+                        </div>
+  
+                      </div>
+                    </div>
+   -->
+                    <!-- <div class="mb-4">
+                      <div class="form-outline form-white">
+                        <input type="text" id="form3Examplea9" class="form-control form-control-lg" />
+                        <label class="form-label" for="form3Examplea9">Your Email</label>
+                      </div>
+                    </div> -->
+  
+                    <!-- <div class="form-check d-flex justify-content-start mb-4 pb-3">
+                      <input class="form-check-input me-3" type="checkbox" value="" id="form2Example3c" />
+                      <label class="form-check-label text-white" for="form2Example3">
+                        I do accept the <a href="#!" class="text-white"><u>Terms and Conditions</u></a> of your
+                        site.
+                      </label>
+                    </div> -->
+  
+                    <button type="button" class="btn btn-light btn-lg"
+                      data-mdb-ripple-color="dark">Register</button>
+  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </section>
