@@ -10,6 +10,7 @@ import { AboutComponent } from './about/about.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { SettingPanelComponent } from './shared/setting-panel/setting-panel.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SettingPanelComponent } from './shared/setting-panel/setting-panel.comp
     AboutComponent,
     FooterComponent,
     SidebarComponent,
-    SettingPanelComponent
+    SettingPanelComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
