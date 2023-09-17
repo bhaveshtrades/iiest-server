@@ -24,22 +24,24 @@ router.post('/staffentry',
     body('grade_pay', 'Enter a valid grade pay').isNumeric().exists(),
     body('doj', 'Enter a valid doj').isDate().exists(),
     body('company_name', 'Enter a valid company name').exists(),
-    body('project_name', 'Enter a valid project name').exists()
+    body('project_name', 'Enter a valid project name').exists(),
+    body('username', 'Enter a valid username').isLength({min: 3}).exists(),
+    body('password', 'Enter a valid password').isLength({min: 5}).exists()
 ], 
 async(req, res)=>{
 
     //Fields to be used for submission
-    const { employee_name, gender, email, contact_no, alternate_contact, dob, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name } = req.body;
+    const { employee_name, gender, email, contact_no, alternate_contact, dob, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username, password } = req.body;
     const errors = validationResult(req);
 
     if(!errors.isEmpty()){
         return res.status(500).json({errors: errors.array()});
     }
 
-    //Running sql query
-    const sql = `INSERT INTO new_registers (employee_name, gender, email, contact_no, alternate_contact, dob, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name) VALUES ('${employee_name}', '${gender}', '${email}', '${contact_no}', '${alternate_contact}', '${dob}', '${address}', '${zip_code}', '${employee_id}', '${portal_type}', '${department}', '${designation}', '${salary}', '${grade_pay}', '${doj}', '${company_name}', '${project_name}')`; 
+    //Running sql query for registration
+    const sql = `INSERT INTO new_registers (employee_name, gender, email, contact_no, alternate_contact, dob, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username, password) VALUES ('${employee_name}', '${gender}', '${email}', '${contact_no}', '${alternate_contact}', '${dob}', '${address}', '${zip_code}', '${employee_id}', '${portal_type}', '${department}', '${designation}', '${salary}', '${grade_pay}', '${doj}', '${company_name}', '${project_name}', '${username}', '${password}')`; 
 
-    db.query(sql, [employee_name, gender, email, contact_no, alternate_contact, dob, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name], (err, result)=>{
+    db.query(sql, [employee_name, gender, email, contact_no, alternate_contact, dob, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username, password], (err, result)=>{
         if(err){
             console.log(err)
             res.status(500).json({error: 'Registration failed'});
@@ -49,17 +51,20 @@ async(req, res)=>{
     });
 })
 
-//Only for testing purpose: To grab info from database by entering the email
+//Only for testing purpose: To grab info from database by entering the username and password
 router.post('/login', [
-    body('email', 'Enter a valid email').isEmail().exists()
+    body('username', 'Enter a valid email').exists(),
+    body('password', 'Enter a valid password').exists()
 ], async(req, res)=>{
-    const { email } = req.body;
+    const { username, password } = req.body;
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array()});
     }
-    const sql = `SELECT * FROM new_registers where email='${email}'`;
-    db.query(sql, [email], (err, result)=>{
+
+    //Running sql query for demo login
+    const sql = `SELECT * FROM new_registers where username='${username}' AND password='${password}'`;
+    db.query(sql, [username, password], (err, result)=>{
         if(err){
             res.status(500).json({error: 'Login Failed'})
         }else{
