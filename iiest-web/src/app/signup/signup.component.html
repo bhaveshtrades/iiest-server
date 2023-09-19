@@ -15,20 +15,20 @@
                           <input type="text" name="employee_name" id="form3Examplev2" class="form-control form-control-lg" [(ngModel)]="employee_name" formControlName="employee_name"/>
                           <label class="form-label" for="form3Examplev2">Employee name</label>
                           <div *ngIf="signupForm.get('employee_name')?.invalid && signupForm.get('employee_name')?.touched" class="text-danger">
-                            Employee name cannot be empty.
+                            This field can't be left empty.
                           </div>
                         </div>
                       </div>
                       <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
-                          <label class="form-label" for="form3Examplev3">Gender</label>
+                          <label class="form-label" for="form3Examplev3">Gender: </label>
                           <select class="select" name="gender" [(ngModel)]="gender" formControlName="gender">
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             <option value="Others">Others</option>
                           </select>
                           <div *ngIf="signupForm.get('gender')?.invalid && signupForm.get('gender')?.touched" class="text-danger">
-                            Please select the Gender
+                            Please select your gender
                           </div>
                         </div>
                       </div>
@@ -40,7 +40,7 @@
                           <input type="text" id="form3Examplev2" name="username" class="form-control form-control-lg" [(ngModel)]="username" formControlName="username"/>
                           <label class="form-label" for="form3Examplev2">Username</label>
                           <div *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched" class="text-danger">
-                            Username cannot be empty.
+                            This field can't be left empty
                           </div>
                         </div>
                       </div>
@@ -49,7 +49,7 @@
                             <input type="password" id="form3Examplev2" name="password" class="form-control form-control-lg" [(ngModel)]="password" formControlName="password"/>
                             <label class="form-label" for="form3Examplev2">Password</label>
                             <div *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched" class="text-danger">
-                              Password is required.
+                              This field can't be left empty.
                             </div>
                             <!-- Display error message if password does not meet minLength -->
                             <div *ngIf="signupForm.get('password')?.hasError('minlength') && signupForm.get('password')?.touched" class="text-danger">
@@ -65,13 +65,13 @@
                           <input type="text" id="form3Examplev2" name="employee_id" class="form-control form-control-lg" [(ngModel)]="employee_id" formControlName="employee_id"/>
                           <label class="form-label" for="form3Examplev2">Employee ID</label>
                           <div *ngIf="signupForm.get('employee_id')?.invalid && signupForm.get('employee_id')?.touched" class="text-danger">
-                            Username cannot be empty.
+                            This field can't be left empty.
                           </div>
                         </div>
                       </div>
                       <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
-                          <label class="form-label" for="form3Examplev3">Select Portal Type</label>
+                          <label class="form-label" for="form3Examplev3">Select Portal Type: </label>
                           <select class="select" name="portal_type" [(ngModel)]="portal_type" formControlName="portal_type">
                             <option value="FSSAI Marketing Portal">FSSAI Marketing Portal</option>
                             <option value="DPIIT Marketing Portal">DPIIT Marketing Portal</option>
@@ -98,7 +98,7 @@
                           <input type="text" id="form3Examplev5" name="department" class="form-control form-control-lg" [(ngModel)]="department" formControlName="department"/>
                           <label class="form-label" for="form3Examplev5">Department</label>
                           <div *ngIf="signupForm.get('department')?.invalid && signupForm.get('department')?.touched" class="text-danger">
-                            Department cannot be empty.
+                            This field can't be left empty.
                           </div>
                         </div>
                       </div>
@@ -117,7 +117,7 @@
                           <input type="text" id="form3Examplev7" class="form-control form-control-lg" name="designation" [(ngModel)]="designation" formControlName="designation"/>
                           <label class="form-label" for="form3Examplev7">Designation</label>
                           <div *ngIf="signupForm.get('designation')?.invalid && signupForm.get('designation')?.touched" class="text-danger">
-                            Designation cannot be empty.
+                            This field can't be left empty.
                           </div>
                         </div>
                       </div>
@@ -126,7 +126,7 @@
                           <input type="number" id="form3Examplev8" class="form-control form-control-lg" name="salary" [(ngModel)]="salary" formControlName="salary"/>
                           <label class="form-label" for="form3Examplev8">Salary</label>
                           <div *ngIf="signupForm.get('salary')?.invalid && signupForm.get('salary')?.touched" class="text-danger">
-                            Salary cannot be empty.
+                            This field can't be left empty.
                           </div>
                         </div>
                       </div>
