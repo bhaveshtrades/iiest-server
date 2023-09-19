@@ -1,11 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
+
+
+
 export class SignupComponent {
     employee_name: string = '';
     gender: string = '';
@@ -27,7 +31,61 @@ export class SignupComponent {
     address: string = '';
     zip_code: number = 0;
 
+    // adding form validators
     constructor(private http: HttpClient){}
+
+    signupForm=new FormGroup({
+        employee_name: new FormControl('', [Validators.required]),
+        gender: new FormControl('', [Validators.required]),
+        username: new FormControl('',[Validators.required]),
+        password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+        employee_id: new FormControl('', [Validators.required]),
+        portal_type: new FormControl('', [Validators.required]),
+        department: new FormControl('', [Validators.required]),
+        dob: new FormControl('', [Validators.required]),
+        designation:new FormControl( '', [Validators.required]),
+        salary: new FormControl('', [Validators.required]), // Set a default value
+        grade_pay: new FormControl('', [Validators.required]), // Set a default value
+        company_name: new FormControl('', [Validators.required]),
+        project_name: new FormControl('', [Validators.required]),
+        doj: new FormControl('', [Validators.required]),
+        email:new FormControl ('', [Validators.required, Validators.email]),
+        contact_no: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]),
+        alternate_contact: new FormControl('', [Validators.pattern(/^[0-9]{10}$/)]),
+        address: new FormControl('', [Validators.required]),
+        zip_code: new FormControl(0, [Validators.required,Validators.pattern(/^[0-9]{6}$/)])
+      
+
+    });
+
+
+
+    // signupForm: FormGroup;
+
+
+    // constructor(private http: HttpClient, private fb:FormBuilder){
+    //   this.signupForm = this.fb.group({
+    //     employee_name: ['', Validators.required],
+    //     gender: ['', Validators.required],
+    //     username: ['', Validators.required],
+    //     password: ['', [Validators.required, Validators.minLength(6)]],
+    //     employee_id: ['', Validators.required],
+    //     portal_type: ['', Validators.required],
+    //     department: ['', Validators.required],
+    //     dob: ['', Validators.required],
+    //     designation: ['', Validators.required],
+    //     salary: [0, Validators.required], // Set a default value
+    //     grade_pay: [500, Validators.required], // Set a default value
+    //     company_name: ['', Validators.required],
+    //     project_name: ['', Validators.required],
+    //     doj: ['', Validators.required],
+    //     email: ['', [Validators.required, Validators.email]],
+    //     contact_no: [0, [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+    //     alternate_contact: [0, Validators.pattern(/^-?(0|[1-9]\d*)?$/)],
+    //     address: ['', Validators.required],
+    //     zip_code: [0, [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
+    //   });
+    // }
 
     submitForm(){
       const postData = {
