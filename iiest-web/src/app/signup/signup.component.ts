@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+<<<<<<< HEAD
 import { FormBuilder, FormGroup, Validators,FormControl, } from '@angular/forms';
+=======
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+>>>>>>> c4fbc1cc4b1bab754704f67aa43f04d1a5f99f5e
 
 @Component({
   selector: 'app-signup',
@@ -22,21 +26,22 @@ export class SignupComponent {
     department: string = '';
     dob: string = '';
     designation: string = '';
-    salary: number = 0;
-    grade_pay: number = 500;
+    salary: number = NaN;
+    grade_pay: number = NaN;
     company_name: string = '';
     project_name: string = '';
     doj: string = '';
     email: string = '';
-    contact_no: number = 0;
-    alternate_contact: number = 0;
+    contact_no: number = NaN;
+    alternate_contact: number = NaN;
     address: string = '';
-    zip_code: number = 0;
+    zip_code: number = NaN;
 
-    // adding form validators
     constructor(private http: HttpClient){}
 
-    signupForm=new FormGroup({
+
+    //Form Validation
+    signupForm = new FormGroup({
         employee_name: new FormControl('', [Validators.required]),
         gender: new FormControl('', [Validators.required]),
         username: new FormControl('',[Validators.required]),
@@ -56,12 +61,13 @@ export class SignupComponent {
         alternate_contact: new FormControl('', [Validators.pattern(/^[0-9]{10}$/)]),
         address: new FormControl('', [Validators.required]),
         zip_code: new FormControl(0, [Validators.required,Validators.pattern(/^[0-9]{6}$/)])
-      
-
     });
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> c4fbc1cc4b1bab754704f67aa43f04d1a5f99f5e
     submitForm(){
       const postData = {
         employee_name: this.employee_name,
@@ -85,6 +91,7 @@ export class SignupComponent {
         zip_code: this.zip_code
       }
 
+<<<<<<< HEAD
 
       this.submitted=true
       if(this.signupForm.invalid){
@@ -97,12 +104,14 @@ export class SignupComponent {
 
       console.log(postData)
 
+=======
+>>>>>>> c4fbc1cc4b1bab754704f67aa43f04d1a5f99f5e
       this.http.post('http://localhost:3000/auth/staffentry', postData).subscribe(
         (response)=>{
-          console.log('POST request successful: ', response)
+          console.log('Registation request successful: ', response)
         },
         (error)=>{
-          console.log('POST Request Error', error)
+          console.log('Registration Request Error', error)
         }
       )
     }
