@@ -1,0 +1,80 @@
+body, html {
+    height: 100%;
+    margin: 0;
+  font-family: 
+    padding: 0;
+/*   background-color: blue; */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.top h1,
+.top h5,
+.top h2,
+.top p {
+  font-size: 20px;
+    max-width: 700px; /* Adjust the value as needed */
+    margin: 0 auto;/* Center the text horizontally */
+    
+}
+.top h1{
+  margin-top: 30px;
+/*   margin-bottom: 10px; */
+  text-align: center;
+  font-size:40px;
+}
+.top h2{
+  max-width: 500px;
+  font-size:20px;
+} 
+.top h3{
+  margin-bottom: 30px;
+  margin-top:0px;
+}
+.top p{
+  font-size:15px;
+}
+.top {
+    flex: 1;
+    border: 1px solid #ccc;
+/*     padding: 20px; */
+    text-align: center;
+}
+.bottom{
+  height: 50px;
+  background-color: red;
+  padding: 0;
+}
+.icons {
+    text-align: center;
+  align-items:bottom;
+/*     margin-top: 10px; */
+}
+.icons1{
+  margin-left:50px;
+  gap:10px;
+  font-size:30px;
+  color:dark-grey;
+  display: flex;
+/*     align-items: right; */
+  text-align: right;
+  padding-right: 100px;
+/*   -bottom:50px; */
+}
+.top-content {
+    flex: 1; /* Takes up the available space */
+    display: flex;
+    flex-direction: column; /* Arranges content in a column */
+  align-items:center;
+}
+
+.icons i {
+    font-size: 30px; /* Adjust the icon size as needed */
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+   color: white; /* Adjust the icon color as needed */
+}
