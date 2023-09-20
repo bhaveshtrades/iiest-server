@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators,FormControl, } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -11,6 +11,8 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 
 export class SignupComponent {
+  submitted=false;
+
     employee_name: string = '';
     gender: string = '';
     username: string = '';
@@ -57,6 +59,8 @@ export class SignupComponent {
         zip_code: new FormControl(0, [Validators.required,Validators.pattern(/^[0-9]{6}$/)])
     });
 
+
+
     submitForm(){
       const postData = {
         employee_name: this.employee_name,
@@ -80,6 +84,16 @@ export class SignupComponent {
         zip_code: this.zip_code
       }
 
+
+
+      this.submitted=true
+      if(this.signupForm.invalid){
+        return
+      }
+
+
+      console.log(postData)
+
       this.http.post('http://localhost:3000/auth/staffentry', postData).subscribe(
         (response)=>{
           console.log('Registation request successful: ', response)
@@ -88,5 +102,10 @@ export class SignupComponent {
           console.log('Registration Request Error', error)
         }
       )
+    }
+
+    Reset(){
+      this.submitted=false;
+      this.signupForm.reset();
     }
 }

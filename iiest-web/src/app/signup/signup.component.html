@@ -12,17 +12,25 @@
                   <div class="row">
                       <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
-                          <input type="text" name="employee_name" id="form3Examplev2" class="form-control form-control-lg" [(ngModel)]="employee_name" formControlName="employee_name"/>
+                          <input type="text" name="employee_name" id="form3Examplev2" class="form-control form-control-lg" [(ngModel)]="employee_name" formControlName="employee_name" [ngClass]="{'is-invalid':submitted && signupForm.controls.employee_name.errors}"/>
                           <label class="form-label" for="form3Examplev2">Employee name</label>
+                          
                           <div *ngIf="signupForm.get('employee_name')?.invalid && signupForm.get('employee_name')?.touched" class="text-danger">
                             This field can't be left empty.
                           </div>
+                          <!-- <div *ngIf="submitted && signupForm.get('employee_name')?.invalid && signupForm.get('employee_name')?.touched" class="text-danger">
+                            Employee name cannot be empty.
+                          </div> -->
+                          
+
+                          
                         </div>
                       </div>
                       <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
-                          <label class="form-label" for="form3Examplev3">Gender: </label>
-                          <select class="select" name="gender" [(ngModel)]="gender" formControlName="gender">
+                          <label class="form-label" for="form3Examplev3">Gender</label>
+                          <select class="select" name="gender" [(ngModel)]="gender" formControlName="gender" [ngClass]="{'is-invalid':submitted && signupForm.controls.gender.errors}">
+                          
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             <option value="Others">Others</option>
@@ -37,7 +45,7 @@
                   <div class="row">
                       <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
-                          <input type="text" id="form3Examplev2" name="username" class="form-control form-control-lg" [(ngModel)]="username" formControlName="username"/>
+                          <input type="text" id="form3Examplev2" name="username" class="form-control form-control-lg" [(ngModel)]="username" formControlName="username" [ngClass]="{'is-invalid':submitted && signupForm.controls.username.errors}"/>
                           <label class="form-label" for="form3Examplev2">Username</label>
                           <div *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched" class="text-danger">
                             This field can't be left empty
@@ -46,7 +54,7 @@
                       </div>
                       <div class="col-md-6 mb-4 pb-2">
                           <div class="form-outline">
-                            <input type="password" id="form3Examplev2" name="password" class="form-control form-control-lg" [(ngModel)]="password" formControlName="password"/>
+                            <input type="password" id="form3Examplev2" name="password" class="form-control form-control-lg" [(ngModel)]="password" formControlName="password" [ngClass]="{'is-invalid':submitted && signupForm.controls.password.errors}"/>
                             <label class="form-label" for="form3Examplev2">Password</label>
                             <div *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched" class="text-danger">
                               This field can't be left empty.
@@ -62,7 +70,7 @@
                   <div class="row">
                       <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
-                          <input type="text" id="form3Examplev2" name="employee_id" class="form-control form-control-lg" [(ngModel)]="employee_id" formControlName="employee_id"/>
+                          <input type="text" id="form3Examplev2" name="employee_id" class="form-control form-control-lg" [(ngModel)]="employee_id" formControlName="employee_id" [ngClass]="{'is-invalid':submitted && signupForm.controls.employee_id.errors}"/>
                           <label class="form-label" for="form3Examplev2">Employee ID</label>
                           <div *ngIf="signupForm.get('employee_id')?.invalid && signupForm.get('employee_id')?.touched" class="text-danger">
                             This field can't be left empty.
@@ -71,8 +79,12 @@
                       </div>
                       <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
-                          <label class="form-label" for="form3Examplev3">Select Portal Type: </label>
-                          <select class="select" name="portal_type" [(ngModel)]="portal_type" formControlName="portal_type">
+
+                          <label class="form-label" for="form3Examplev3">Select Portal Type</label>
+                          <select class="select" name="portal_type" [(ngModel)]="portal_type" formControlName="portal_type" [ngClass]="{'is-invalid':submitted && signupForm.controls.portal_type.errors}" >
+
+                  
+
                             <option value="FSSAI Marketing Portal">FSSAI Marketing Portal</option>
                             <option value="DPIIT Marketing Portal">DPIIT Marketing Portal</option>
                             <option value="NSDC Marketing Portal">NSDC Marketing Portal</option>
@@ -95,7 +107,7 @@
                   <div class="row">
                       <div class="col-md-6 mb-4 pb-2 mb-md-0 pb-md-0">
                         <div class="form-outline">
-                          <input type="text" id="form3Examplev5" name="department" class="form-control form-control-lg" [(ngModel)]="department" formControlName="department"/>
+                          <input type="text" id="form3Examplev5" name="department" class="form-control form-control-lg" [(ngModel)]="department" formControlName="department" [ngClass]="{'is-invalid':submitted && signupForm.controls.department.errors}"/>
                           <label class="form-label" for="form3Examplev5">Department</label>
                           <div *ngIf="signupForm.get('department')?.invalid && signupForm.get('department')?.touched" class="text-danger">
                             This field can't be left empty.
@@ -103,7 +115,7 @@
                         </div>
                       </div>
                       <div class="col-md-6">
-                        <input type="date" id="form3Examplev6" class="form-control form-control-lg" name="dob" [(ngModel)]="dob" formControlName="dob"/>
+                        <input type="date" id="form3Examplev6" class="form-control form-control-lg" name="dob" [(ngModel)]="dob" formControlName="dob" [ngClass]="{'is-invalid':submitted && signupForm.controls.dob.errors}"/>
                         <label class="form-label" for="form3Examplev6">Date Of Birth</label>
                         <div *ngIf="signupForm.get('dob')?.invalid && signupForm.get('dob')?.touched" class="text-danger">
                           Please Enter Date of Birth
@@ -114,7 +126,7 @@
                   <div class="row">
                       <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
-                          <input type="text" id="form3Examplev7" class="form-control form-control-lg" name="designation" [(ngModel)]="designation" formControlName="designation"/>
+                          <input type="text" id="form3Examplev7" class="form-control form-control-lg" name="designation" [(ngModel)]="designation" formControlName="designation" [ngClass]="{'is-invalid':submitted && signupForm.controls.designation.errors}"/>
                           <label class="form-label" for="form3Examplev7">Designation</label>
                           <div *ngIf="signupForm.get('designation')?.invalid && signupForm.get('designation')?.touched" class="text-danger">
                             This field can't be left empty.
@@ -123,7 +135,7 @@
                       </div>
                       <div class="col-md-6 mb-4 pb-2">
                         <div class="form-outline">
-                          <input type="number" id="form3Examplev8" class="form-control form-control-lg" name="salary" [(ngModel)]="salary" formControlName="salary"/>
+                          <input type="number" id="form3Examplev8" class="form-control form-control-lg" name="salary" [(ngModel)]="salary" formControlName="salary" [ngClass]="{'is-invalid':submitted && signupForm.controls.salary.errors}"/>
                           <label class="form-label" for="form3Examplev8">Salary</label>
                           <div *ngIf="signupForm.get('salary')?.invalid && signupForm.get('salary')?.touched" class="text-danger">
                             This field can't be left empty.
@@ -135,7 +147,7 @@
                       <div class="col-md-6 mb-4 pb-2">
                           <div class="form-outline">
                               <label class="form-label" for="form3Examplev3">Grade Pay</label>
-                              <select class="select" name="grade_pay" [(ngModel)]="grade_pay" formControlName="grade_pay">
+                              <select class="select" name="grade_pay" [(ngModel)]="grade_pay" formControlName="grade_pay" [ngClass]="{'is-invalid':submitted && signupForm.controls.grade_pay.errors}">
                                   <option value="500">500</option>
                                   <option value="700">700</option>
                                   <option value="1000">1000</option>
@@ -149,7 +161,7 @@
                       <div class="col-md-6 mb-4 pb-2">
                           <div class="form-outline">
                               <label class="form-label" for="form3Examplev3">Under Company</label>
-                              <select class="select" name="company_name" [(ngModel)]="company_name" formControlName="company_name">
+                              <select class="select" name="company_name" [(ngModel)]="company_name" formControlName="company_name" [ngClass]="{'is-invalid':submitted && signupForm.controls.company_name.errors}">
                                 <option value="IIEST Federation">IIEST Federation</option>
                                 <option value="Business Center"> Business Center</option>
   
@@ -167,7 +179,7 @@
                       <div class="col-md-6 mb-4 pb-2">
                           <div class="form-outline">
                               <label class="form-label" for="form3Examplev3">Project Name</label>
-                              <select class="select" name="project_name" [(ngModel)]="project_name" formControlName="project_name">
+                              <select class="select" name="project_name" [(ngModel)]="project_name" formControlName="project_name" [ngClass]="{'is-invalid':submitted && signupForm.controls.project_name.errors}">
                                   <option value=" FSSAI"> FSSAI</option>
                                   <option value=" DPIIT"> DPIIT</option>
                                   <option value="NSDC">NSDC</option>
@@ -179,7 +191,7 @@
                           </div>
                       </div>
                       <div class="col-md-6">
-                          <input type="date" id="form3Examplev6" name="doj" class="form-control form-control-lg" [(ngModel)]="doj" formControlName="doj"/>
+                          <input type="date" id="form3Examplev6" name="doj" class="form-control form-control-lg" [(ngModel)]="doj" formControlName="doj" [ngClass]="{'is-invalid':submitted && signupForm.controls.doj.errors}"/>
                           <label class="form-label" for="form3Examplev6">Date Of Joining</label>
                           <div *ngIf="signupForm.get('doj')?.invalid && signupForm.get('doj')?.touched" class="text-danger">
                             Please Enter Date of Joining
@@ -200,7 +212,7 @@
 
                   <div class="mb-4 pb-2">
                     <div class="form-outline form-white">
-                      <input type="email" id="form3Examplea2" class="form-control form-control-lg" name="email" [(ngModel)]="email" formControlName="email"/>
+                      <input type="email" id="form3Examplea2" class="form-control form-control-lg" name="email" [(ngModel)]="email" formControlName="email" [ngClass]="{'is-invalid':submitted && signupForm.controls.email.errors}"/>
                       <label class="form-label" for="form3Examplea2">Email</label>
                       <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="text-danger">
                         Email is required and must be a valid email address.
@@ -212,7 +224,7 @@
                       <div class="col-md-5 mb-4 pb-2">
   
                         <div class="form-outline form-white">
-                          <input type="number" id="form3Examplea4" class="form-control form-control-lg" name="contact_no" [(ngModel)]="contact_no" formControlName="contact_no" />
+                          <input type="number" id="form3Examplea4" class="form-control form-control-lg" name="contact_no" [(ngModel)]="contact_no" formControlName="contact_no" [ngClass]="{'is-invalid':submitted && signupForm.controls.contact_no.errors}"/>
                           <label class="form-label" for="form3Examplea4">Contact</label>
                           <div *ngIf="signupForm.get('contact_no')?.hasError('required') && signupForm.get('contact_no')?.touched" class="text-danger">
                             Contact number is required.
@@ -226,7 +238,7 @@
                       <div class="col-md-7 mb-4 pb-2">
   
                         <div class="form-outline form-white">
-                          <input type="number" id="form3Examplea5" class="form-control form-control-lg" name="alternate_contact" [(ngModel)]="alternate_contact" formControlName="alternate_contact"/>
+                          <input type="number" id="form3Examplea5" class="form-control form-control-lg" name="alternate_contact" [(ngModel)]="alternate_contact" formControlName="alternate_contact" [ngClass]="{'is-invalid':submitted && signupForm.controls.alternate_contact.errors}"/>
                           <label class="form-label" for="form3Examplea5">Alternative Contact</label>
                           <div *ngIf="signupForm.get('alternate_contact')?.hasError('pattern') && signupForm.get('alternate_contact')?.touched" class="text-danger">
                             Please enter a valid contact number.
@@ -238,7 +250,7 @@
 
                   <div class="mb-4 pb-2">
                     <div class="form-outline form-white">
-                      <input type="text" id="form3Examplea3" class="form-control form-control-lg" name="address" [(ngModel)]="address" formControlName="address"/>
+                      <input type="text" id="form3Examplea3" class="form-control form-control-lg" name="address" [(ngModel)]="address" formControlName="address" [ngClass]="{'is-invalid':submitted && signupForm.controls.address.errors}"/>
                       <label class="form-label" for="form3Examplea3">Address</label>
                       <div *ngIf="signupForm.get('address')?.invalid && signupForm.get('address')?.touched" class="text-danger">
                         Address cannot be empty.
@@ -250,7 +262,7 @@
 
                   <div class="mb-4 pb-2">
                     <div class="form-outline form-white">
-                      <input type="number" id="form3Examplea6" class="form-control form-control-lg" name="zip_code" [(ngModel)]="zip_code" formControlName="zip_code"/>
+                      <input type="number" id="form3Examplea6" class="form-control form-control-lg" name="zip_code" [(ngModel)]="zip_code" formControlName="zip_code" [ngClass]="{'is-invalid':submitted && signupForm.controls.zip_code.errors}"/>
                       <label class="form-label" for="form3Examplea6">Zip Code</label>
                       <div *ngIf="signupForm.get('zip_code')?.hasError('pattern') && signupForm.get('zip_code')?.touched" class="text-danger">
                         Please enter a valid Zip Code.
@@ -258,7 +270,7 @@
                     </div>
                   </div>
 
-                  <button type="submit" class="btn btn-light btn-lg" data-mdb-ripple-color="dark" [disabled]="signupForm.invalid">Register</button>
+                  <button type="submit" class="btn btn-light btn-lg" data-mdb-ripple-color="dark" >Register</button>
 
                 </div>
               </div>
@@ -270,3 +282,4 @@
   </div>
   </form>
 </section>
+
