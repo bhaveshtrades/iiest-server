@@ -8,9 +8,9 @@ const bcrypt = require('bcrypt');
 const JWT_SECRET = process.env.JWT_TOKEN;
 
 //Route for staff entry
-router.post('/staffentry', 
+router.post('/register', 
 
-//Validation for registration using express-validator 
+//Validation for staff registration using express-validator 
 [
     body('employee_name', 'Enter a valid name').isLength({min: 3}).exists(),
     body('gender', 'Enter a valid gender').isLength({min: 4}).exists(),
@@ -37,6 +37,7 @@ async(req, res)=>{
     //Fields being used for staff entry
     let success = false;
     const { employee_name, gender, email, contact_no, alternate_contact, dob, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username, password } = req.body;
+
     const errors = validationResult(req);
 
     if(!errors.isEmpty()){
@@ -47,7 +48,7 @@ async(req, res)=>{
     const salt = await bcrypt.genSalt(10);
     const secPass = await bcrypt.hash(password, salt);
 
-    //SQL query for staff entry
+    //SQL query for staff registration
     const sql = `INSERT INTO new_registers (employee_name, gender, email, contact_no, alternate_contact, dob, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username, password) VALUES ('${employee_name}', '${gender}', '${email}', '${contact_no}', '${alternate_contact}', '${dob}', '${address}', '${zip_code}', '${employee_id}', '${portal_type}', '${department}', '${designation}', '${salary}', '${grade_pay}', '${doj}', '${company_name}', '${project_name}', '${username}', '${secPass}')`; 
 
     db.query(sql, [employee_name, gender, email, contact_no, alternate_contact, dob, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username, password], (err, result)=>{
@@ -66,7 +67,7 @@ async(req, res)=>{
 //Route for staff login
 router.post('/login', 
 
-//Validation for login using express-validator 
+//Validation for staff login using express-validator 
 [
 body('username', 'Enter a valid username').exists(),
 body('password', 'Enter a valid password').exists()
@@ -76,6 +77,12 @@ async(req, res) => {
     let success = false;
 
     const { username, password } = req.body;
+
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()){
+        return res.status(500).json({errors: errors.array()});
+    }
   
     // SQL query to check member with the entered username in the database
     const sql = `SELECT * FROM new_registers WHERE username = '${username}'`
@@ -102,6 +109,7 @@ async(req, res) => {
                     id: user.s_no
                 }
             }
+            
             const authToken = jwt.sign(data,  JWT_SECRET);
             success = true;
             res.status(200).json({ success, authToken });

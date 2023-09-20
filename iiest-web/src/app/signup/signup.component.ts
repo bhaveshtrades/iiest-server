@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup, Validators,FormControl, } from '@angular/forms'
 
 
 export class SignupComponent {
-  submitted=false;
+  submitted = false;
 
     employee_name: string = '';
     gender: string = '';
@@ -94,7 +94,7 @@ export class SignupComponent {
 
       console.log(postData)
 
-      this.http.post('http://localhost:3000/auth/staffentry', postData).subscribe(
+      this.http.post('http://localhost:3000/iiest/staff/register', postData).subscribe(
         (response)=>{
           console.log('Registation request successful: ', response)
         },

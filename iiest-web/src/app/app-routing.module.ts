@@ -3,9 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 const routes: Routes = [
-  { path: 'iiest/login', component: LoginComponent },
+  { path: 'iiest/staff/login', component: LoginComponent },
   { path: 'iiest/staffentry', component: SignupComponent },
-  { path: '', redirectTo: '/iiest/login', pathMatch: 'full' }, // Default route
+  { path: '', redirectTo: '/iiest/staff/login', pathMatch: 'full' }, // Default route
 ];
 
 @NgModule({

@@ -9,7 +9,8 @@ app.use(cors());
 
 const port = process.env.PORT || 3000;
 
-app.use('/auth', require('./router/auth.js'));
+app.use('/iiest/staff', require('./routers/staffAuth.js'));
+app.use('/iiest/fbo', require('./routers/fboAuth.js'));
 
 app.listen(port, () => {
   console.log(`Example app listening on port: ${port}`)

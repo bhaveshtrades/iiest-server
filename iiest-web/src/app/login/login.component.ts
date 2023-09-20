@@ -18,7 +18,7 @@ export class LoginComponent {
         password: this.password
       }
 
-      this.http.post('http://localhost:3000/auth/login', loginData).subscribe(
+      this.http.post('http://localhost:3000/iiest/staff/login', loginData).subscribe(
         (response)=>{
           console.log('Login successful: ', response)
         },
