@@ -1,21 +1,14 @@
-//Establishing mysql database connection
+//Establishing mongodb database connection
 
-const mysql = require('mysql');
-const hostname = process.env.DB_HOST;
-const db_user = process.env.DB_USER;
-const db_password = process.env.DB_PWD;
-const db_name = process.env.DB_NAME;
+const mongoose = require('mongoose');
+const mongoURI = 'mongodb://localhost:27017/iiest';
 
-const db = mysql.createConnection({
-    host: hostname,
-    user: db_user,
-    password: db_password,
-    database: db_name
-});
+const connectToMongo = ()=>{
+    mongoose.connect(mongoURI).then(()=>{
+        console.log('Now we are connected');
+    }).catch((error) => {
+        console.log(error);
+    })
+}
 
-db.connect((err) => {
-    if (err) throw err;
-    console.log('Connected to MySQL Server!');
-});
-
-module.exports = db
+module.exports = connectToMongo;

@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
-const db = require('../config/db');
+const staff_register_schema = require('../models/staff_register_schema');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const JWT_SECRET = process.env.JWT_TOKEN;
 
 //Route for staff entry
-router.post('/register', 
+router.post('/staffentry', 
 
 //Validation for staff registration using express-validator 
 [
@@ -16,7 +16,6 @@ router.post('/register',
     body('gender', 'Enter a valid gender').isLength({min: 4}).exists(),
     body('email', 'Enter a valid email').isEmail().exists(),
     body('contact_no', 'Enter a valid contact number').isNumeric().exists(),
-    body('alternate_contact', 'Enter a valid contact number').isNumeric().exists(),
     body('dob', 'Enter a valid date').isDate().exists(),
     body('address', 'Enter a valid address').exists(),
     body('zip_code', 'Enter a valid zip code').isNumeric().exists(),
@@ -34,9 +33,12 @@ router.post('/register',
 ], 
 async(req, res)=>{
 
-    //Fields being used for staff entry
+    try {
+
     let success = false;
-    const { employee_name, gender, email, contact_no, alternate_contact, dob, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username, password } = req.body;
+
+    //Fields being used for staff entry
+    const { employee_name, gender, email, contact_no, dob, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username, password } = req.body;
 
     const errors = validationResult(req);
 
@@ -48,19 +50,42 @@ async(req, res)=>{
     const salt = await bcrypt.genSalt(10);
     const secPass = await bcrypt.hash(password, salt);
 
-    //SQL query for staff registration
-    const sql = `INSERT INTO new_registers (employee_name, gender, email, contact_no, alternate_contact, dob, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username, password) VALUES ('${employee_name}', '${gender}', '${email}', '${contact_no}', '${alternate_contact}', '${dob}', '${address}', '${zip_code}', '${employee_id}', '${portal_type}', '${department}', '${designation}', '${salary}', '${grade_pay}', '${doj}', '${company_name}', '${project_name}', '${username}', '${secPass}')`; 
+    //To check if employee with same email exists 
+    const existing_email = await staff_register_schema.findOne({email});
+    if(existing_email){
+        return res.status(400).json({success, message: "Employee with this email already exists"});
+    }
 
-    db.query(sql, [employee_name, gender, email, contact_no, alternate_contact, dob, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username, password], (err, result)=>{
-        if(err){
-            success = false;
-            console.log(err);
-            res.status(500).json({success, error: 'Registration failed'});
-        }else{
-            success = true;
-            res.status(200).json({success, message: 'Resgistration Successful'});
-        }
-    });
+    //To check if employye with same phone number exists
+    const existing_contact = await staff_register_schema.findOne({contact_no});
+    if(existing_contact){
+        return res.status(400).json({success, message: "Employee with this phone number already exists"});
+    }
+
+    //To check if employee with same id exists
+    const existing_employee_id = await staff_register_schema.findOne({employee_id})
+    if(existing_employee_id){
+        return res.status(400).json({success, message: "Employee with this id already exists"});
+    }
+
+    //To check if employee with same username exists
+    const existing_username = await staff_register_schema.findOne({username});
+    if(existing_username){
+        return res.status(400).json({success, message: "Employee with this username already exists"});
+    }
+
+    await staff_register_schema.create({
+        employee_name, gender, email, contact_no, dob, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username, password: secPass
+    })
+
+    success = true;
+    return res.status(201).json({success, message: "Staff Entry Successfully"});
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({message: "Internal Server Error"})
+    }
+    
 })
 
 
@@ -74,48 +99,42 @@ body('password', 'Enter a valid password').exists()
 ],
 async(req, res) => {
 
+    try {
     let success = false;
 
-    const { username, password } = req.body;
+    const { username, password } = req.body; //Fields to be used for staff login
 
     const errors = validationResult(req);
 
     if(!errors.isEmpty()){
         return res.status(500).json({errors: errors.array()});
     }
-  
-    // SQL query to check member with the entered username in the database
-    const sql = `SELECT * FROM new_registers WHERE username = '${username}'`
-    db.query(sql, username, (err, rows) => {
+    
+    //To check if username is available for login
+    const employee_user = await staff_register_schema.findOne({username});
+    if(!employee_user){
+        return res.status(400).json({success, message: "Please try to login with correct credentials"});
+    }
 
-        if (err) {
-        return res.status(500).json({success, message: 'Some error occured' });
-        } else if (rows.length === 0) {
-        return res.status(401).json({success, message: 'Please try to login with correct credentials' });
+    const passwordCompare = await bcrypt.compare(password, employee_user.password); //Comparing hashed password
+    if(!passwordCompare){
+        return res.status(400).json({success, message: "Please try to login with correct credentials"});
+    }
+
+    const data = {
+        employee_user:{
+            id: employee_user.id
         }
-  
-        const user = rows[0];
+    }    
 
-        //Comparing Hashed Password
-        bcrypt.compare(password, user.password,  (err, result)=>{
-            if(err || !result){
-                success = false
-                return res.status(401).json({success, message: 'Please try to login with correct credentials' });
-            }
+    const authToken = jwt.sign(data, JWT_SECRET); // Generating a JWT Token
+    success = true;
+    res.json({success, authToken});
 
-            //Generating a JWT Token after successful login
-            const data = {
-                user:{
-                    id: user.s_no
-                }
-            }
-            
-            const authToken = jwt.sign(data,  JWT_SECRET);
-            success = true;
-            res.status(200).json({ success, authToken });
-        }) 
-     
-    });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({message: "Internal Server Error"});
+    }
   });
 
 module.exports = router;
