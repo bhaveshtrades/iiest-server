@@ -10,8 +10,8 @@ app.use(cors());
 
 const port = process.env.PORT || 3000;
 
-app.use('/iiest/staff', require('./routers/staffAuth.js'));
-app.use('/iiest/fbo', require('./routers/fboAuth.js'));
+app.use('/iiest/staff', require('./routers/staffRoute.js'));
+app.use('/iiest/fbo', require('./routers/fboRoute.js'));
 
 connectToMongo();
 
