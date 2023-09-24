@@ -15,8 +15,12 @@ router.post('/staffentry',
     body('employee_name', 'Enter a valid name').isLength({min: 3}).exists(),
     body('gender', 'Enter a valid gender').isLength({min: 4}).exists(),
     body('email', 'Enter a valid email').isEmail().exists(),
-    body('contact_no', 'Enter a valid contact number').isNumeric().exists(),
+    body('contact_no', 'Enter a valid contact number').isMobilePhone().exists(),
+    body('alternate_contact', 'Enter a valid contact number').isMobilePhone().exists(),
     body('dob', 'Enter a valid date').isDate().exists(),
+    body('country', 'Enter a valid address').exists(),
+    body('state', 'Enter a valid address').exists(),
+    body('city', 'Enter a valid address').exists(),
     body('address', 'Enter a valid address').exists(),
     body('zip_code', 'Enter a valid zip code').isNumeric().exists(),
     body('employee_id', 'Enter a valid employee id').exists(),
@@ -38,7 +42,7 @@ async(req, res)=>{
     let success = false;
 
     //Fields being used for staff entry
-    const { employee_name, gender, email, contact_no, dob, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username, password } = req.body;
+    const { employee_name, gender, email, alternate_contact, contact_no, dob, country, state, city, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username, password } = req.body;
 
     const errors = validationResult(req);
 
@@ -62,6 +66,13 @@ async(req, res)=>{
         return res.status(400).json({success, message: "Employee with this phone number already exists"});
     }
 
+    //To check if employye with same alternate phone number exists
+    const existing_alternate_no = await staff_register_schema.findOne({alternate_contact});
+    if(existing_alternate_no){
+        return res.status(400).json({success, message: "Employee with this phone number already exists"});
+    }
+
+
     //To check if employee with same id exists
     const existing_employee_id = await staff_register_schema.findOne({employee_id})
     if(existing_employee_id){
@@ -75,8 +86,8 @@ async(req, res)=>{
     }
 
     await staff_register_schema.create({
-        employee_name, gender, email, contact_no, dob, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username, password: secPass
-    })
+        employee_name, gender, email, contact_no, alternate_contact, dob, country, state, city, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username, password: secPass
+    });
 
     success = true;
     return res.status(201).json({success, message: "Staff Entry Successfully"});

@@ -20,8 +20,25 @@ const staff_register = new Schema({
         required: true,
         unique: true
     },
+    alternate_contact: {
+        type: Number, 
+        required: true, 
+        unique: true
+    },
     dob: {
         type: Date,
+        required: true
+    },
+    country: {
+        type: String, 
+        required: true
+    },
+    state: {
+        type: String, 
+        required: true
+    },
+    city: {
+        type: String, 
         required: true
     },
     address: {
