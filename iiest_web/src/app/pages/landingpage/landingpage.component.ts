@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class LandingpageComponent {
 
+
+constructor(){
+  const bodyElement = document.body;
+  bodyElement.classList.remove('app');
+}
+  
+
 }

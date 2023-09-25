@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AddEmployee } from '../utils/registerinterface';
+import { AddEmployee, loginEmployee} from '../utils/registerinterface';
 import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -16,8 +16,13 @@ export class RegisterService {
   }*/
 
   public addEmployee(addemployee: AddEmployee): Observable<any> {
-    const url = 'http://localhost:3000/auth/staffentry';
+    const url = 'http://localhost:3000/iiest/staff/staffentry';
     return this.http.post<any>(url, addemployee);
   }
+  
+  public loginEmployee(loginemployee: loginEmployee): Observable<any> {
+    const url = 'http://localhost:3000/iiest/staff/login';
+    return this.http.post<any>(url, loginemployee);
+  } 
 
 }

@@ -32,13 +32,13 @@ export class SignupComponent implements OnInit {
     designation: new FormControl(''),
     salary: new FormControl(''),
     grade_pay: new FormControl(''),
-    contact: new FormControl(''),
+    contact_no: new FormControl(''),
     alternate_contact: new FormControl(''),
     address: new FormControl(''),
     city: new FormControl(''),
     state: new FormControl(''),
     country: new FormControl(''),
-    zip: new FormControl(''),
+    zip_code: new FormControl(''),
     acceptTerms: new FormControl(false),
   });
   submitted = false;
@@ -89,7 +89,7 @@ export class SignupComponent implements OnInit {
         designation: ['', Validators.required],
         salary: ['', Validators.required], // Set a default value
         grade_pay: ['', Validators.required], // Set a default value
-        contact: ['',
+        contact_no: ['',
           [
             Validators.required,
             Validators.pattern(/^[0-9]{10}$/)
@@ -105,7 +105,7 @@ export class SignupComponent implements OnInit {
         city: ['', Validators.required],
         state: ['', Validators.required],
         country: ['', Validators.required],
-        zip: ['',
+        zip_code: ['',
           [
             Validators.required,
             Validators.pattern(/^[0-9]{6}$/)
@@ -131,14 +131,14 @@ export class SignupComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    this.form.value.dob = this.datePipe.transform(this.form.value.dob, 'shortDate');
-    this.form.value.doj = this.datePipe.transform(this.form.value.doj, 'shortDate');
+    this.form.value.dob = this.datePipe.transform(this.form.value.dob, 'yyyy-MM-dd');
+    this.form.value.doj = this.datePipe.transform(this.form.value.doj, 'yyyy-MM-dd');
     console.log(JSON.stringify(this.form.value, null, 2));
     this.addemployee = this.form.value;
-    console.log(this._registerService.addEmployee(this.addemployee)
-    .subscribe((responce: any) => {
-        console.log(responce);
-    }));
+    this._registerService.addEmployee(this.addemployee)
+    .subscribe((response: any) => {
+        console.log(response);
+    });
   }
   onReset(): void {
     this.submitted = false;

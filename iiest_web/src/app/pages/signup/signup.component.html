@@ -34,12 +34,12 @@
           </div>
           <div class="col-md-3">
             <label for="dob" class="form-label">Date of Birth</label>
-            <input type="text" 
+            <input type="date" 
               placeholder="Date of Birth" 
               formControlName="dob" 
               class="form-control form-control-sm" id="dob"
-              [ngClass]="{ 'is-invalid': submitted && f['dob'].errors }"
-              bsDatepicker [(bsValue)]="dobValue"/>
+              [ngClass]="{ 'is-invalid': submitted && f['dob'].errors }"/>
+              <!--bsDatepicker [(bsValue)]="dobValue"/>-->
                      
             <div *ngIf="submitted && f['dob'].errors" class="invalid-feedback">
               <div *ngIf="f['dob'].errors['required']">Date of Birth is required</div>
@@ -152,9 +152,9 @@
             [ngClass]="{ 'is-invalid': submitted && f['portal_type'].errors }"
             formControlName="portal_type">
               <option value="" disabled selected>Select the Portal</option>
-              <option value="FSSAI Marketing Portal">FSSAI Marketing Portal</option>
-              <option value="DPIIT Marketing Portal">DPIIT Marketing Portal</option>
-              <option value="NSDC Marketing Portal">NSDC Marketing Portal</option>
+              <option value="FSSAI Sales Portal">FSSAI Sales Portal</option>
+              <option value="DPIIT Sales Portal">DPIIT Sales Portal</option>
+              <option value="NSDC Sales Portal">NSDC Sales Portal</option>
               <option value="Fostac Portal">Fostac Portal</option>
               <option value="Hygiene Portal">Hygiene Portal</option>
               <option value="Foscos - Filling Portal">Foscos - Filling Portal</option>
@@ -186,11 +186,11 @@
           </div>
           <div class="col-md-3">
             <label for="doj" class="form-label">Date of Joining</label>
-            <input type="text" placeholder="Date of Joining"
+            <input type="date" placeholder="Date of Joining"
             formControlName="doj" 
             class="form-control form-control-sm" id="doj"
-            [ngClass]="{ 'is-invalid': submitted && f['doj'].errors }"
-            bsDatepicker [(bsValue)]="dojValue">
+            [ngClass]="{ 'is-invalid': submitted && f['doj'].errors }"/>
+            <!--bsDatepicker [(bsValue)]="dojValue"/>-->
             <div *ngIf="submitted && f['doj'].errors" class="invalid-feedback">
               <div *ngIf="f['doj'].errors['required']">Date of Joining is required</div>
             </div>
@@ -242,13 +242,13 @@
           </div>
           
           <div class="col-md-3">
-            <label for="contact" class="form-label">Contact No.</label>
+            <label for="contact_no" class="form-label">Contact No.</label>
             <input type="number" placeholder="Contact No." 
-            formControlName="contact" autocomplete="off"
-            class="form-control form-control-sm" id="contact"
-            [ngClass]="{ 'is-invalid': submitted && f['contact'].errors }">
-            <div *ngIf="submitted && f['contact'].errors" class="invalid-feedback">
-              <div *ngIf="f['contact'].errors['required']">Contact is required</div>
+            formControlName="contact_no" autocomplete="off"
+            class="form-control form-control-sm" id="contact_no"
+            [ngClass]="{ 'is-invalid': submitted && f['contact_no'].errors }">
+            <div *ngIf="submitted && f['contact_no'].errors" class="invalid-feedback">
+              <div *ngIf="f['contact_no'].errors['required']">Contact is required</div>
             </div>
           </div>
           <div class="col-md-3">
@@ -262,16 +262,16 @@
             </div>
           </div>
           <div class="col-md-3">
-            <label for="zip" class="form-label">Zip</label>
+            <label for="zip_code" class="form-label">Zip</label>
             <input 
             type="number" 
             placeholder="Zip"
-            formControlName="zip" 
+            formControlName="zip_code" 
             autocomplete="off"
-            class="form-control form-control-sm" id="zip"
-            [ngClass]="{ 'is-invalid': submitted && f['zip'].errors }">
-            <div *ngIf="submitted && f['zip'].errors" class="invalid-feedback">
-              <div *ngIf="f['zip'].errors['required']">Zip Code is required</div>
+            class="form-control form-control-sm" id="zip_code"
+            [ngClass]="{ 'is-invalid': submitted && f['zip_code'].errors }">
+            <div *ngIf="submitted && f['zip_code'].errors" class="invalid-feedback">
+              <div *ngIf="f['zip_code'].errors['required']">Zip Code is required</div>
             </div>
           </div>
           <div class="col-md-6">

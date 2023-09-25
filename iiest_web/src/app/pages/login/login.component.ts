@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { RegisterService } from '../../services/register.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +10,7 @@ export class LoginComponent {
     username: string = '';
     password: string = '';
 
-    constructor(private http: HttpClient){}
+    constructor(private _registerService: RegisterService ){}
 
     submitForm(){
       const loginData = {
@@ -18,13 +18,9 @@ export class LoginComponent {
         password: this.password
       }
 
-      this.http.post('http://localhost:3000/auth/login', loginData).subscribe(
-        (response)=>{
-          console.log('Login successful: ', response)
-        },
-        (error)=>{
-          console.log('Login  Error', error)
-        }
-      )
+      this._registerService.loginEmployee(loginData)
+    .subscribe((response: any) => {
+        console.log(response);
+    });
     }
 }
