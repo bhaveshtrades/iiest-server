@@ -1,8 +1,10 @@
+//Function to generate username
 function generate_username(name, employeeCount){
     const sanitizedName = name.replace(/\s/g, '').toLowerCase();
     return `${sanitizedName}_iiest_${employeeCount}`;
 }
 
+//Function to generate password
 function generate_password(length){
     let charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let password = "";
@@ -14,6 +16,7 @@ function generate_password(length){
     return password;
 }
 
+//Function to generate employee ID
 function generate_employee_id (companyName, employeeCount){
     let employeeId = ''
     if(companyName === 'Federation'){

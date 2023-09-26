@@ -1,4 +1,4 @@
-const staff_register_schema = require('../models/staff_register_schema');
+const staff_register_schema = require('../models/staff_schema');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { generate_username, generate_password, generate_employee_id } = require('../controllers/empGenerator');
@@ -13,15 +13,7 @@ exports.staff_register = async(req, res)=>{
     
         //Fields being used for staff entry
         const { employee_name, gender, email, alternate_contact, contact_no, dob, country, state, city, address, zip_code, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name } = req.body;
-        console.log(company_name)
-    
-        //Password Hashing
 
-        let generatedPassword = generate_password(10);
-        console.log(generatedPassword);
-
-        const salt = await bcrypt.genSalt(10);
-        const secPass = await bcrypt.hash(generatedPassword, salt);
     
         //To check if employee with same email exists 
         const existing_email = await staff_register_schema.findOne({email});
@@ -43,11 +35,18 @@ exports.staff_register = async(req, res)=>{
 
         const register_count = await staff_register_schema.countDocuments({});
 
-        const generatedUsername = generate_username(employee_name, register_count + 1);
+        const generatedUsername = generate_username(employee_name, register_count + 1); //Calling function to generate employee username
         console.log((generatedUsername))
 
-        const generatedId = generate_employee_id(company_name, register_count + 1);
+        const generatedId = generate_employee_id(company_name, register_count + 1); //Calling function to generate employee id
         console.log(generatedId)
+
+        let generatedPassword = generate_password(10); //Calling function to generate employee password
+        console.log(generatedPassword);
+
+        //Password Hashing
+        const salt = await bcrypt.genSalt(10);
+        const secPass = await bcrypt.hash(generatedPassword, salt);
     
         await staff_register_schema.create({
             employee_count: register_count + 1, employee_name, gender, email, contact_no, alternate_contact, dob, country, state, city, address, zip_code, employee_id: generatedId, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username: generatedUsername, password: secPass

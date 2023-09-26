@@ -1,4 +1,4 @@
-const fbo_register_schema = require('../models/fbo_register_schema');
+const fbo_register_schema = require('../models/fbo_schema');
 
 
 //Controller for FBO Registration
