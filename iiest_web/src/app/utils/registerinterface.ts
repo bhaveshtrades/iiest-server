@@ -34,3 +34,6 @@ export interface loginEmployee {
   username: string;
   password: string;
 }
+export interface forgotPassword {
+  email: string;
+}

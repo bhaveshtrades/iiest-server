@@ -23,7 +23,7 @@ constructor(private modalService: NgbModal){
 }
   
 openModal(){
-   this.modalService.open(LoginComponent);
+   this.modalService.open(LoginComponent, { size: 'md', backdrop: 'static' });
 }
 
 }

@@ -11,7 +11,7 @@
           <div class="col-md-6">
             <label for="employee_name" class="form-label">Employee Name</label>
             <input type="text" placeholder="Employee Name" 
-            formControlName="employee_name" 
+            formControlName="employee_name"  
             class="form-control form-control-sm" id="employee_name"
             [ngClass]="{ 'is-invalid': submitted && f['employee_name'].errors }">
             <div *ngIf="submitted && f['employee_name'].errors" class="invalid-feedback">
