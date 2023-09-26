@@ -1,6 +1,7 @@
 const staff_register_schema = require('../models/staff_register_schema');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { generate_username, generate_password, generate_employee_id } = require('../controllers/empGenerator');
 
 const JWT_SECRET = process.env.JWT_TOKEN;
 
@@ -11,11 +12,16 @@ exports.staff_register = async(req, res)=>{
         let success = false;
     
         //Fields being used for staff entry
-        const { employee_name, gender, email, alternate_contact, contact_no, dob, country, state, city, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username, password } = req.body;
+        const { employee_name, gender, email, alternate_contact, contact_no, dob, country, state, city, address, zip_code, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name } = req.body;
+        console.log(company_name)
     
         //Password Hashing
+
+        let generatedPassword = generate_password(10);
+        console.log(generatedPassword);
+
         const salt = await bcrypt.genSalt(10);
-        const secPass = await bcrypt.hash(password, salt);
+        const secPass = await bcrypt.hash(generatedPassword, salt);
     
         //To check if employee with same email exists 
         const existing_email = await staff_register_schema.findOne({email});
@@ -34,22 +40,17 @@ exports.staff_register = async(req, res)=>{
         if(existing_alternate_no){
             return res.status(400).json({success, message: "Employee with this phone number already exists"});
         }
-    
-    
-        //To check if employee with same id exists
-        const existing_employee_id = await staff_register_schema.findOne({employee_id})
-        if(existing_employee_id){
-            return res.status(400).json({success, message: "Employee with this id already exists"});
-        }
-    
-        //To check if employee with same username exists
-        const existing_username = await staff_register_schema.findOne({username});
-        if(existing_username){
-            return res.status(400).json({success, message: "Employee with this username already exists"});
-        }
+
+        const register_count = await staff_register_schema.countDocuments({});
+
+        const generatedUsername = generate_username(employee_name, register_count + 1);
+        console.log((generatedUsername))
+
+        const generatedId = generate_employee_id(company_name, register_count + 1);
+        console.log(generatedId)
     
         await staff_register_schema.create({
-            employee_name, gender, email, contact_no, alternate_contact, dob, country, state, city, address, zip_code, employee_id, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username, password: secPass
+            employee_count: register_count + 1, employee_name, gender, email, contact_no, alternate_contact, dob, country, state, city, address, zip_code, employee_id: generatedId, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username: generatedUsername, password: secPass
         });
     
         success = true;

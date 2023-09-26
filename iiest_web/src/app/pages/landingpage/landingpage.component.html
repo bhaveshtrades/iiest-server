@@ -19,13 +19,13 @@
   </div>
 </nav>
 <!-- Page Header-->
-<header class="masthead" style="background-image: url('../../../assets/images/landing_img/home-bg.jpg')">
+<header class="masthead" style="background-image: url('../../../assets/images/landing_img/home-bg.jpg');">
   <div class="container position-relative px-4 px-lg-5">
       <div class="row gx-4 gx-lg-5 justify-content-center">
           <div class="col-md-10 col-lg-8 col-xl-7">
               <div class="site-heading">
-                  <h1>Connecting People with the Government</h1>
-                  <span class="subheading">The Connect Login Portal serves as a game-changing tool for bussinesses,
+                  <h1 class="mb-5">Connecting People with the Government</h1>
+                  <span class="subheading lh-lg">The Connect Login Portal serves as a game-changing tool for bussinesses,
                     simplyfiying the complex landscape of industry compliance and goverenment regulations.By offering
                     a unified, user friendly interface and wealth of features, it emapower the companies to operate with
                     confidence, knowing that they are align with all neccessary leagal requiremnets.
@@ -33,12 +33,18 @@
                   </span>
               </div>
           </div>
-          <div class="py-4 my-4" style="border:1px solid red; ">
-            <div class="icon"><i class="fa-solid fa-users"></i></div>
-            <div class="icon"><i class="fa-solid fa-building"></i></div>
-            <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
-          </div>
+          <!-- <div class="py-4 my-4 d-flex justify-content-around" style="border:1px solid red; width: 100%;">
+            <div class="icon"><fa-icon [icon]="faLocationDot" style="color: white;"></fa-icon></div>
+            <div class="icon"><fa-icon [icon]="faBuilding" style="color: white;"></fa-icon></div>
+            <div class="icon"><fa-icon [icon]="faPeopleGroup" style="color: white"></fa-icon></div>
+          </div> -->
       </div>
+  </div>
+  <div class="py-4 my-4 d-flex justify-content-around" style="border:1px solid red; background-color: black;">
+    <div class="icon"><fa-icon [icon]="faLocationDot" style="color: white;"></fa-icon>
+    </div>
+    <div class="icon"><fa-icon [icon]="faBuilding" style="color: white;"></fa-icon></div>
+    <div class="icon"><fa-icon [icon]="faPeopleGroup" style="color: white"></fa-icon></div>
   </div>
 </header>
 <!-- Main Content-->

@@ -4,6 +4,7 @@ import {HttpClientModule} from '@angular/common/http'
 import{ FormsModule, ReactiveFormsModule} from '@angular/forms'
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,7 +41,8 @@ import { LandingpageComponent } from './pages/landingpage/landingpage.component'
     FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FontAwesomeModule
   ],
   providers: [
     DatePipe

@@ -14,7 +14,6 @@ exports.staff_entry_validation = [
     body('city', 'Enter a valid address').isString().exists(),
     body('address', 'Enter a valid address').isString().exists(),
     body('zip_code', 'Enter a valid zip code').isNumeric().exists(),
-    body('employee_id', 'Enter a valid employee id').exists(),
     body('portal_type', 'Enter a vaild portal type').isString().exists(),
     body('department', 'Enter a valid department').isString().exists(),
     body('designation', 'Enter a valid designation').isString().exists(),
@@ -23,8 +22,6 @@ exports.staff_entry_validation = [
     body('doj', 'Enter a valid doj').isDate().exists(),
     body('company_name', 'Enter a valid company name').isString().exists(),
     body('project_name', 'Enter a valid project name').isString().exists(),
-    body('username', 'Enter a valid username').isLength({min: 3}).exists(),
-    body('password', 'Enter a valid password').isLength({min: 5}).exists(),
     (req, res, next)=>{
         const errors = validationResult(req);
         if(!errors.isEmpty()){

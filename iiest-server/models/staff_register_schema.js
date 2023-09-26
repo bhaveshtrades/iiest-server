@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const staff_register = new Schema({
+    employee_count: {
+        type: Number, 
+        required: true
+    },
     employee_name: {
         type: String, 
         required: true
