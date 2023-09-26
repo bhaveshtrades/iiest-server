@@ -1,26 +1,16 @@
-import { Component } from '@angular/core';
-import { RegisterService } from '../../services/register.service';
-
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+  
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
 })
-export class LoginComponent {
-    username: string = '';
-    password: string = '';
-
-    constructor(private _registerService: RegisterService ){}
-
-    submitForm(){
-      const loginData = {
-        username: this.username,
-        password: this.password
-      }
-
-      this._registerService.loginEmployee(loginData)
-    .subscribe((response: any) => {
-        console.log(response);
-    });
-    }
+export class LoginComponent implements OnInit {
+  @ViewChild('myModal') myModal: ElementRef;
+  constructor() {}
+  
+  ngOnInit() {}
+  
+  closeModal() {
+    this.myModal.nativeElement.style.display = 'none'
+  }
 }
