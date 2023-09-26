@@ -5,6 +5,7 @@ import { FormGroup, Validators, FormControl, FormBuilder, AbstractControl } from
 import { RegisterService } from '../../services/register.service';
 import Validation from '../../utils/validation'
 import { NgbDate, NgbDateStruct, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -19,12 +20,12 @@ export class SignupComponent implements OnInit {
     employee_name: new FormControl(''),
     gender: new FormControl(''),
     dob: new FormControl(''),
-    username: new FormControl(''),
+    //username: new FormControl(''),
     email: new FormControl(''),
-    password: new FormControl(''),
-    confirmPassword: new FormControl(''),
+    //password: new FormControl(''),
+    //confirmPassword: new FormControl(''),
     company_name: new FormControl(''),
-    employee_id: new FormControl(''),
+    //employee_id: new FormControl(''),
     portal_type: new FormControl(''),
     project_name: new FormControl(''),
     doj: new FormControl(''),
@@ -48,7 +49,8 @@ export class SignupComponent implements OnInit {
     private formBuilder: FormBuilder,
     private calendar: NgbCalendar,
     private datePipe: DatePipe,
-    private _registerService: RegisterService) {
+    private _registerService: RegisterService,
+    private route:Router) {
   }
 
   ngOnInit(): void {
@@ -60,28 +62,28 @@ export class SignupComponent implements OnInit {
         employee_name: ['', Validators.required],
         gender: ['', Validators.required],
         dob: ['', Validators.required],
-        username: ['',
+        /*username: ['',
           [
             Validators.required,
             Validators.minLength(6),
             Validators.maxLength(20),
           ],
-        ],
+        ],*/
         email: ['',
           [
             Validators.required,
             Validators.email,
           ],
         ],
-        password: ['',
+        /*password: ['',
           [
             Validators.required,
             Validators.minLength(6)
           ],
         ],
-        confirmPassword: ['', Validators.required],
+        confirmPassword: ['', Validators.required],*/
         company_name: ['', Validators.required],
-        employee_id: ['IIEST/FD/240, IIEST/BC/241', Validators.required],
+        /*employee_id: ['IIEST/FD/240, IIEST/BC/241', Validators.required],*/
         portal_type: ['', Validators.required],
         doj: ['', Validators.required],
         project_name: ['', Validators.required],

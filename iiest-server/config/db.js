@@ -1,7 +1,7 @@
 //Establishing mongodb database connection
 
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb://localhost:27017/iiest';
+const mongoURI = 'mongodb://0.0.0.0:27017/iiest';
 
 const connectToMongo = ()=>{
     mongoose.connect(mongoURI).then(()=>{

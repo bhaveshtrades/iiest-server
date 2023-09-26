@@ -47,7 +47,7 @@
             
           </div>
           
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
             <label for="username" class="form-label">Username</label>
             <input
               type="text"
@@ -67,7 +67,7 @@
                 Username must not exceed 20 characters
               </div>
             </div>
-          </div>
+          </div> -->
       
           <div class="col-md-3">
             <label for="email" class="form-label">Email</label>
@@ -86,7 +86,7 @@
             </div>
           </div>
       
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
             <label for="password" class="form-label">Password</label>
             <input
               type="password"
@@ -121,7 +121,7 @@
                 Confirm Password does not match
               </div>
             </div>
-          </div>
+          </div> -->
           <!--FD - federation  BC - Business Center-->
           <div class="col-md-3">
             <label for="company_name" class="form-label">Company Name</label>
@@ -129,14 +129,14 @@
             [ngClass]="{ 'is-invalid': submitted && f['company_name'].errors }"
             formControlName="company_name" class="form-select form-select-sm">
             <option value="" disabled selected>Select the Company</option>
-            <option value="federation">Federation</option>
-            <option value="business_center">Business Center</option>
+            <option value="Federation">Federation</option>
+            <option value="Business Center">Business Center</option>
             </select>
             <div *ngIf="submitted && f['company_name'].errors" class="invalid-feedback">
-              <div *ngIf="f['company_name'].errors['required']">Project Name is required</div>
+              <div *ngIf="f['company_name'].errors['required']">Company Name is required</div>
             </div>
           </div>
-          <div class="col-md-3">
+         <!-- <div class="col-md-3">
             <label for="employee_id" class="form-label">Employee ID</label>
             <input type="text" placeholder="Employee ID" 
             formControlName="employee_id" 
@@ -145,7 +145,7 @@
             <div *ngIf="submitted && f['employee_id'].errors" class="invalid-feedback">
               <div *ngIf="f['employee_id'].errors['required']">Employee ID is required</div>
             </div>
-          </div>
+          </div>-->
           <div class="col-md-3">
             <label for="portal_type" class="form-label">Select Portal Type:</label>
             <select class="form-select form-select-sm" id="portal_type" 

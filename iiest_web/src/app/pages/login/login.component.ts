@@ -3,6 +3,8 @@ import { loginEmployee, forgotPassword } from '../../utils/registerinterface'
 import { RegisterService } from '../../services/register.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, Validators, FormControl, FormBuilder, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -27,7 +29,8 @@ export class LoginComponent implements OnInit {
       private formBuilder: FormBuilder,
       private _registerService: RegisterService,
       public activeModal: NgbActiveModal,
-      private modalService: NgbModal
+      private modalService: NgbModal,
+      private route:Router
       ){}
 
     ngOnInit(): void {
@@ -60,9 +63,16 @@ export class LoginComponent implements OnInit {
       if (this.form.invalid) {
         return;
       }
+      this.loginemployee = this.form.value;
+      console.log(this.loginemployee);
       this._registerService.loginEmployee(this.loginemployee)
       .subscribe((response: any) => {
-          console.log(response);
+          if(response.success === true){
+            this.activeModal.close();
+            this.route.navigate(['/home']);         
+          }else{
+            alert(response.message);
+          }
       });
     }
 /**********************Forgot Password modal open *******************/
@@ -76,6 +86,7 @@ export class LoginComponent implements OnInit {
       if (this.formFp.invalid) {
         return;
       }
+      console.log(this.loginemployee);
       this._registerService.loginEmployee(this.loginemployee)
       .subscribe((response: any) => {
           console.log(response);
