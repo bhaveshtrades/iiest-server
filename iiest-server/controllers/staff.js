@@ -71,12 +71,12 @@ exports.staff_login = async(req, res)=>{
         //To check if username is available for login
         const employee_user = await staff_register_schema.findOne({username});
         if(!employee_user){
-            return res.status(400).json({success, message: "Please try to login with correct credentials"});
+            return res.status(401).json({success, message: "Please try to login with correct credentials"});
         }
     
         const passwordCompare = await bcrypt.compare(password, employee_user.password); //Comparing hashed password
         if(!passwordCompare){
-            return res.status(400).json({success, message: "Please try to login with correct credentials"});
+            return res.status(401).json({success, message: "Please try to login with correct credentials"});
         }
     
         const data = {
@@ -87,7 +87,7 @@ exports.staff_login = async(req, res)=>{
     
         const authToken = jwt.sign(data, JWT_SECRET); // Generating a JWT Token for further authentication and authorization
         success = true;
-        res.json({success, authToken});
+        return res.status(200).json({success, authToken});
     
         } catch (error) {
             console.error(error);
