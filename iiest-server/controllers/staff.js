@@ -101,7 +101,7 @@ exports.staff_login = async(req, res)=>{
     
         const authToken = jwt.sign(data, JWT_SECRET); // Generating a JWT Token for further authentication and authorization
         success = true;
-        return res.status(200).json({success, authToken});
+        return res.status(200).json({success, authToken, employee_user});
     
         } catch (error) {
             console.error(error);
