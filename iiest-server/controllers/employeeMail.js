@@ -1,15 +1,16 @@
 const nodemailer = require('nodemailer');
+const mailData = JSON.parse(process.env.NODE_MAILER);
 
 function sendEmployeeInfo(username, password, empId, clientMail){
         const transport = nodemailer.createTransport({
         service:'gmail',
          auth: {
-                   user: 'bdaipuria@gmail.com',
-                   pass: 'xsqujfnsquekoejd'
+                   user: mailData.email,
+                   pass: mailData.pass
               }
          });
         const mailOptions = {
-              from: 'bdaipuria@gmail.com', 
+              from: mailData.email, 
               to: clientMail,
               subject: "IIEST: This is your employee data. Please do not share it with anyone.", 
               html: `<h2>Username: ${username}</h2>,

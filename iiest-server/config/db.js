@@ -1,10 +1,14 @@
 //Establishing mongodb database connection
 
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb://0.0.0.0:27017/iiest';
+const dotenv = require('dotenv');
+
+dotenv.config();
+const config = JSON.parse(process.env.CONFIG)
+const mongoURL = config.MONGO_URL;
 
 const connectToMongo = ()=>{
-    mongoose.connect(mongoURI).then(()=>{
+    mongoose.connect(mongoURL).then(()=>{
         console.log('Now we are connected to the DB');
     }).catch((error) => {
         console.log(error);

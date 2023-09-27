@@ -2,9 +2,10 @@ const staff_register_schema = require('../models/staff_schema');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { generate_username, generate_password, generate_employee_id } = require('../controllers/empGenerator');
-const { sendEmployeeInfo } = require('../controllers/employeeMail')
+const { sendEmployeeInfo } = require('../controllers/employeeMail');
+const auth = JSON.parse(process.env.AUTH);
 
-const JWT_SECRET = process.env.JWT_TOKEN;
+const JWT_SECRET = auth.JWT_TOKEN;
 
 //Controller for staff registration
 exports.staff_register = async(req, res)=>{
@@ -45,7 +46,6 @@ exports.staff_register = async(req, res)=>{
             isUnique = true;
             }
         }
-
 
         const generatedUsername = generate_username(employee_name, idNumber); //Calling function to generate employee username
         console.log((generatedUsername))

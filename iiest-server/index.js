@@ -8,7 +8,8 @@ dotenv.config();
 app.use(express.json());
 app.use(cors());
 
-const port = process.env.PORT || 3000;
+const config = JSON.parse(process.env.CONFIG);
+const port = config.PORT || 3000;
 
 app.use('/iiest/staff', require('./routers/staffRoute.js'));
 app.use('/iiest/fbo', require('./routers/fboRoute.js'));
