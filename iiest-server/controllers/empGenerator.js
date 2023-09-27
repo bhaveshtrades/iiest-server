@@ -1,7 +1,7 @@
 //Function to generate username
-function generate_username(name, employeeCount){
+function generate_username(name, idNumber){ 
     const sanitizedName = name.replace(/\s/g, '').toLowerCase();
-    return `${sanitizedName}_iiest_${employeeCount}`;
+    return `${sanitizedName}_iiest_${idNumber}`;
 }
 
 //Function to generate password

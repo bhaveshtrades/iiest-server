@@ -2,9 +2,12 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const staff_register = new Schema({
-    employee_count: {
+    id_num: {
         type: Number, 
-        required: true
+        unique: true,
+        required: true,
+        min: 1000,
+        max: 9999
     },
     employee_name: {
         type: String, 
