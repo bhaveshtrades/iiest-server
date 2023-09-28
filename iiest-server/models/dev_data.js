@@ -12,5 +12,5 @@ const devData = new Schema({
     }
 })
 
-const dev_data_schema = mongoose.model('dev_data', devData);
+const dev_data_schema = mongoose.model('generaldata', devData);
 module.exports = dev_data_schema;

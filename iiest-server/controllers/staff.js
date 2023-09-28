@@ -48,13 +48,10 @@ exports.staff_register = async(req, res)=>{
         }
 
         const generatedUsername = generate_username(employee_name, idNumber); //Calling function to generate employee username
-        console.log((generatedUsername))
 
         const generatedId = generate_employee_id(company_name, idNumber); //Calling function to generate employee id
-        console.log(generatedId)
 
         let generatedPassword = generate_password(10); //Calling function to generate employee password
-        console.log(generatedPassword);
 
         //Password Hashing
         const salt = await bcrypt.genSalt(10);
@@ -95,7 +92,7 @@ exports.staff_login = async(req, res)=>{
     
         const data = {
             employee_user:{
-                id: employee_user.id
+                id: employee_user.id_num
             }
         }    
     
