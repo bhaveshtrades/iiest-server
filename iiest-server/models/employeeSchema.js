@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const staff_register = new Schema({
+const employeeRegister = new Schema({
     id_num: {
         type: Number, 
         unique: true,
@@ -104,5 +104,5 @@ const staff_register = new Schema({
     }
 })
 
-const staff_register_schema = mongoose.model('staff_registers', staff_register);
-module.exports = staff_register_schema;
+const employeeSchema = mongoose.model('staff_registers', employeeRegister);
+module.exports = employeeSchema;

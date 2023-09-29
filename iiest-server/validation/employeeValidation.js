@@ -2,7 +2,7 @@ const { body, validationResult } = require('express-validator');
 
 //Validation for staff entry using express-validator
 
-exports.staff_entry_validation = [
+exports.employeeFormValidation = [
     body('employee_name', 'Enter a valid name').isString().exists(),
     body('gender', 'Enter a valid gender').isString().exists(),
     body('email', 'Enter a valid email').isEmail().exists(),
@@ -31,7 +31,7 @@ exports.staff_entry_validation = [
     }
 ]
 
-exports.staff_login_validation = [
+exports.employeeLoginValidation = [
     body('username', 'Enter a valid username').isString().exists(),
     body('password', 'Enter a valid password').isString().exists(),
     (req, res, next)=>{

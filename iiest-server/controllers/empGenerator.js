@@ -1,11 +1,11 @@
 //Function to generate username
-function generate_username(name, idNumber){ 
+function generateUsername(name, idNumber){ 
     const sanitizedName = name.replace(/\s/g, '').toLowerCase();
     return `${sanitizedName}_iiest_${idNumber}`;
 }
 
 //Function to generate password
-function generate_password(length){
+function generatePassword(length){
     let charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let password = "";
     for (let i = 0; i < length; i++) {
@@ -17,7 +17,7 @@ function generate_password(length){
 }
 
 //Function to generate employee ID
-function generate_employee_id (companyName, employeeCount){
+function generateEmployeeID (companyName, employeeCount){
     let employeeId = ''
     if(companyName === 'Federation'){
         employeeId = `IIEST/FD/${employeeCount}`;
@@ -27,4 +27,4 @@ function generate_employee_id (companyName, employeeCount){
     return employeeId;
 }
 
-module.exports = { generate_username, generate_password, generate_employee_id }
+module.exports = { generateUsername, generatePassword, generateEmployeeID }

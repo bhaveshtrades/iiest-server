@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const fbo_register = new Schema({
+const fboRegister = new Schema({
     fbo_name: {
         type: String,
         required: true
@@ -54,5 +54,5 @@ const fbo_register = new Schema({
     }
 });
 
-const fbo_register_schema = mongoose.model('fbo_registers', fbo_register);
-module.exports = fbo_register_schema;
+const fboSchema = mongoose.model('fbo_registers', fboRegister);
+module.exports = fboSchema;

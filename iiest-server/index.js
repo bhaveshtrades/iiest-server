@@ -11,7 +11,7 @@ app.use(cors());
 const config = JSON.parse(process.env.CONFIG);
 const port = config.PORT || 3000;
 
-app.use('/iiest/staff', require('./routers/staffRoute.js'));
+app.use('/iiest/employee', require('./routers/employeeRoute.js'));
 app.use('/iiest/fbo', require('./routers/fboRoute.js'));
 
 connectToMongo();

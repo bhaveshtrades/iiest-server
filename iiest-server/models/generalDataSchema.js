@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const devData = new Schema({
+const generalData = new Schema({
     staff_data: {
         type: Object,
         required: true
@@ -12,5 +12,5 @@ const devData = new Schema({
     }
 })
 
-const dev_data_schema = mongoose.model('generaldata', devData);
-module.exports = dev_data_schema;
+const generalDataSchema = mongoose.model('generaldata', generalData);
+module.exports = generalDataSchema;

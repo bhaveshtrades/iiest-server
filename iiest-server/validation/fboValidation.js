@@ -2,7 +2,7 @@ const { body, validationResult } = require('express-validator');
 
 
 //Validation for FBO Form using express-validator
-exports.fboValidation = [
+exports.fboFormValidation = [
     body('fbo_name', 'Enter a valid name').isString().exists(),
     body('owner_name', 'Enter a valid name').isString().exists(),
     body('owner_contact', 'Enter a valid phone number').isMobilePhone().exists(),
