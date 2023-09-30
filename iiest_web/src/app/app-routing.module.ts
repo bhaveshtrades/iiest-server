@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SignupComponent } from './pages/signup/signup.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LandingpageComponent } from './pages/landingpage/landingpage.component'
-import { authGuard } from './shared/auth.guard';
+import { authGuard } from './shared/gaurds/auth.guard';
 const routes: Routes = [
   { path: 'main', component: LandingpageComponent},
   { path: 'home', component: HomeComponent, canActivate:[authGuard]},

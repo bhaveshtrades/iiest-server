@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AddEmployee } from '../../utils/registerinterface'
+import { Employee } from '../../utils/registerinterface'
 import { DatePipe } from '@angular/common';
 import { FormGroup, Validators, FormControl, FormBuilder, AbstractControl } from '@angular/forms';
 import { RegisterService } from '../../services/register.service';
@@ -14,7 +14,7 @@ import {Router} from '@angular/router';
 })
 
 export class SignupComponent implements OnInit {
-  addemployee : AddEmployee;
+  addemployee : Employee;
   dob: NgbDateStruct;
   form: FormGroup = new FormGroup({
     employee_name: new FormControl(''),

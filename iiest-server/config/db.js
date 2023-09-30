@@ -1,11 +1,9 @@
 //Establishing mongodb database connection
-
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 dotenv.config();
-const config = JSON.parse(process.env.CONFIG)
-const mongoURL = config.MONGO_URL;
+const mongoURL = process.env.mongo_url;
 
 const connectToMongo = ()=>{
     mongoose.connect(mongoURL).then(()=>{

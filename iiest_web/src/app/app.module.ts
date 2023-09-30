@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http'
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
 import{ FormsModule, ReactiveFormsModule} from '@angular/forms'
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule, FaIconLibrary, FaIconComponent } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,7 +19,14 @@ import { HomeComponent } from './pages/home/home.component';
 import { EmployeelistComponent } from './pages/employeelist/employeelist.component';
 import { DatePipe } from '@angular/common';
 import { LandingpageComponent } from './pages/landingpage/landingpage.component';
+import { AuthInterceptor} from './interceptors/auth.interceptor';
 
+
+//ngxs Modules
+import { NgxsModule } from '@ngxs/store';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { EmployeeState } from './store/state/employee.state';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,11 +49,16 @@ import { LandingpageComponent } from './pages/landingpage/landingpage.component'
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    //ngxs Modlues
+    NgxsModule.forRoot([EmployeeState]),
+    NgxsLoggerPluginModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot()
   ],
   providers: [
-    DatePipe
-  ],
+    DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi :true}   
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

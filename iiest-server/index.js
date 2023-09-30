@@ -8,10 +8,10 @@ dotenv.config();
 app.use(express.json());
 app.use(cors());
 
-const config = JSON.parse(process.env.CONFIG);
-const port = config.PORT || 3000;
+//const config = JSON.parse(process.env.CONFIG);
+const port = process.env.PORT || 3000;
 
-app.use('/iiest/employee', require('./routers/employeeRoute.js'));
+app.use('/iiest/', require('./routers/employeeRoute.js'));
 app.use('/iiest/fbo', require('./routers/fboRoute.js'));
 
 connectToMongo();

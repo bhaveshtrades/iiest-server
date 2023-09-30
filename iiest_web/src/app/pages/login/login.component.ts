@@ -4,6 +4,7 @@ import { RegisterService } from '../../services/register.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, Validators, FormControl, FormBuilder, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { faLock, faUser, faEnvelope} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +12,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
+    /*FontAwesome Icon*/
+    falock = faLock;
+    fauser = faUser;
+    faenvelope = faEnvelope
+
+    /*Interface*/
     loginemployee :loginEmployee;
     forgotpassword :forgotPassword;
+
      /*Login form Group*/
     form: FormGroup = new FormGroup({
       username: new FormControl(''),
@@ -25,6 +34,9 @@ export class LoginComponent implements OnInit {
     });
     submitted = false;
     submittedFP =false;
+    error:boolean = false;
+    errorMgs:string;
+
     constructor(
       private formBuilder: FormBuilder,
       private _registerService: RegisterService,
@@ -63,18 +75,24 @@ export class LoginComponent implements OnInit {
       if (this.form.invalid) {
         return;
       }
-      this.loginemployee = this.form.value;
-      console.log(this.loginemployee);
-      this._registerService.loginEmployee(this.loginemployee)
-      .subscribe((response: any) => {
-          if(response.success === true){
-            this.activeModal.close();
-            this.route.navigate(['/home']);         
-          }else{
-            alert(response.message);
-          }
-      });
-    }
+     this.loginemployee = this.form.value;
+     this._registerService.loginEmployee(this.loginemployee)
+      .subscribe({
+        next: (res) => { 
+          this._registerService.storeToken(res);
+          this.activeModal.close();
+          this.route.navigate(['/home']);
+        },
+        error: (err) => {
+          let errorObj = err.error
+          this.error = true;
+          this.errorMgs = errorObj.message
+        },
+        complete: () =>{ 
+          console.info('complete')
+        }
+    });
+ }
 /**********************Forgot Password modal open *******************/
     openFpModal(fp:any){
       this.activeModal.close();
@@ -88,9 +106,22 @@ export class LoginComponent implements OnInit {
       }
       console.log(this.loginemployee);
       this._registerService.loginEmployee(this.loginemployee)
-      .subscribe((response: any) => {
-          console.log(response);
-      });
+      .subscribe({
+        next: (res) => { 
+          console.log(res)
+          /* localStorage.setItem('token', res.authToken);
+          this.activeModal.close();
+          this.route.navigate(['/home']); */
+        },
+        error: (err) => {
+          let errorObj = err.error
+          this.error = true;
+          this.errorMgs = errorObj.message
+        },
+        complete: () =>{ 
+          console.info('complete')
+        }
+    });
 
     }
 

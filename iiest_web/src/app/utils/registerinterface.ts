@@ -1,4 +1,4 @@
-export interface AddEmployee {
+export interface Employee {
   employee_name: string;
   gender: string;
   dob: Date;
