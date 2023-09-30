@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
   <div class="container">
       <a class="navbar-brand" href="index.html">
-        <img class="logo" src="../../../assets/images/logo.png">
+        <img class="logo" src="../../../assets/images/logo.png" style="height: 60px; width: 210px;">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
@@ -10,16 +10,16 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ms-auto py-4 py-lg-0">
-              <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
-              <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
-              <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" (click)="openModal()">Login</a></li>
-              <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
+              <li class="nav-item navLinks"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
+              <li class="nav-item navLinks"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#aboutSection">About</a></li>
+              <li class="nav-item navLinks"><a class="nav-link px-lg-3 py-3 py-lg-4" (click)="openModal()">Login</a></li>
+              <li class="nav-item navLinks"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
           </ul>
       </div>
   </div>
 </nav>
 <!-- Page Header-->
-<header class="masthead" style="background-image: url('../../../assets/images/landing_img/home-bg.jpg');">
+<header class="masthead" style="background-image: url('../../../assets/images/landing_img/home-bg.jpg'); position: relative;">
   <div class="container position-relative px-4 px-lg-5">
       <div class="row gx-4 gx-lg-5 justify-content-center">
           <div class="col-md-10 col-lg-8 col-xl-7">
@@ -40,15 +40,16 @@
           </div> -->
       </div>
   </div>
-  <div class="py-4 my-4 d-flex justify-content-around" style="border:1px solid red; background-color: black;">
-    <div class="icon"><fa-icon [icon]="faLocationDot" style="color: white;"></fa-icon>
+  <div class="py-4 my-4 w-100 d-flex justify-content-center" style="background-color:rgba(255, 255, 255, 0.0); height: 100px; position: absolute; bottom: 0px;">
+    <div class="d-flex justify-content-around w-75 align-items-center h-100" style="position: absolute; top: 0;">
+    <div class="icon h-75 gap-1 w-25 justify-content-end d-flex flex-column-reverse align-items-center"><span style="color: white; font-size: 1.2rem;">Center</span><fa-icon class="fa-3x fa-beat" [icon]="faLocationDot" style="color: #9d151d;"></fa-icon></div>
+    <div class="icon h-75 w-25 gap-1 justify-content-end d-flex flex-column-reverse align-items-center"><span style="color: white; font-size: 1.2rem;">Company </span><fa-icon class="fa-3x fa-beat" [icon]="faBuilding" style="color: #9d151d;"></fa-icon></div>
+    <div class="icon h-75 w-25  gap-1 justify-content-end d-flex flex-column-reverse align-items-center"><span  style="color: white; font-size: 1.2rem;">Consumer </span><fa-icon class="fa-3x fa-beat" [icon]="faPeopleGroup" style="color: #9d151d;"></fa-icon></div>
     </div>
-    <div class="icon"><fa-icon [icon]="faBuilding" style="color: white;"></fa-icon></div>
-    <div class="icon"><fa-icon [icon]="faPeopleGroup" style="color: white"></fa-icon></div>
   </div>
 </header>
 <!-- Main Content-->
-<div class="container px-4 px-lg-5">
+<div class="container px-4 px-lg-5" id="aboutSection">
   <div class="row gx-4 gx-lg-5 justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-7">
           <!-- Post preview-->
@@ -141,7 +142,7 @@
                       </a>
                   </li>
               </ul>
-              <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2023</div>
+              <div class="small text-center text-muted fst-italic">Copyright &copy; 2017 All Rights Reserved By IIEST</div>
           </div>
       </div>
   </div>

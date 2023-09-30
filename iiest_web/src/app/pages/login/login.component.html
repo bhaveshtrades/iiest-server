@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="loginForm()">
-<div class="modal-header bg-primary">
+<div class="modal-header bg-secondary">
     <h6 class="modal-title text-white" id="modal-basic-title">Login form</h6>
     <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="activeModal.dismiss()"></button>
 </div>
@@ -52,8 +52,8 @@
     </div>
 </div>
 <div class="modal-footer text-left">
-    <button type="submit" class="btn btn-outline-dark" >Login</button>
-    <a (click)="openFpModal(fp)">Forgot Password ?</a>
+    <button type="submit" class="btn btn-outline-dark">Login</button>
+    <a style="cursor: pointer;" (click)="openFpModal(fp)">Forgot Password?</a>
 </div>
 </form>
 
@@ -61,7 +61,7 @@
 <ng-template #fp let-modal>
     <form [formGroup]="formFp" (ngSubmit)="resetPassword()">
     <div class="modal-content text-center">
-        <div class="modal-header bg-primary">
+        <div class="modal-header bg-secondary">
             <h6 class="modal-title text-white" id="modal-basic-title">Password Reset</h6>
             <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="modal.close('Save click')"></button>
         </div>
