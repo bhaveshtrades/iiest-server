@@ -10,10 +10,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ms-auto py-4 py-lg-0">
-              <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
-              <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
-              <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" (click)="openModal()">Login</a></li>
-              <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
+              <li class="nav-item navLinks"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
+              <li class="nav-item navLinks"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#aboutSection">About</a></li>
+              <li class="nav-item navLinks"><a class="nav-link px-lg-3 py-3 py-lg-4" (click)="openModal()">Login</a></li>
+              <li class="nav-item navLinks"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
           </ul>
       </div>
   </div>
@@ -40,16 +40,16 @@
           </div> -->
       </div>
   </div>
-  <div class="py-4 my-4 w-100 d-flex justify-content-center" style="background-color:rgba(255, 255, 255, 0.3); height: 100px; position: absolute; bottom: 0px;">
+  <div class="py-4 my-4 w-100 d-flex justify-content-center" style="background-color:rgba(255, 255, 255, 0.0); height: 100px; position: absolute; bottom: 0px;">
     <div class="d-flex justify-content-around w-75 align-items-center h-100" style="position: absolute; top: 0;">
-    <div class="icon h-75 gap-3 w-25 justify-content-end d-flex flex-column-reverse align-items-center"><span style="color: white;">Center</span><fa-icon class="fa-2xl fa-beat" [icon]="faLocationDot" style="color: white;"></fa-icon></div>
-    <div class="icon h-75 w-25 gap-3 justify-content-end d-flex flex-column-reverse align-items-center"><span style="color: white;">Company </span><fa-icon class="fa-2xl fa-beat" [icon]="faBuilding" style="color: white;"></fa-icon></div>
-    <div class="icon h-75 w-25  gap-3 justify-content-end d-flex flex-column-reverse align-items-center"><span style="color: white;">Consumer </span><fa-icon class="fa-2xl fa-beat" [icon]="faPeopleGroup" style="color: white"></fa-icon></div>
+    <div class="icon h-75 gap-1 w-25 justify-content-end d-flex flex-column-reverse align-items-center"><span style="color: white; font-size: 1.2rem;">Center</span><fa-icon class="fa-3x fa-beat" [icon]="faLocationDot" style="color: #9d151d;"></fa-icon></div>
+    <div class="icon h-75 w-25 gap-1 justify-content-end d-flex flex-column-reverse align-items-center"><span style="color: white; font-size: 1.2rem;">Company </span><fa-icon class="fa-3x fa-beat" [icon]="faBuilding" style="color: #9d151d;"></fa-icon></div>
+    <div class="icon h-75 w-25  gap-1 justify-content-end d-flex flex-column-reverse align-items-center"><span  style="color: white; font-size: 1.2rem;">Consumer </span><fa-icon class="fa-3x fa-beat" [icon]="faPeopleGroup" style="color: #9d151d;"></fa-icon></div>
     </div>
   </div>
 </header>
 <!-- Main Content-->
-<div class="container px-4 px-lg-5">
+<div class="container px-4 px-lg-5" id="aboutSection">
   <div class="row gx-4 gx-lg-5 justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-7">
           <!-- Post preview-->
