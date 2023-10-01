@@ -10682,7 +10682,7 @@ header.masthead {
   padding-bottom: 8rem;
   background: no-repeat center center;
   background-color: #6c757d;
-  background-size: cover;
+  background-size: unset;
   background-attachment: scroll;
 }
 header.masthead:before {
@@ -10743,7 +10743,7 @@ header.masthead .post-heading .meta a {
 }
 @media (min-width: 992px) {
   header.masthead {
-    padding-top: 12.5rem;
+    //padding-top: 12.5rem;
     padding-bottom: 12.5rem;
   }
   header.masthead .page-heading h1, header.masthead .page-heading .h1,

@@ -9,7 +9,7 @@ import { FontAwesomeModule, FaIconLibrary, FaIconComponent } from '@fortawesome/
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
-import { AboutComponent } from './pages/about/about.component';
+import { FboComponent } from './pages/fbo/fbo.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { SettingPanelComponent } from './shared/setting-panel/setting-panel.component';
@@ -31,7 +31,7 @@ import { EmployeeState } from './store/state/employee.state';
   declarations: [
     AppComponent,
     LoginComponent,
-    AboutComponent,
+    FboComponent,
     FooterComponent,
     SidebarComponent,
     SettingPanelComponent,

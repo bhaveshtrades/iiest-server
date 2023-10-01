@@ -1,149 +1,195 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
-  <div class="container">
-      <a class="navbar-brand" href="index.html">
-        <img class="logo" src="../../../assets/images/logo.png" style="height: 60px; width: 210px;">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          Menu
-          <i class="fas fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ms-auto py-4 py-lg-0">
-              <li class="nav-item navLinks"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
-              <li class="nav-item navLinks"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#aboutSection">About</a></li>
-              <li class="nav-item navLinks"><a class="nav-link px-lg-3 py-3 py-lg-4" (click)="openModal()">Login</a></li>
-              <li class="nav-item navLinks"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
-          </ul>
-      </div>
-  </div>
+    <div class="container">
+        <a class="navbar-brand" href="index.html">
+            <img class="logo" src="../../../assets/images/logo.png">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                <li class="nav-item navLinks">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/">
+                        <fa-icon class="fa-2x" [icon]="faHome"></fa-icon>
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item navLinks">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="#about">
+                        <fa-icon class="fa-2x" [icon]="faCircleInfo"></fa-icon>
+                        About us
+                    </a>
+                </li>
+                <li *ngIf="!isloggedIn" class="nav-item navLinks">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" (click)="openModal()">
+                        <fa-icon class="fa-2x" [icon]="faSignIn"></fa-icon>
+                        Login
+                    </a>
+                </li>
+                <li class="nav-item navLinks">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="#contact">
+                        <fa-icon class="fa-2x" [icon]="faPhone"></fa-icon>
+                        Contact Us
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>
 <!-- Page Header-->
-<header class="masthead" style="background-image: url('../../../assets/images/landing_img/home-bg.jpg'); position: relative;">
-  <div class="container position-relative px-4 px-lg-5">
-      <div class="row gx-4 gx-lg-5 justify-content-center">
-          <div class="col-md-10 col-lg-8 col-xl-7">
-              <div class="site-heading">
-                  <h1 class="mb-5">Connecting People with the Government</h1>
-                  <span class="subheading lh-lg">The Connect Login Portal serves as a game-changing tool for bussinesses,
-                    simplyfiying the complex landscape of industry compliance and goverenment regulations.By offering
-                    a unified, user friendly interface and wealth of features, it emapower the companies to operate with
-                    confidence, knowing that they are align with all neccessary leagal requiremnets.
-                    
-                  </span>
-              </div>
-          </div>
-          <!-- <div class="py-4 my-4 d-flex justify-content-around" style="border:1px solid red; width: 100%;">
-            <div class="icon"><fa-icon [icon]="faLocationDot" style="color: white;"></fa-icon></div>
-            <div class="icon"><fa-icon [icon]="faBuilding" style="color: white;"></fa-icon></div>
-            <div class="icon"><fa-icon [icon]="faPeopleGroup" style="color: white"></fa-icon></div>
-          </div> -->
-      </div>
-  </div>
-  <div class="py-4 my-4 w-100 d-flex justify-content-center" style="background-color:rgba(255, 255, 255, 0.0); height: 100px; position: absolute; bottom: 0px;">
-    <div class="d-flex justify-content-around w-75 align-items-center h-100" style="position: absolute; top: 0;">
-    <div class="icon h-75 gap-1 w-25 justify-content-end d-flex flex-column-reverse align-items-center"><span style="color: white; font-size: 1.2rem;">Center</span><fa-icon class="fa-3x fa-beat" [icon]="faLocationDot" style="color: #9d151d;"></fa-icon></div>
-    <div class="icon h-75 w-25 gap-1 justify-content-end d-flex flex-column-reverse align-items-center"><span style="color: white; font-size: 1.2rem;">Company </span><fa-icon class="fa-3x fa-beat" [icon]="faBuilding" style="color: #9d151d;"></fa-icon></div>
-    <div class="icon h-75 w-25  gap-1 justify-content-end d-flex flex-column-reverse align-items-center"><span  style="color: white; font-size: 1.2rem;">Consumer </span><fa-icon class="fa-3x fa-beat" [icon]="faPeopleGroup" style="color: #9d151d;"></fa-icon></div>
+<header class="masthead"
+    style="background-image: url('../../../assets/images/landing_img/home-bg.jpg'); position: relative;">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1 class="mb-5">Connecting People with the Government</h1>
+                    <span class="subheading lh-sm">The Connect Login Portal serves as a game-changing tool for
+                        bussinesses,
+                        simplyfiying the complex landscape of industry compliance and goverenment regulations.By
+                        offering
+                        a unified, user friendly interface and wealth of features, it emapower the companies to operate
+                        with
+                        confidence, knowing that they are align with all neccessary leagal requiremnets.
+
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+    <div class="py-4 my-4 w-100 d-flex justify-content-center"
+        style="background-color:rgba(255, 255, 255, 0.0); height: 100px; position: absolute; bottom: 0px;">
+        <div class="d-flex justify-content-around w-75 align-items-center h-100" style="position: absolute; top: 0;">
+            <a class="pe-auto">
+                <div class="icon h-75 gap-1 w-25 justify-content-end d-flex flex-column-reverse align-items-center">
+                    <span style="color: white; font-size: 1.2rem;">Center</span>
+                    <fa-icon class="fa-3x fa-beat" [icon]="faLocationDot" style="color: #9d151d;"></fa-icon>
+                </div>
+            </a>
+            <a class="pe-auto" (click)="openModal()">
+                <div class="icon h-75 w-25 gap-1 justify-content-end d-flex flex-column-reverse align-items-center">
+                    <span style="color: white; font-size: 1.2rem;">Company </span>
+                    <fa-icon class="fa-3x fa-beat" [icon]="faBuilding" style="color: #9d151d;"></fa-icon>
+                </div>
+            </a>
+            <a class="pe-auto">
+                <div class="icon h-75 w-25  gap-1 justify-content-end d-flex flex-column-reverse align-items-center">
+                    <span style="color: white; font-size: 1.2rem;">Consumer </span>
+                    <fa-icon class="fa-3x fa-beat" [icon]="faPeopleGroup" style="color: #9d151d;"></fa-icon>
+                </div>
+            </a>
+        </div>
+    </div>
 </header>
 <!-- Main Content-->
-<div class="container px-4 px-lg-5" id="aboutSection">
-  <div class="row gx-4 gx-lg-5 justify-content-center">
-      <div class="col-md-10 col-lg-8 col-xl-7">
-          <!-- Post preview-->
-          <div class="post-preview">
-              <a href="post.html">
-                  <h2 class="post-title">Man must explore, and this is exploration at its greatest</h2>
-                  <h3 class="post-subtitle">Problems look mighty small from 150 miles up</h3>
-              </a>
-              <p class="post-meta">
-                  Posted by
-                  <a href="#!">Start Bootstrap</a>
-                  on September 24, 2023
-              </p>
-          </div>
-          <!-- Divider-->
-          <hr class="my-4" />
-          <!-- Post preview-->
-          <div class="post-preview">
-              <a href="post.html"><h2 class="post-title">I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.</h2></a>
-              <p class="post-meta">
-                  Posted by
-                  <a href="#!">Start Bootstrap</a>
-                  on September 18, 2023
-              </p>
-          </div>
-          <!-- Divider-->
-          <hr class="my-4" />
-          <!-- Post preview-->
-          <div class="post-preview">
-              <a href="post.html">
-                  <h2 class="post-title">Science has not yet mastered prophecy</h2>
-                  <h3 class="post-subtitle">We predict too much for the next year and yet far too little for the next ten.</h3>
-                  <i class="fa-solid fa-users"></i>
-              </a>
-              <p class="post-meta">
-                  Posted by
-                  <a href="#!">Start Bootstrap</a>
-                  on August 24, 2023
-              </p>
-          </div>
-          <!-- Divider-->
-          <hr class="my-4" />
-          <!-- Post preview-->
-          <div class="post-preview">
-              <a href="post.html">
-                  <h2 class="post-title">Failure is not an option</h2>
-                  <h3 class="post-subtitle">Many say exploration is part of our destiny, but it’s actually our duty to future generations.</h3>
-              </a>
-              <p class="post-meta">
-                  Posted by
-                  <a href="#!">Start Bootstrap</a>
-                  on July 8, 2023
-              </p>
-          </div>
-          <!-- Divider-->
-          <hr class="my-4" />
-          <!-- Pager-->
-          <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
-      </div>
-  </div>
+<div class="container px-4 px-lg-5" id="about">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <!-- Post preview-->
+            <div class="post-preview">
+                <h2 class="post-title">About us</h2>
+            </div>
+            <div>
+                <p>The Connect Login Portal serves as a game-changing tool for bussinesses, simplyfiying the complex
+                    landscape of industry compliance and goverenment regulations.By offering a unified, user friendly
+                    interface and wealth of features, it emapower the companies to operate with confidence, knowing
+                    that they are align with all neccessary leagal requiremnets.</p>
+                <p>The Connect Login Portal serves as a game-changing tool for bussinesses, simplyfiying the complex
+                    landscape of industry compliance and goverenment regulations.By offering a unified, user friendly
+                    interface and wealth of features, it emapower the companies to operate with confidence, knowing
+                    that they are align with all neccessary leagal requiremnets.</p>
+                <p>The Connect Login Portal serves as a game-changing tool for bussinesses, simplyfiying the complex
+                    landscape of industry compliance and goverenment regulations.By offering a unified, user friendly
+                    interface and wealth of features, it emapower the companies to operate with confidence, knowing
+                    that they are align with all neccessary leagal requiremnets.</p>
+                <p>The Connect Login Portal serves as a game-changing tool for bussinesses, simplyfiying the complex
+                    landscape of industry compliance and goverenment regulations.By offering a unified, user friendly
+                    interface and wealth of features, it emapower the companies to operate with confidence, knowing
+                    that they are align with all neccessary leagal requiremnets.</p>
+
+                <p class="post-meta">
+                    Posted by
+                    <a href="">IIEST</a>
+                    on September 24, 2023
+                </p>
+            </div>
+            <!-- Divider-->
+            <hr class="my-4" />
+        </div>
+    </div>
+</div>
+<div class="container px-4 px-lg-5" id="contact">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <!-- Post preview-->
+            <div class="post-preview">
+                <h2 class="post-title">Contact us</h2>
+            </div>
+            <div>
+                <p>The Connect Login Portal serves as a game-changing tool for bussinesses, simplyfiying the complex
+                    landscape of industry compliance and goverenment regulations.By offering a unified, user friendly
+                    interface and wealth of features, it emapower the companies to operate with confidence, knowing
+                    that they are align with all neccessary leagal requiremnets.</p>
+                <p>The Connect Login Portal serves as a game-changing tool for bussinesses, simplyfiying the complex
+                    landscape of industry compliance and goverenment regulations.By offering a unified, user friendly
+                    interface and wealth of features, it emapower the companies to operate with confidence, knowing
+                    that they are align with all neccessary leagal requiremnets.</p>
+                <p>The Connect Login Portal serves as a game-changing tool for bussinesses, simplyfiying the complex
+                    landscape of industry compliance and goverenment regulations.By offering a unified, user friendly
+                    interface and wealth of features, it emapower the companies to operate with confidence, knowing
+                    that they are align with all neccessary leagal requiremnets.</p>
+                <p>The Connect Login Portal serves as a game-changing tool for bussinesses, simplyfiying the complex
+                    landscape of industry compliance and goverenment regulations.By offering a unified, user friendly
+                    interface and wealth of features, it emapower the companies to operate with confidence, knowing
+                    that they are align with all neccessary leagal requiremnets.</p>
+                <p class="post-meta">
+                    Posted by
+                    <a href="">IIEST</a>
+                    on September 24, 2023
+                </p>
+            </div>
+            <!-- Divider-->
+            <hr class="my-4" />
+        </div>
+    </div>
 </div>
 <!-- Footer-->
 <footer class="border-top">
-  <div class="container px-4 px-lg-5">
-      <div class="row gx-4 gx-lg-5 justify-content-center">
-          <div class="col-md-10 col-lg-8 col-xl-7">
-              <ul class="list-inline text-center">
-                  <li class="list-inline-item">
-                      <a href="#!">
-                          <span class="fa-stack fa-lg">
-                              <i class="fas fa-circle fa-stack-2x"></i>
-                              <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                          </span>
-                      </a>
-                  </li>
-                  <li class="list-inline-item">
-                      <a href="#!">
-                          <span class="fa-stack fa-lg">
-                              <i class="fas fa-circle fa-stack-2x"></i>
-                              <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                          </span>
-                      </a>
-                  </li>
-                  <li class="list-inline-item">
-                      <a href="#!">
-                          <span class="fa-stack fa-lg">
-                              <i class="fas fa-circle fa-stack-2x"></i>
-                              <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                          </span>
-                      </a>
-                  </li>
-              </ul>
-              <div class="small text-center text-muted fst-italic">Copyright &copy; 2017 All Rights Reserved By IIEST</div>
-          </div>
-      </div>
-  </div>
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="small text-center text-muted fst-italic">Copyright &copy; 2023 All Rights Reserved By IIEST
+                </div>
+            </div>
+        </div>
+    </div>
 </footer>

@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from '../login/login.component';
-import { faPeopleGroup } from '@fortawesome/free-solid-svg-icons';
-import { faBuilding } from '@fortawesome/free-solid-svg-icons';
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faPeopleGroup, faBuilding, faLocationDot, faHome, faSignIn, faCircleInfo, faPhone} from '@fortawesome/free-solid-svg-icons';
+import { RegisterService } from 'src/app/services/register.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,19 +11,30 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './landingpage.component.html',
   styleUrls: ['./landingpage.component.scss']
 })
-export class LandingpageComponent {
+export class LandingpageComponent implements OnInit {
 
   faPeopleGroup = faPeopleGroup;
   faBuilding = faBuilding;
   faLocationDot = faLocationDot;
-
-constructor(private modalService: NgbModal){
+  faHome = faHome;
+  faSignIn = faSignIn;
+  faCircleInfo = faCircleInfo;
+  faPhone = faPhone;
+  isloggedIn:boolean;
+constructor(
+  private modalService: NgbModal,
+  private _resiterService: RegisterService,
+  private router: Router){
   const bodyElement = document.body;
   bodyElement.classList.remove('app');
+  this.isloggedIn = this._resiterService.isLoggedIn();
 }
-  
+ngOnInit(): void {}
 openModal(){
+  if(!this.isloggedIn){
    this.modalService.open(LoginComponent, { size: 'md', backdrop: 'static' });
+  }else{
+      this.router.navigateByUrl('/home')
+  }
 }
-
 }

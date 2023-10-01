@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { Observable, Subscriber } from 'rxjs';
+import { Observable, Subscriber, Subscription, interval } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GetdataService } from 'src/app/services/getdata.service';
 import { GetEmployee } from 'src/app/store/actions/employee.action';
@@ -20,6 +20,8 @@ export class HomeComponent implements OnInit{
   data:any;
   empName:String;
   @Select(EmployeeState.GetEmployeeList) employees$:Observable<Employee>;
+  msg: Subscription;
+  dnone:boolean =true;
   constructor(
     private _getDataService: GetdataService,
     private _registerService: RegisterService,
@@ -33,6 +35,13 @@ export class HomeComponent implements OnInit{
       let loggedInUserData:any = this._registerService.LoggedInUserData(); 
       loggedInUserData = JSON.parse(loggedInUserData)
       this.empName = loggedInUserData.employee_name;
+      const message = interval(2000);
+      this.msg = message.subscribe( (res)=> {
+        if(res >=2){
+          this.dnone = false;
+          this.msg.unsubscribe()
+        }
+      })
   }
 
 getEmployees(){
