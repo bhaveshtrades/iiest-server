@@ -18,7 +18,7 @@ export class GetdataService {
  }
 
  getGeneralData():Observable<any>{
-  const url = `${this.url}/generaldata`;
+  const url = `${this.url}/empgeneraldata`;
     return this.http.get<any>(url).pipe(catchError(this.handleError));
  }
 

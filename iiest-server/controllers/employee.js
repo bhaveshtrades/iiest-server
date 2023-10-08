@@ -12,7 +12,7 @@ exports.employeeRegister = async(req, res)=>{
     try {
 
         let success = false;
-        let isUnique = false; //To check if id id number generated is unique 
+        let isUnique = false; //To check if id number generated is unique 
     
         //Fields being used for staff entry
         const { employee_name, gender, email, alternate_contact, contact_no, dob, country, state, city, address, zip_code, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name } = req.body;
