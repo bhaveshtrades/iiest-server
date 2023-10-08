@@ -37,3 +37,19 @@ export interface loginEmployee {
 export interface forgotPassword {
   email: string;
 }
+
+export interface fbo {
+  fbo_name: string,
+  owner_name: string,
+  mobile_no: number,
+  email: string,
+  state: string,
+  distric: string,
+  address: string,
+  product: string,
+  process_fee: string,
+  service_name: string,
+  client_type: string,
+  recipent: number,
+  water_test_apply :number 
+}

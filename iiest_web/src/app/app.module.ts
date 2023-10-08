@@ -20,7 +20,8 @@ import { EmployeelistComponent } from './pages/employeelist/employeelist.compone
 import { DatePipe } from '@angular/common';
 import { LandingpageComponent } from './pages/landingpage/landingpage.component';
 import { AuthInterceptor} from './interceptors/auth.interceptor';
-
+//services
+import {GetdataService} from './services/getdata.service'
 
 //ngxs Modules
 import { NgxsModule } from '@ngxs/store';
@@ -57,7 +58,8 @@ import { EmployeeState } from './store/state/employee.state';
   ],
   providers: [
     DatePipe,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi :true}   
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi :true},
+    GetdataService  
 ],
   bootstrap: [AppComponent]
 })

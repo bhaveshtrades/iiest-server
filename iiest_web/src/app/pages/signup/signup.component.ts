@@ -123,7 +123,8 @@ export class SignupComponent implements OnInit {
 
   }
 
-  get f(): { [key: string]: AbstractControl } {
+  get f(): { [key: string]: AbstractControl }
+   {
     return this.form.controls;
   }
 
