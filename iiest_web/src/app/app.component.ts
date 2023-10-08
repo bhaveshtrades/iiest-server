@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.loggedInUserData = this._registerService.LoggedInUserData();
     this.loggedInUserData = JSON.parse(this.loggedInUserData)
-    console.log(this.loggedInUserData);
+    console.log(this.loggedInUserData.employee_name);
     this.empName = this.loggedInUserData.employee_name;
   }
 

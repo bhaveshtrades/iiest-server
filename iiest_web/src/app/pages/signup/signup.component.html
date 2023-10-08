@@ -1,4 +1,4 @@
-<div class="app-wrapper">    
+<div class="">    
   <div class="app-content pt-3 p-md-3 p-lg-4">
     <div class="container-xl">
       <div class="row g-3 mb-4 align-items-center justify-content-between">
@@ -285,17 +285,6 @@
             </div>
           </div>
           <div class="col-md-2">
-            <label for="city" class="form-label">City</label>
-            <input type="text" placeholder="City" 
-            formControlName="city" 
-            class="form-control form-control-sm" id="city"
-            [ngClass]="{ 'is-invalid': submitted && f['city'].errors }">
-            <div *ngIf="submitted && f['city'].errors" class="invalid-feedback">
-              <div *ngIf="f['city'].errors['required']">
-                City is required</div>
-            </div>
-          </div>
-          <div class="col-md-2">
             <label for="state" class="form-label">State</label>
             <select id="state"
             [ngClass]="{ 'is-invalid': submitted && f['state'].errors }"
@@ -310,6 +299,18 @@
               <div *ngIf="f['state'].errors['required']">State is required</div>
             </div>
           </div>
+          <div class="col-md-2">
+            <label for="city" class="form-label">City</label>
+            <input type="text" placeholder="City" 
+            formControlName="city" 
+            class="form-control form-control-sm" id="city"
+            [ngClass]="{ 'is-invalid': submitted && f['city'].errors }">
+            <div *ngIf="submitted && f['city'].errors" class="invalid-feedback">
+              <div *ngIf="f['city'].errors['required']">
+                City is required</div>
+            </div>
+          </div>
+          
           <div class="col-md-2">
             <label for="country" class="form-label">Country</label>
             <input type="text" placeholder="Country" 

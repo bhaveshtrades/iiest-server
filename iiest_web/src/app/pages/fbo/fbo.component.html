@@ -1,9 +1,195 @@
-<div class="app-wrapper">
+<div class="app-content pt-3 p-md-3 p-lg-4">
+    <div class="container-xl">
+        <div class="row g-3 mb-4 align-items-center justify-content-between">
+            <div class="col-auto">
+                <h1 class="app-page-title mb-0">FBO Registration Form</h1>
+            </div>
+        </div>
+        <div class="row gy-4 mb-3">
+            <form [formGroup]="fboForm" class="row g-3 border border-1 rounded-3 pb-3">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="fbo_name" class="form-label">FBO Name</label>
+                            <input type="text" placeholder="FBO Name" formControlName="fbo_name"
+                                class="form-control form-control-sm" id="fbo_name"
+                                [ngClass]="{ 'is-invalid': submitted && fbo['fbo_name'].errors }" />
+                            <div *ngIf="submitted && fbo['fbo_name'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['fbo_name'].errors['required']">FBO name is required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="owner_name" class="form-label">Owner Name</label>
+                            <input type="text" placeholder="Owner Name" formControlName="owner_name"
+                                class="form-control form-control-sm" id="owner_name"
+                                [ngClass]="{ 'is-invalid': submitted && fbo['owner_name'].errors }">
+                            <div *ngIf="submitted && fbo['owner_name'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['owner_name'].errors['required']">Owner name is required</div>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="app-content pt-3 p-md-3 p-lg-4">
-        <div class="container-xl">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="mobile_no" class="form-label">Mobile No.</label>
+                            <input type="text" placeholder="Mobile No." formControlName="mobile_no"
+                                class="form-control form-control-sm" id="mobile_no"
+                                [ngClass]="{ 'is-invalid': submitted && fbo['mobile_no'].errors }" />
+                            <div *ngIf="submitted && fbo['mobile_no'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['mobile_no'].errors['required']">Mobile No. is required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" placeholder="Email" formControlName="email" id="email"
+                                class="form-control form-control-sm" autocomplete="off"
+                                [ngClass]="{ 'is-invalid': submitted && fbo['email'].errors }" />
+                            <div *ngIf="submitted && fbo['email'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['email'].errors['required']">Email is required</div>
+                                <div *ngIf="fbo['email'].errors['email']">Email is invalid</div>
+                            </div>
+                        </div>
+                    </div>
 
-            <h1 class="app-page-title">FBO Register</h1>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="state" class="form-label">State</label>
+                            <select id="state" [ngClass]="{ 'is-invalid': submitted && fbo['state'].errors }"
+                                formControlName="state" class="form-select form-select-sm">
+                                <option value="" disabled selected>Select the State</option>
+                                <option value="500">500</option>
+                                <option value="700">700</option>
+                                <option value="1000">1000</option>
+                                <option value="2000">2000</option>
+                            </select>
+                            <div *ngIf="submitted && fbo['state'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['state'].errors['required']">State is required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="distric" class="form-label">Distric</label>
+                            <select id="distric" [ngClass]="{ 'is-invalid': submitted && fbo['distric'].errors }"
+                                formControlName="distric" class="form-select form-select-sm">
+                                <option value="" disabled selected>Select the Distric</option>
+                                <option value="500">500</option>
+                                <option value="700">700</option>
+                                <option value="1000">1000</option>
+                                <option value="2000">2000</option>
+                            </select>
+                            <div *ngIf="submitted && fbo['distric'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['distric'].errors['required']">Distric is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="address" class="form-label">Address</label>
+                            <textarea type="text" placeholder="Address" rows="1" formControlName="address"
+                                autocomplete="off" class="form-control form-control-sm" id="address"
+                                [ngClass]="{ 'is-invalid': submitted && fbo['address'].errors }"></textarea>
+                            <div *ngIf="submitted && fbo['address'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['address'].errors['required']">Address is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="product" class="form-label">Product</label>
+                            <select id="product" [ngClass]="{ 'is-invalid': submitted && fbo['grade_pay'].errors }"
+                                formControlName="product" class="form-select form-select-sm">
+                                <option value="" disabled selected>Select the Grade Pay</option>
+                                <option value="500">500</option>
+                                <option value="700">700</option>
+                                <option value="1000">1000</option>
+                                <option value="2000">2000</option>
+                            </select>
+                            <div *ngIf="submitted && fbo['product'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['product'].errors['required']">Product is required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="process_fee" class="form-label">Processing Fee</label>
+                            <select id="process_fee"
+                                [ngClass]="{ 'is-invalid': submitted && fbo['process_fee'].errors }"
+                                formControlName="process_fee" class="form-select form-select-sm">
+                                <option value="" disabled selected>Select the Grade Pay</option>
+                                <option value="500">500</option>
+                                <option value="700">700</option>
+                                <option value="1000">1000</option>
+                                <option value="2000">2000</option>
+                            </select>
+                            <div *ngIf="submitted && fbo['process_fee'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['process_fee'].errors['required']">Process Fee is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="service_name" class="form-label">Service Name</label>
+                            <select id="service_name"
+                                [ngClass]="{ 'is-invalid': submitted && fbo['service_name'].errors }"
+                                formControlName="service_name" class="form-select form-select-sm">
+                                <option value="" disabled selected>Select the Service</option>
+                                <option value="500">500</option>
+                                <option value="700">700</option>
+                                <option value="1000">1000</option>
+                                <option value="2000">2000</option>
+                            </select>
+                            <div *ngIf="submitted && fbo['service_name'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['service_name'].errors['required']">Service is required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="client_type" class="form-label">Client Type</label>
+                            <select id="client_type"
+                                [ngClass]="{ 'is-invalid': submitted && fbo['client_type'].errors }"
+                                formControlName="client_type" class="form-select form-select-sm">
+                                <option value="" disabled selected>Select the Client Type</option>
+                                <option value="500">500</option>
+                                <option value="700">700</option>
+                            </select>
+
+                            <div *ngIf="submitted && fbo['employee_name'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['employee_name'].errors['required']">Employee name is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="recipent" class="form-label">No. of Recipent</label>
+                            <input type="number" min="0" step="1" placeholder="recipent" formControlName="recipent"
+                                class="form-control form-control-sm" id="recipent"
+                                [ngClass]="{ 'is-invalid': submitted && fbo['recipent'].errors }" />
+                            <div *ngIf="submitted && fbo['recipent'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['recipent'].errors['required']">No. of Recipent is required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- <input class="form-check-input" style="margin-right:10px;"
+                            type="checkbox" name="water_test_apply"
+                            formControlName="water_test_apply"
+                            id="water_test_apply" value="water_test_apply" (change)="waterTestToggel($event)"> -->
+                            <label for="water_test" class=" form-label">Water Test fee</label>
+                            
+                            <select id="water_test" [disabled]="isDisabled"
+                                [ngClass]="{ 'is-invalid': submitted && fbo['water_test'].errors }"
+                                formControlName="water_test" class="form-select form-select-sm">
+                                <option value="" disabled selected>Select the Client Type</option>
+                                <option *ngFor="let fee of waterTestFee" [ngValue]="fee">{{ fee }} Water Test Fee</option>
+                            </select>
+
+                            <div *ngIf="submitted && fbo['water_test'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['water_test'].errors['required']">Employee name is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

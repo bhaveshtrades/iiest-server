@@ -20,7 +20,7 @@ export class RegisterService {
   }*/
 
   public addEmployee(addemployee: Employee): Observable<any> {
-    const url = `${this.url}/staffentry`
+    const url = `${this.url}/register`
     return this.http.post<any>(url, addemployee).pipe(
       catchError(
         this.handleError
