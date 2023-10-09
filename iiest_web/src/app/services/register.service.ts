@@ -40,6 +40,7 @@ export class RegisterService {
   }
 
   storeToken(currentUser:any){
+    localStorage.setItem('issLoggedIn', 'true')
     localStorage.setItem('token', currentUser.authToken)
     localStorage.setItem("LoggedInUser", JSON.stringify(currentUser.employee_user));
     

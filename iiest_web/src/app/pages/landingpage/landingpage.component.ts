@@ -20,18 +20,18 @@ export class LandingpageComponent implements OnInit {
   faSignIn = faSignIn;
   faCircleInfo = faCircleInfo;
   faPhone = faPhone;
-  isloggedIn:boolean;
+  isToken:boolean;
 constructor(
   private modalService: NgbModal,
   private _resiterService: RegisterService,
   private router: Router){
   const bodyElement = document.body;
   bodyElement.classList.remove('app');
-  this.isloggedIn = this._resiterService.isLoggedIn();
+  this.isToken = this._resiterService.isLoggedIn();
 }
 ngOnInit(): void {}
 openModal(){
-  if(!this.isloggedIn){
+  if(!this.isToken){
    this.modalService.open(LoginComponent, { size: 'md', backdrop: 'static' });
   }else{
       this.router.navigateByUrl('/home')
