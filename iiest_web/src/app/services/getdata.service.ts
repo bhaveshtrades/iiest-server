@@ -24,7 +24,7 @@ export class GetdataService {
  }
 
  public getFboGeneralData():Observable<any>{
-  const url = `${this.url}/getfbogeneraldata`;
+  const url = `${this.url}/fbogeneraldata`;
   return this.http.get<any>(url).pipe(catchError(this.handleError));
  }
 

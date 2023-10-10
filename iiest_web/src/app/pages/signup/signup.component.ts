@@ -3,6 +3,7 @@ import { Employee } from '../../utils/registerinterface'
 import { DatePipe } from '@angular/common';
 import { FormGroup, Validators, FormControl, FormBuilder, AbstractControl } from '@angular/forms';
 import { RegisterService } from '../../services/register.service';
+import {GetdataService} from '../../services/getdata.service'
 import Validation from '../../utils/validation'
 import { NgbDate, NgbDateStruct, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
@@ -16,6 +17,10 @@ import {Router} from '@angular/router';
 export class SignupComponent implements OnInit {
   addemployee : Employee;
   dob: NgbDateStruct;
+  getEmpGeneralData: any;
+  getPortalType: any;
+  getProjectName : any;
+  getGradePay : any;
   form: FormGroup = new FormGroup({
     employee_name: new FormControl(''),
     gender: new FormControl(''),
@@ -51,7 +56,9 @@ export class SignupComponent implements OnInit {
     private calendar: NgbCalendar,
     private datePipe: DatePipe,
     private _registerService: RegisterService,
+    private _getdataService: GetdataService,
     private route:Router) {
+      this.empGeneralData();
   }
 
   ngOnInit(): void {
@@ -153,4 +160,22 @@ export class SignupComponent implements OnInit {
     this.submitted = false;
     this.form.reset();
   }
+
+  empGeneralData(){
+    this._getdataService.getGeneralData().subscribe( {
+      next: (res) => { 
+       this.getPortalType = Object.values(res.portal_type);
+       this.getProjectName = Object.values(res.project_name);
+       this.getGradePay = Object.values(res.grade_pay);   
+      },
+      error: (err) => {
+        let errorObj = err.error
+        //this.error = true;
+        //this.errorMgs = errorObj.message
+      },
+      complete: () =>{ 
+        //console.info('complete')
+      } 
+  }) 
+}
 }

@@ -3,7 +3,10 @@ export let config = {
 }
 
 //Water test Fee
-export let options = ['1500','2000'];
+export let waterTestFee = ['1500','2000'];
+
+//Client Type
+export let clientType = ['General Client', 'Corporate Client'];
 
 
 

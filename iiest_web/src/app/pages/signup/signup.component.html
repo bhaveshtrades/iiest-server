@@ -152,18 +152,7 @@
             [ngClass]="{ 'is-invalid': submitted && f['portal_type'].errors }"
             formControlName="portal_type">
               <option value="" disabled selected>Select the Portal</option>
-              <option value="FSSAI Sales Portal">FSSAI Sales Portal</option>
-              <option value="DPIIT Sales Portal">DPIIT Sales Portal</option>
-              <option value="NSDC Sales Portal">NSDC Sales Portal</option>
-              <option value="Fostac Portal">Fostac Portal</option>
-              <option value="Hygiene Portal">Hygiene Portal</option>
-              <option value="Foscos - Filling Portal">Foscos - Filling Portal</option>
-              <option value="Foscos - Revert Portal">Foscos - Revert Portal</option>
-              <option value="Account Portal">Account Portal</option>
-              <option value="HR - TA Portal">HR - TA Portal</option>
-              <option value="HR - TD Portal">HR - TD Portal</option>
-              <option value="HR - General Portal">HR - General Portal</option>
-              <option value="Cowork Portal">Cowork Portal</option>
+              <option *ngFor="let portalType of getPortalType" [ngValue]="portalType">{{ portalType }}</option>
             </select>
             <div *ngIf="submitted && f['portal_type'].errors" class="invalid-feedback">
               <div *ngIf="f['portal_type'].errors['required']">Portal type is required</div>
@@ -175,10 +164,7 @@
             [ngClass]="{ 'is-invalid': submitted && f['project_name'].errors }"
             formControlName="project_name" class="form-select form-select-sm">
             <option value="" disabled selected>Select the Project</option>
-            <option value="FSSAI">FSSAI</option>
-            <option value="DPIIT">DPIIT</option>
-            <option value="NSDC">NSDC</option>
-            <option value="Under Agies of IIEST">Under Agies of IIEST</option>
+            <option *ngFor="let projectName of getProjectName" [ngValue]="projectName">{{ projectName }}</option>
             </select>
             <div *ngIf="submitted && f['project_name'].errors" class="invalid-feedback">
               <div *ngIf="f['project_name'].errors['required']">Project Name is required</div>
@@ -221,10 +207,7 @@
             [ngClass]="{ 'is-invalid': submitted && f['grade_pay'].errors }"
             formControlName="grade_pay" class="form-select form-select-sm">
                 <option value="" disabled selected>Select the Grade Pay</option>
-                <option value="500">500</option>
-                <option value="700">700</option>
-                <option value="1000">1000</option>
-                <option value="2000">2000</option>
+                <option *ngFor="let gradePay of getGradePay" [ngValue]="gradePay">{{ gradePay }}</option>
               </select>
             <div *ngIf="submitted && f['grade_pay'].errors" class="invalid-feedback">
               <div *ngIf="f['grade_pay'].errors['required']">Grade Pay is required</div>
@@ -352,7 +335,6 @@
       <div class="container-xl border border-1 rounded-3">
         <app-employeelist class="border"></app-employeelist>  
       </div>
-      <!-- <app-employeelist></app-employeelist -->
      </div>
 
 

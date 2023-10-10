@@ -98,12 +98,9 @@
                         <div class="col-md-6">
                             <label for="product" class="form-label">Product</label>
                             <select id="product" [ngClass]="{ 'is-invalid': submitted && fbo['product'].errors }"
-                                formControlName="product" class="form-select form-select-sm">
+                                formControlName="product" (change)="getProduct($event)" class="form-select form-select-sm">
                                 <option value="" disabled selected>Select the Product</option>
-                                <option value="500">500</option>
-                                <option value="700">700</option>
-                                <option value="1000">1000</option>
-                                <option value="2000">2000</option>
+                                <option *ngFor="let product of productList" [value]="product">{{ product }}</option>
                             </select>
                             <div *ngIf="submitted && fbo['product'].errors" class="invalid-feedback">
                                 <div *ngIf="fbo['product'].errors['required']">Product is required</div>
@@ -115,10 +112,7 @@
                                 [ngClass]="{ 'is-invalid': submitted && fbo['process_fee'].errors }"
                                 formControlName="process_fee" class="form-select form-select-sm">
                                 <option value="" disabled selected>Select the Processing Fee</option>
-                                <option value="500">500</option>
-                                <option value="700">700</option>
-                                <option value="1000">1000</option>
-                                <option value="2000">2000</option>
+                                <option *ngFor="let processamnt of processAmnt" [value]="processamnt">{{ processamnt }}</option>
                             </select>
                             <div *ngIf="submitted && fbo['process_fee'].errors" class="invalid-feedback">
                                 <div *ngIf="fbo['process_fee'].errors['required']">Process Fee is required</div>
@@ -133,10 +127,7 @@
                                 [ngClass]="{ 'is-invalid': submitted && fbo['service_name'].errors }"
                                 formControlName="service_name" class="form-select form-select-sm">
                                 <option value="" disabled selected>Select the Service</option>
-                                <option value="500">500</option>
-                                <option value="700">700</option>
-                                <option value="1000">1000</option>
-                                <option value="2000">2000</option>
+                                <option *ngFor="let servicename of serviceName" [value]="servicename">{{ servicename }}</option>
                             </select>
                             <div *ngIf="submitted && fbo['service_name'].errors" class="invalid-feedback">
                                 <div *ngIf="fbo['service_name'].errors['required']">Service is required</div>
@@ -148,8 +139,7 @@
                                 [ngClass]="{ 'is-invalid': submitted && fbo['client_type'].errors }"
                                 formControlName="client_type" class="form-select form-select-sm">
                                 <option value="" disabled selected>Select the Client Type</option>
-                                <option value="500">500</option>
-                                <option value="700">700</option>
+                                <option *ngFor="let clienttype of clientType" [ngValue]="clienttype">{{ clienttype }}</option>
                             </select>
 
                             <div *ngIf="submitted && fbo['employee_name'].errors" class="invalid-feedback">
@@ -162,7 +152,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="recipent" class="form-label">No. of Recipent</label>
-                            <input type="number" min="0" step="1" placeholder="recipent" formControlName="recipent"
+                            <input type="number" min="0" step="1" placeholder="No. of Recipent" formControlName="recipent"
                                 class="form-control form-control-sm" id="recipent"
                                 [ngClass]="{ 'is-invalid': submitted && fbo['recipent'].errors }" />
                             <div *ngIf="submitted && fbo['recipent'].errors" class="invalid-feedback">
@@ -180,7 +170,7 @@
                                 [ngClass]="{ 'is-invalid': submitted && fbo['water_test'].errors }"
                                 formControlName="water_test" class="form-select form-select-sm">
                                 <option value="" disabled selected>Select the Water Test Fee</option>
-                                <option *ngFor="let fee of waterTestFee" [ngValue]="fee">{{ fee }} Water Test Fee</option>
+                                <option *ngFor="let fee of waterTestFee" [ngValue]="fee">{{ fee }}</option>
                             </select>
 
                             <!-- <div *ngIf="submitted && fbo['water_test'].errors" class="invalid-feedback">

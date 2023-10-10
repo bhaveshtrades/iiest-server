@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {options} from '../../utils/config';
+import {waterTestFee, clientType} from '../../utils/config';
 import {GetdataService} from '../../services/getdata.service'
+import { from } from 'rxjs';
 
 
 @Component({
@@ -11,9 +12,14 @@ import {GetdataService} from '../../services/getdata.service'
 })
 export class FboComponent implements OnInit {
   submitted = false;
-  waterTestFee = options;
+  waterTestFee = waterTestFee;
+  clientType = clientType;
   isDisabled: boolean = true; 
   fboGeneralData: any;
+  productList:string[]=[];
+  productName:any;
+  processAmnt:any;
+  serviceName:any;
   fboForm: FormGroup = new FormGroup({
     fbo_name: new FormControl(''),
     owner_name: new FormControl(''),
@@ -37,10 +43,10 @@ export class FboComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _getFboGeneralData: GetdataService,
     ){
-      
-  }
+      this.getFboGeneralData();     
+    }
   ngOnInit(): void {
-     this.getFboGeneralData();
+     
      this.fboForm = this.formBuilder.group(
       {
         employee_name: ['', Validators.required],
@@ -63,8 +69,8 @@ export class FboComponent implements OnInit {
         process_fee: ['', Validators.required],
         service_name: ['', Validators.required],
         client_type: ['', Validators.required],
-        recipent: ['', Validators.required]
-        //water_test: ['', Validators.required]
+        recipent: ['', Validators.required],
+        water_test: ['']
       });
 
   }
@@ -123,7 +129,10 @@ getEmployees(){
 getFboGeneralData(){
     this._getFboGeneralData.getFboGeneralData().subscribe( {
       next: (res) => { 
-        console.log(res)
+       this.fboGeneralData = res.product_name;
+       console.log(this.fboGeneralData);
+       this.fboGeneralData= Object.entries(this.fboGeneralData).map(([key, value]) => ({key, value}));
+       this.productList = Object.keys(res.product_name);   
       },
       error: (err) => {
         let errorObj = err.error
@@ -139,6 +148,14 @@ getFboGeneralData(){
 onReset(): void {
   this.submitted = false;
   this.fboForm.reset();
+}
+getProduct(event:any){
+  this.productName = event.target.value;
+  var filtered = this.fboGeneralData.filter((a:any) => a.key == this.productName)
+    filtered =  filtered[0].value;
+    this.processAmnt =  Object.values(filtered.processing_amount);
+    this.serviceName = Object.values(filtered.service_name);
+    //console.log(this.processAmnt , this.serviceName)
 }
 
 }
