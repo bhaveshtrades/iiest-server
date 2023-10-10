@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="row gy-4 mb-3">
-            <form [formGroup]="fboForm" class="row g-3 border border-1 rounded-3 pb-3">
+            <form [formGroup]="fboForm" (ngSubmit)="onSubmit()" class="row g-3 border border-1 rounded-3 pb-3">
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-6">
@@ -97,9 +97,9 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="product" class="form-label">Product</label>
-                            <select id="product" [ngClass]="{ 'is-invalid': submitted && fbo['grade_pay'].errors }"
+                            <select id="product" [ngClass]="{ 'is-invalid': submitted && fbo['product'].errors }"
                                 formControlName="product" class="form-select form-select-sm">
-                                <option value="" disabled selected>Select the Grade Pay</option>
+                                <option value="" disabled selected>Select the Product</option>
                                 <option value="500">500</option>
                                 <option value="700">700</option>
                                 <option value="1000">1000</option>
@@ -114,7 +114,7 @@
                             <select id="process_fee"
                                 [ngClass]="{ 'is-invalid': submitted && fbo['process_fee'].errors }"
                                 formControlName="process_fee" class="form-select form-select-sm">
-                                <option value="" disabled selected>Select the Grade Pay</option>
+                                <option value="" disabled selected>Select the Processing Fee</option>
                                 <option value="500">500</option>
                                 <option value="700">700</option>
                                 <option value="1000">1000</option>
@@ -176,19 +176,25 @@
                             id="water_test_apply" value="water_test_apply" (change)="waterTestToggel($event)"> -->
                             <label for="water_test" class=" form-label">Water Test fee</label>
                             
-                            <select id="water_test" [disabled]="isDisabled"
+                            <select id="water_test"
                                 [ngClass]="{ 'is-invalid': submitted && fbo['water_test'].errors }"
                                 formControlName="water_test" class="form-select form-select-sm">
-                                <option value="" disabled selected>Select the Client Type</option>
+                                <option value="" disabled selected>Select the Water Test Fee</option>
                                 <option *ngFor="let fee of waterTestFee" [ngValue]="fee">{{ fee }} Water Test Fee</option>
                             </select>
 
-                            <div *ngIf="submitted && fbo['water_test'].errors" class="invalid-feedback">
+                            <!-- <div *ngIf="submitted && fbo['water_test'].errors" class="invalid-feedback">
                                 <div *ngIf="fbo['water_test'].errors['required']">Employee name is required</div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
+                <div class="col-6">
+                    <button type="submit" class="btn btn-sm btn-primary">Register</button>
+                  </div>
+                  <div class="col-6 d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="button" (click)="onReset()" class="btn btn-sm btn-warning">Reset</button>
+                  </div>
             </form>
         </div>
     </div>

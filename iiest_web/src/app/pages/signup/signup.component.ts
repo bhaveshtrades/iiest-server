@@ -45,6 +45,7 @@ export class SignupComponent implements OnInit {
   submitted = false;
   dobValue: Date;
   dojValue: Date;
+  toastrService: any;
   constructor(
     private formBuilder: FormBuilder,
     private calendar: NgbCalendar,
@@ -140,7 +141,12 @@ export class SignupComponent implements OnInit {
     this.addemployee = this.form.value;
     this._registerService.addEmployee(this.addemployee)
     .subscribe((response: any) => {
-        console.log(response);
+      if(response.success){
+        this.toastrService.success('Message Success', response.message)
+      }else{
+        this.toastrService.error('Message Error!', response.message);
+      }
+        //console.log(response);
     });
   }
   onReset(): void {

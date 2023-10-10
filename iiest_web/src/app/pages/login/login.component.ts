@@ -86,11 +86,10 @@ export class LoginComponent implements OnInit {
           this.route.navigate(['/home']);
         },
         error: (err) => {
-          //alert()
-          this.toastrService.error('Message Error!', 'Title Error!');
-          /* let errorObj = err.error
+          let errorObj = err.error
+          this.toastrService.error('Message Error!', errorObj.message);
           this.error = true;
-          this.errorMgs = errorObj.message */
+          this.errorMgs = errorObj.message 
         },
         complete: () =>{ 
           console.info('complete')

@@ -13,14 +13,19 @@ export class GetdataService {
   constructor(private http: HttpClient, private router:Router) { }
 
 
- getEmployeeData():Observable<any>{
+ public getEmployeeData():Observable<any>{
   const url = `${this.url}/allemployees`;
     return this.http.get<any>(url).pipe(catchError(this.handleError));
  }
 
- getGeneralData():Observable<any>{
+ public getGeneralData():Observable<any>{
   const url = `${this.url}/empgeneraldata`;
     return this.http.get<any>(url).pipe(catchError(this.handleError));
+ }
+
+ public getFboGeneralData():Observable<any>{
+  const url = `${this.url}/getfbogeneraldata`;
+  return this.http.get<any>(url).pipe(catchError(this.handleError));
  }
 
  private handleError(err: HttpErrorResponse): Observable<never> {
