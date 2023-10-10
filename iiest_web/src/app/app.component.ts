@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   showHeader: boolean = true;
   empName: string;
   loggedInUserData: any;
-  isLoggedIn:boolean;
+  isToken:boolean;
 
   constructor(
     private router: Router,
@@ -31,13 +31,18 @@ export class AppComponent implements OnInit {
         }
       }
     });
-    this.isLoggedIn = this._registerService.isLoggedIn();
+    this.isToken = this._registerService.isLoggedIn();
+    if(!this.isToken){
+    localStorage.setItem('issLoggedIn','false');
+    localStorage.setItem('token','')
+    }
   }
   ngOnInit(): void {
     this.loggedInUserData = this._registerService.LoggedInUserData();
     this.loggedInUserData = JSON.parse(this.loggedInUserData)
-    console.log(this.loggedInUserData.employee_name);
+    if(this.loggedInUserData){
     this.empName = this.loggedInUserData.employee_name;
+    }
   }
 
 }

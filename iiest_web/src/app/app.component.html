@@ -1,4 +1,4 @@
-<app-header *ngIf="showHeader" [item]="isLoggedIn" [userdata]="loggedInUserData"></app-header>
+<app-header *ngIf="showHeader" [item]="isToken" [userdata]="loggedInUserData"></app-header>
 <div [ngClass]="showHeader ? 'app-wrapper' : ''"> 
 <router-outlet></router-outlet>
 </div> 

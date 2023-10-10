@@ -21,6 +21,15 @@ export class HeaderComponent implements OnInit {
   blockMsg:boolean = true;
   empName: any;
   constructor(private _registerService: RegisterService){
+    let isLoggedIn = this._registerService.isLoggedIn();
+    console.log(isLoggedIn);
+    if(isLoggedIn){
+    let loggedInUserData:any = this._registerService.LoggedInUserData(); 
+    loggedInUserData = JSON.parse(loggedInUserData);
+    this.userdata  = loggedInUserData.employee_name;
+    this.empName = loggedInUserData.employee_name;
+    console.log(this.empName);
+    }
     const message = interval(2000);
     this.msg = message.subscribe( (res)=> {
       if(res >=2){
@@ -29,11 +38,7 @@ export class HeaderComponent implements OnInit {
       }
     })
   }
-  ngOnInit(){ 
-      //let loggedInUserData:any = this._registerService.LoggedInUserData(); 
-      //loggedInUserData = JSON.parse(loggedInUserData)
-      this.empName = this.userdata.employee_name;
-  }
+  ngOnInit(){ }
  
   toggleClass = (event:any) => {
    this.toggelShow = !this.toggelShow ;

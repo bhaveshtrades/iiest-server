@@ -22,7 +22,8 @@ import { LandingpageComponent } from './pages/landingpage/landingpage.component'
 import { AuthInterceptor} from './interceptors/auth.interceptor';
 //services
 import {GetdataService} from './services/getdata.service'
-
+//Toastr
+import { ToastrModule } from 'ngx-toastr';
 //ngxs Modules
 import { NgxsModule } from '@ngxs/store';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
@@ -54,7 +55,12 @@ import { EmployeeState } from './store/state/employee.state';
     //ngxs Modlues
     NgxsModule.forRoot([EmployeeState]),
     NgxsLoggerPluginModule.forRoot(),
-    NgxsReduxDevtoolsPluginModule.forRoot()
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    ToastrModule.forRoot({
+      closeButton: true,
+      timeOut: 15000, // 15 seconds
+      progressBar: true,
+    }),
   ],
   providers: [
     DatePipe,

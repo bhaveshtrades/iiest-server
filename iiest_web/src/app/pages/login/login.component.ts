@@ -5,6 +5,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, Validators, FormControl, FormBuilder, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faLock, faUser, faEnvelope} from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -42,7 +43,8 @@ export class LoginComponent implements OnInit {
       private _registerService: RegisterService,
       public activeModal: NgbActiveModal,
       private modalService: NgbModal,
-      private route:Router
+      private route:Router,
+      private toastrService:ToastrService
       ){}
 
     ngOnInit(): void {
@@ -84,9 +86,11 @@ export class LoginComponent implements OnInit {
           this.route.navigate(['/home']);
         },
         error: (err) => {
-          let errorObj = err.error
+          //alert()
+          this.toastrService.error('Message Error!', 'Title Error!');
+          /* let errorObj = err.error
           this.error = true;
-          this.errorMgs = errorObj.message
+          this.errorMgs = errorObj.message */
         },
         complete: () =>{ 
           console.info('complete')
@@ -109,9 +113,9 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (res) => { 
           console.log(res)
-          /* localStorage.setItem('token', res.authToken);
+          localStorage.setItem('token', res.authToken);
           this.activeModal.close();
-          this.route.navigate(['/home']); */
+          this.route.navigate(['/home']); 
         },
         error: (err) => {
           let errorObj = err.error
