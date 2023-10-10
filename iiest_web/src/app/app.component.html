@@ -1,6 +1,5 @@
 <app-header *ngIf="showHeader" [item]="isLoggedIn" [userdata]="loggedInUserData"></app-header>
 <div [ngClass]="showHeader ? 'app-wrapper' : ''"> 
 <router-outlet></router-outlet>
-</div>
-<app-footer *ngIf="showHeader"></app-footer>
-[ngClass]="val > 10 ? 'red' : 'green'"
+</div> 
+<app-footer *ngIf="showHeader"></app-footer> 

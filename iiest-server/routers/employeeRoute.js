@@ -6,7 +6,7 @@ const authMiddleware = require('../middleware/auth');
 
 const router = express.Router();
 
-router.post('/empregister', employeeFormValidation, employeeRegister); //Router for staff registration
+router.post('/empregister', authMiddleware, employeeFormValidation, employeeRegister); //Router for staff registration
 router.post('/login', employeeLoginValidation, employeeLogin); //Router for staff login
 router.get('/empgeneraldata', authMiddleware, employeeFormData); //Router for general employee form data
 router.get('/allemployees', authMiddleware, allEmployeesData); //Router for all employees data

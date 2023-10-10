@@ -13,10 +13,17 @@ function sendEmployeeInfo(username, password, empId, clientMail){
         const mailOptions = {
               from: mailData.email, 
               to: clientMail,
-              subject: "IIEST: This is your employee data. Please do not share it with anyone.", 
-              html: `<h2>Username: ${username}</h2>,
-                     <h2>Password: ${password}</h2>,
-                     <h2>Employee ID: ${empId}</h2>`
+              subject: "Welcome to IIEST Federation - Your Employee Information", 
+              html: `<p>Welcome to IIEST Federation! We are excited to have you on board. Below, you will find important details regarding your employee account:</p>
+              <p><strong>Employee ID:</strong> ${empId}</p>
+              <p><strong>Username:</strong> ${username}</p>
+              <p><strong>Password:</strong> ${password}</p>
+              <p>We look forward to your contributions to the company.</p>
+              <p>Best regards,<br>
+              [Your Name]<br>
+              [Your Position]<br>
+              [Company Name]<br>
+              [Contact Information]</p>`
           }
         transport.sendMail(mailOptions, function(error, response){
             if(error){

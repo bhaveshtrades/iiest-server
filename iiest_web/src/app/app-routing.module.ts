@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'main', component: LandingpageComponent},
   { path: 'home', component: HomeComponent, canActivate:[authGuard]},
   { path: 'fbo', component: FboComponent, canActivate:[authGuard] },
-  { path: 'staffentry', component: SignupComponent, canActivate:[authGuard]},
+  { path: 'empregister', component: SignupComponent, canActivate:[authGuard]},
   { path: '', redirectTo: 'main', pathMatch: 'full' }, // Default route
 ];
 

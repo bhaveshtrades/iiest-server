@@ -7,7 +7,7 @@ const authMiddleware = require('../middleware/auth');
 const router = express.Router();
 
 
-router.post('/fboregister', fboFormValidation, fboRegister); //Router for FBO registration form
+router.post('/fboregister', authMiddleware, fboFormValidation, fboRegister); //Router for FBO registration form
 router.get('/fbogeneraldata', authMiddleware, fboFormData); //Router for general FBO form data
 
 module.exports = router;
