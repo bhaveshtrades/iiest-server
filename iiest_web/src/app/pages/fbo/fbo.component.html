@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="row gy-4 mb-3">
-            <form [formGroup]="fboForm" (ngSubmit)="onSubmit()" class="row g-3 border border-1 rounded-3 pb-3">
+            <form [formGroup]="fboForm"  class="row g-3 border border-1 rounded-3 pb-3" (ngSubmit)="onSubmit()">
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-6">
@@ -57,10 +57,8 @@
                             <select id="state" [ngClass]="{ 'is-invalid': submitted && fbo['state'].errors }"
                                 formControlName="state" class="form-select form-select-sm">
                                 <option value="" disabled selected>Select the State</option>
-                                <option value="500">500</option>
-                                <option value="700">700</option>
-                                <option value="1000">1000</option>
-                                <option value="2000">2000</option>
+                                <option value="New Delhi">New Delhi</option>
+                                
                             </select>
                             <div *ngIf="submitted && fbo['state'].errors" class="invalid-feedback">
                                 <div *ngIf="fbo['state'].errors['required']">State is required</div>
@@ -71,10 +69,8 @@
                             <select id="distric" [ngClass]="{ 'is-invalid': submitted && fbo['distric'].errors }"
                                 formControlName="distric" class="form-select form-select-sm">
                                 <option value="" disabled selected>Select the Distric</option>
-                                <option value="500">500</option>
-                                <option value="700">700</option>
-                                <option value="1000">1000</option>
-                                <option value="2000">2000</option>
+                                <option value="New Delhi">New Delhi</option>
+                                
                             </select>
                             <div *ngIf="submitted && fbo['distric'].errors" class="invalid-feedback">
                                 <div *ngIf="fbo['distric'].errors['required']">Distric is required</div>
@@ -141,7 +137,6 @@
                                 <option value="" disabled selected>Select the Client Type</option>
                                 <option *ngFor="let clienttype of clientType" [ngValue]="clienttype">{{ clienttype }}</option>
                             </select>
-
                             <div *ngIf="submitted && fbo['employee_name'].errors" class="invalid-feedback">
                                 <div *ngIf="fbo['employee_name'].errors['required']">Employee name is required</div>
                             </div>

@@ -3,10 +3,10 @@ import { Employee } from '../../utils/registerinterface'
 import { DatePipe } from '@angular/common';
 import { FormGroup, Validators, FormControl, FormBuilder, AbstractControl } from '@angular/forms';
 import { RegisterService } from '../../services/register.service';
-import {GetdataService} from '../../services/getdata.service'
+import { GetdataService } from '../../services/getdata.service'
 import Validation from '../../utils/validation'
 import { NgbDate, NgbDateStruct, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -15,12 +15,12 @@ import {Router} from '@angular/router';
 })
 
 export class SignupComponent implements OnInit {
-  addemployee : Employee;
+  addemployee: Employee;
   dob: NgbDateStruct;
   getEmpGeneralData: any;
   getPortalType: any;
-  getProjectName : any;
-  getGradePay : any;
+  getProjectName: any;
+  getGradePay: any;
   form: FormGroup = new FormGroup({
     employee_name: new FormControl(''),
     gender: new FormControl(''),
@@ -56,9 +56,8 @@ export class SignupComponent implements OnInit {
     private calendar: NgbCalendar,
     private datePipe: DatePipe,
     private _registerService: RegisterService,
-    private _getdataService: GetdataService,
-    private route:Router) {
-      this.empGeneralData();
+    private _getdataService: GetdataService) {
+    this.empGeneralData();
   }
 
   ngOnInit(): void {
@@ -131,8 +130,7 @@ export class SignupComponent implements OnInit {
 
   }
 
-  get f(): { [key: string]: AbstractControl }
-   {
+  get f(): { [key: string]: AbstractControl } {
     return this.form.controls;
   }
 
@@ -147,35 +145,35 @@ export class SignupComponent implements OnInit {
     console.log(JSON.stringify(this.form.value, null, 2));
     this.addemployee = this.form.value;
     this._registerService.addEmployee(this.addemployee)
-    .subscribe((response: any) => {
-      if(response.success){
-        this.toastrService.success('Message Success', response.message)
-      }else{
-        this.toastrService.error('Message Error!', response.message);
-      }
+      .subscribe((response: any) => {
+        if (response.success) {
+          this.toastrService.success('Message Success', response.message)
+        } else {
+          this.toastrService.error('Message Error!', response.message);
+        }
         //console.log(response);
-    });
+      });
   }
   onReset(): void {
     this.submitted = false;
     this.form.reset();
   }
 
-  empGeneralData(){
-    this._getdataService.getGeneralData().subscribe( {
-      next: (res) => { 
-       this.getPortalType = Object.values(res.portal_type);
-       this.getProjectName = Object.values(res.project_name);
-       this.getGradePay = Object.values(res.grade_pay);   
+  empGeneralData() {
+    this._getdataService.getGeneralData().subscribe({
+      next: (res) => {
+        this.getPortalType = Object.values(res.portal_type);
+        this.getProjectName = Object.values(res.project_name);
+        this.getGradePay = Object.values(res.grade_pay);
       },
       error: (err) => {
         let errorObj = err.error
         //this.error = true;
         //this.errorMgs = errorObj.message
       },
-      complete: () =>{ 
+      complete: () => {
         //console.info('complete')
-      } 
-  }) 
-}
+      }
+    })
+  }
 }
