@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,14 +7,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
+  @Input() userData:any;
+  @Input() sideBarToggle:boolean;
+  @Output() sideBarToggleUpdate = new EventEmitter();
   constructor(private router :Router){
 
   }
-@Input() userData:any;
+
 toggelShow:boolean= false;
 toggleClass(event:any){
   this.toggelShow = !this.toggelShow ;
     event.target.classList.toggle('show');
 }
+sideBarToggleValue(){
+  this.sideBarToggleUpdate.emit(false);
+}
+
 
 }

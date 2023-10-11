@@ -28,6 +28,11 @@ export class GetdataService {
   return this.http.get<any>(url).pipe(catchError(this.handleError));
  }
 
+ public getAllFboData():Observable<any>{
+  const url = `${this.url}/allfbodata`;
+  return this.http.get<any>(url).pipe(catchError(this.handleError));
+ }
+
  private handleError(err: HttpErrorResponse): Observable<never> {
   // just a test ... more could would go here
   return throwError(() => err);

@@ -7,7 +7,7 @@ exports.fboRegister = async(req, res)=>{
         let success = false;
     
         //Fields to be used for FBO form
-        const { fbo_name, owner_name, owner_contact, email, state, district, address, product_name, processing_amount, service_name, client_type, recipient_no } = req.body;
+        const { fbo_name, owner_name, owner_contact, email, state, district, address, product_name, processing_amount, service_name, client_type, recipient_no, water_test_fee } = req.body;
     
         //To check if fbo name is already in use
         const existing_fbo = await fboSchema.findOne({fbo_name})
@@ -34,7 +34,7 @@ exports.fboRegister = async(req, res)=>{
         }
     
         await fboSchema.create({
-            fbo_name, owner_name, owner_contact, email, state, district, address, product_name, processing_amount, service_name, client_type, recipient_no
+            fbo_name, owner_name, owner_contact, email, state, district, address, product_name, processing_amount, service_name, client_type, recipient_no, water_test_fee
         })
     
         success = true;

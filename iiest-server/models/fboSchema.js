@@ -51,6 +51,9 @@ const fboRegister = new Schema({
     recipient_no: {
         type: Number,
         required: true
+    },
+    water_test_fee: {
+        type: Number
     }
 });
 

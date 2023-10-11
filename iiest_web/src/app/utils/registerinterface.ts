@@ -41,15 +41,15 @@ export interface forgotPassword {
 export interface fbo {
   fbo_name: string,
   owner_name: string,
-  mobile_no: number,
+  owner_contact: number,
   email: string,
   state: string,
-  distric: string,
+  district: string,
   address: string,
-  product: string,
-  process_fee: string,
+  product_name: string,
+  processing_amount: string,
   service_name: string,
   client_type: string,
-  recipent: number,
-  water_test_apply :number 
+  recipient_no: number
+  // water_test_apply :number 
 }
