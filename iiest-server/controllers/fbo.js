@@ -45,3 +45,14 @@ exports.fboRegister = async(req, res)=>{
             return res.status(500).json({message: "Internal Server Error"})
         }
 }
+
+//Controller to get all FBO Data
+exports.allFBOData  = async(req, res)=>{
+    try {
+        const fboData = await fboSchema.find();
+        return res.status(200).json({fboData});
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({message: "Internal Server Error"});
+    }
+}

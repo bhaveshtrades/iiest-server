@@ -29,6 +29,7 @@
     "css-loader": "^6.8.1",
     "font-awesome": "^4.7.0",
     "ngx-bootstrap": "^11.0.2",
+    "ngx-pagination": "^6.0.3",
     "ngx-toastr": "^17.0.2",
     "popper": "^1.0.1",
     "postcss-loader": "^7.3.3",
