@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
       this.empName = loggedInUserData.employee_name;
       console.log(this.empName);
     }
-    if(this.width > 1200){
+    if(this.width >= 1200){
       this.isSideBar = true;
     }
    
@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
 //Window size
   onWindowResize(event: any) {
     this.width = event.target.innerWidth;
-    if(this.width > 1200){
+    if(this.width >= 1200){
       this.isSideBar = true;
     }else{
       this.isSideBar = false;

@@ -5,7 +5,7 @@ import{ FormsModule, ReactiveFormsModule} from '@angular/forms'
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule, FaIconLibrary, FaIconComponent } from '@fortawesome/angular-fontawesome';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -29,6 +29,7 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { EmployeeState } from './store/state/employee.state';
+import { FbolistComponent } from './pages/fbolist/fbolist.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import { EmployeeState } from './store/state/employee.state';
     HeaderComponent,
     HomeComponent,
     EmployeelistComponent,
-    LandingpageComponent
+    LandingpageComponent,
+    FbolistComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +54,7 @@ import { EmployeeState } from './store/state/employee.state';
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
     FontAwesomeModule,
+    NgxPaginationModule,
     //ngxs Modlues
     NgxsModule.forRoot([EmployeeState]),
     NgxsLoggerPluginModule.forRoot(),

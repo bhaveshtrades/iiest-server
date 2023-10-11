@@ -6,7 +6,7 @@ import { RegisterService } from '../../services/register.service';
 import {GetdataService} from '../../services/getdata.service'
 import Validation from '../../utils/validation'
 import { NgbDate, NgbDateStruct, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import {Router} from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -50,15 +50,13 @@ export class SignupComponent implements OnInit {
   submitted = false;
   dobValue: Date;
   dojValue: Date;
-  toastrService: any;
   constructor(
     private formBuilder: FormBuilder,
     private calendar: NgbCalendar,
     private datePipe: DatePipe,
     private _registerService: RegisterService,
-    private _getdataService: GetdataService,
-    private route:Router) {
-      this.empGeneralData();
+    private _getdataService: GetdataService) {
+    this.empGeneralData();
   }
 
   ngOnInit(): void {
@@ -147,12 +145,12 @@ export class SignupComponent implements OnInit {
     console.log(JSON.stringify(this.form.value, null, 2));
     this.addemployee = this.form.value;
     this._registerService.addEmployee(this.addemployee)
-    .subscribe((response: any) => {
-      if(response.success){
-        this.toastrService.success('Message Success', response.message)
-      }else{
-        this.toastrService.error('Message Error!', response.message);
-      }
+      .subscribe((response: any) => {
+        if (response.success) {
+          this.toastrService.success('Message Success', response.message)
+        } else {
+          this.toastrService.error('Message Error!', response.message);
+        }
         //console.log(response);
     });
   }

@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { waterTestFee, clientType } from '../../utils/config';
 import { RegisterService } from '../../services/register.service';
 import { GetdataService } from '../../services/getdata.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -20,23 +21,22 @@ export class FboComponent implements OnInit {
   productName: any;
   processAmnt: any;
   serviceName: any;
-  toastrService: any;
   addFbo: any;
 
   fboForm: FormGroup = new FormGroup({
     fbo_name: new FormControl(''),
     owner_name: new FormControl(''),
-    mobile_no: new FormControl(''),
+    owner_contact: new FormControl(''),
     email: new FormControl(''),
     state: new FormControl(''),
-    distric: new FormControl(''),
+    district: new FormControl(''),
     address: new FormControl(''),
-    product: new FormControl(''),
-    process_fee: new FormControl(''),
+    product_name: new FormControl(''),
+    processing_amount: new FormControl(''),
     service_name: new FormControl(''),
     client_type: new FormControl(''),
-    recipent: new FormControl(''),
-    water_test: new FormControl('')
+    recipient_no: new FormControl(''),
+    water_test_fee: new FormControl('')
     // water_test_apply : new FormControl(true)
   })
 
@@ -44,7 +44,8 @@ export class FboComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private _getFboGeneralData: GetdataService,
-    private _registerService: RegisterService
+    private _registerService: RegisterService,
+    private _toastrService: ToastrService
   ) {
     this.getFboGeneralData();
   }
@@ -52,10 +53,9 @@ export class FboComponent implements OnInit {
 
     this.fboForm = this.formBuilder.group(
       {
-        employee_name: ['', Validators.required],
         fbo_name: ['', Validators.required],
         owner_name: ['', Validators.required],
-        mobile_no: ['',
+        owner_contact: ['',
           [
             Validators.required,
             Validators.pattern(/^[0-9]{10}$/)
@@ -66,14 +66,14 @@ export class FboComponent implements OnInit {
             Validators.email,
           ]],
         state: ['', Validators.required],
-        distric: ['', Validators.required],
+        district: ['', Validators.required],
         address: ['', Validators.required],
-        product: ['', Validators.required],
-        process_fee: ['', Validators.required],
+        product_name: ['', Validators.required],
+        processing_amount: ['', Validators.required],
         service_name: ['', Validators.required],
         client_type: ['', Validators.required],
-        recipent: ['', Validators.required],
-        water_test: ['']
+        recipient_no: ['', Validators.required],
+        water_test_fee: ['']
       });
 
   }
@@ -98,16 +98,16 @@ export class FboComponent implements OnInit {
 
     console.log(JSON.stringify(this.fboForm.value, null, 2));
     this.addFbo = this.fboForm.value;
-    this._registerService.addEmployee(this.addFbo)
+    this._registerService.addFbo(this.addFbo)
       .subscribe((response: any) => {
         if (response.success) {
-          this.toastrService.success('Message Success', response.message)
+          this._toastrService.success('Message Success', response.message)
         } else {
-          this.toastrService.error('Message Error!', response.message);
+          this._toastrService.error('Message Error!', response.message);
         }
         //console.log(response);
       });
-
+      this.onReset();
   }
 
 
