@@ -2,7 +2,7 @@
     <div class="container-xl">
         <div class="row g-3 mb-4 align-items-center justify-content-between">
             <div class="col-auto">
-                <h1 class="app-page-title mb-0">FBO Registration Form</h1>
+                <h1 class="app-page-title mb-2">FBO Registration Form</h1>
             </div>
         </div>
         <div class="row gy-4 mb-3">
@@ -164,8 +164,8 @@
 
                             <label for="water_test_fee" class=" form-label">Water Test fee</label>
 
-                            <select id="water_test_fee" 
-                                formControlName="water_test_fee" class="form-select form-select-sm">
+                            <select id="water_test_fee" formControlName="water_test_fee"
+                                class="form-select form-select-sm">
                                 <option value="" disabled selected>Select the Water Test Fee</option>
                                 <option *ngFor="let fee of waterTestFee" [ngValue]="fee">{{ fee }}</option>
                             </select>
@@ -181,15 +181,10 @@
                 </div>
             </form>
         </div>
-
     </div>
 </div>
 <div class="app-content pt-3 p-md-3 p-lg-4">
-
     <div class="container-xl border border-1 rounded-3">
-
-      <app-fbolist class="border"></app-fbolist>  
-
+        <app-fbolist class="border"></app-fbolist>
     </div>
-
-   </div>
+</div>

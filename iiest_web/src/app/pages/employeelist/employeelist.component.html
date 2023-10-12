@@ -54,7 +54,7 @@
       <div class="app-card app-card-orders-table shadow-sm mb-5">
         <div class="app-card-body">
           <div class="table-responsive">
-              <table class="table app-table-hover mb-0 text-left">
+              <table class="table app-table-hover table-striped mb-0 text-left">
             <thead>
               <tr>
                 <th class="cell">ID</th>
@@ -64,9 +64,11 @@
                 <th class="cell">Employee ID</th>
                 <th class="cell">Company</th>
                 <th class="cell">Email</th>
+                <th class="cell text-center">Status</th>
+                <th class="cell text-center">Action</th>
               </tr>
             </thead>
-            <tbody *ngIf="allEmployees[0]?.length>0">
+            <tbody *ngIf="allEmployees?.length>0">
 
               <tr *ngFor="let employee of allEmployees[0] | paginate: { itemsPerPage: 10, currentPage: pageNumber }">
                 <td class="cell"><span class="truncate">{{employee.id_num}}</span></td>
@@ -75,7 +77,18 @@
                 <td class="cell"><span class="truncate">{{employee.username}}</span></td>
                 <td class="cell"><span class="truncate">{{employee.employee_id}}</span></td>
                 <td class="cell"><span class="truncate">{{employee.company_name}}</span></td>
-                <td class="cell"><span class="truncate">{{employee.email}}</span></td>
+                <td class="cell"><span class="truncate">
+                  <fa-icon class="fa-l" style="margin-right: 5px;" [icon]="faEnvelope"></fa-icon>{{employee.email}}</span>
+                </td>
+                <td class="cell text-center">
+                  <!-- <fa-icon class="fa-light fa-l" style="margin-right: 7px; color: #c64115;" [icon]="faXmark"></fa-icon> -->
+                  <fa-icon class="fa-l" style="color: #138a25;" [icon]="faCheck"></fa-icon>
+                </td>
+                <td class="cell text-center">
+                  <fa-icon class="fa-l" style="margin-right: 7px; color: #1957a9;" [icon]="faEye"></fa-icon>
+                  <fa-icon class="fa-l" style="margin-right: 7px; color: #1957a9;" [icon]="faPencil"></fa-icon>
+                  <fa-icon class="fa-l" style="color: #c64115;" [icon]="faTrash"></fa-icon>
+                </td>
               </tr>
             </tbody>
           </table>

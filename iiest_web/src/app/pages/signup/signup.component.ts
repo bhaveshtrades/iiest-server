@@ -55,6 +55,7 @@ export class SignupComponent implements OnInit {
     private calendar: NgbCalendar,
     private datePipe: DatePipe,
     private _registerService: RegisterService,
+    private _toastrService : ToastrService,
     private _getdataService: GetdataService) {
     this.empGeneralData();
   }
@@ -147,9 +148,9 @@ export class SignupComponent implements OnInit {
     this._registerService.addEmployee(this.addemployee)
       .subscribe((response: any) => {
         if (response.success) {
-          this.toastrService.success('Message Success', response.message)
+          this._toastrService.success('Message Success', response.message)
         } else {
-          this.toastrService.error('Message Error!', response.message);
+          this._toastrService.error('Message Error!', response.message);
         }
         //console.log(response);
     });

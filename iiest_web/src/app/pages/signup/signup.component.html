@@ -3,11 +3,11 @@
     <div class="container-xl">
       <div class="row g-3 mb-4 align-items-center justify-content-between">
         <div class="col-auto">
-              <h1 class="app-page-title mb-0">Employee Registration Form</h1>
+              <h1 class="app-page-title mb-2">Employee Registration Form</h1>
         </div>
       </div><!--//row-->
       <div class="row gy-4 mb-3">
-        <form [formGroup]="form" class="row g-3 border border-1 rounded-3 pb-3" autocomplete="off" (ngSubmit)="onSubmit()">
+        <form [formGroup]="form" class="row g-1 p-3 border border-1 rounded-3 pb-3" autocomplete="off" (ngSubmit)="onSubmit()">
           <div class="col-md-6">
             <label for="employee_name" class="form-label">Employee Name</label>
             <input type="text" placeholder="Employee Name" 
