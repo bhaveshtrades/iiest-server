@@ -68,6 +68,7 @@
                 <th class="cell">Client Type</th>
                 <th class="cell">Recipient No</th>
                 <th class="cell">Water Test Fee</th>
+                <th class="cell">Status</th>
               </tr>
             </thead>
             <tbody *ngIf="allFBOEntries?.length>0">
@@ -76,7 +77,9 @@
                 <td class="cell"><span class="truncate">{{fbo.fbo_name}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.owner_name}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.owner_contact}}</span></td>
-                <td class="cell"><span class="truncate">{{fbo.email}}</span></td>
+                <td class="cell"><span class="truncate">
+                  <fa-icon class="fa-l" style="margin-right: 5px;" [icon]="faEnvelope"></fa-icon>{{fbo.email}}</span>
+                </td>
                 <td class="cell"><span class="truncate">{{fbo.state}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.district}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.processing_amount}}</span></td>
@@ -84,6 +87,11 @@
                 <td class="cell"><span class="truncate">{{fbo.client_type}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.recipient_no}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.water_test_fee}}</span></td>
+                <td class="cell text-center">
+                  <fa-icon class="fa-l" style="margin-right: 7px; color: #1957a9;" [icon]="faEye"></fa-icon>
+                  <fa-icon class="fa-l" style="margin-right: 7px; color: #1957a9;" [icon]="faPencil"></fa-icon>
+                  <fa-icon class="fa-l" style="color: #c64115;" [icon]="faTrash"></fa-icon>
+                </td>
               </tr>
             </tbody>
           </table>
