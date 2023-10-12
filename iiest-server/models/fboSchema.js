@@ -54,6 +54,15 @@ const fboRegister = new Schema({
     },
     water_test_fee: {
         type: Number
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        required: true
+    },
+    createdBy: {
+        type: String, 
+        required: true
     }
 });
 

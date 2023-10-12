@@ -50,6 +50,7 @@ export interface fbo {
   processing_amount: string,
   service_name: string,
   client_type: string,
-  recipient_no: number
+  recipient_no: number,
+  createdBy: string
   // water_test_apply :number 
 }

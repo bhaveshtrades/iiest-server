@@ -32,7 +32,7 @@ export class EmployeelistComponent implements OnInit {
 
   fetchAllEmployees(): void {
     this.getDataService.getEmployeeData().subscribe(res =>{
-      this.allEmployees = res.employeesData;
+      this.allEmployees = res.employeesData.map((emp: any, index: number)=>({...emp, serialNumber: index + 1}));
       this.filter();
     })
   }

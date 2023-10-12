@@ -12,6 +12,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./fbo.component.scss']
 })
 export class FboComponent implements OnInit {
+  userName: string = '';
+  userData:  any;
+  parsedUserData: any;
   submitted = false;
   waterTestFee = waterTestFee;
   clientType = clientType;
@@ -36,7 +39,8 @@ export class FboComponent implements OnInit {
     service_name: new FormControl(''),
     client_type: new FormControl(''),
     recipient_no: new FormControl(''),
-    water_test_fee: new FormControl('')
+    water_test_fee: new FormControl(''),
+    createdBy: new FormControl('')
     // water_test_apply : new FormControl(true)
   })
 
@@ -50,6 +54,10 @@ export class FboComponent implements OnInit {
     this.getFboGeneralData();
   }
   ngOnInit(): void {
+
+    this.userData = this._registerService.LoggedInUserData(); 
+    this.parsedUserData = JSON.parse(this.userData)
+    this.userName = this.parsedUserData.employee_name;
 
     this.fboForm = this.formBuilder.group(
       {
@@ -73,8 +81,11 @@ export class FboComponent implements OnInit {
         service_name: ['', Validators.required],
         client_type: ['', Validators.required],
         recipient_no: ['', Validators.required],
-        water_test_fee: ['']
+        water_test_fee: [''],
+        createdBy: ['', Validators.required]  
       });
+
+      this.fboForm.patchValue({createdBy : this.userName})
 
   }
   get fbo(): { [key: string]: AbstractControl } {
