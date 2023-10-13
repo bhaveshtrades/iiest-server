@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { waterTestFee, clientType } from '../../utils/config';
+import { waterTestFee, clientType, paymentMode } from '../../utils/config';
 import { RegisterService } from '../../services/register.service';
 import { GetdataService } from '../../services/getdata.service';
 import { ToastrService } from 'ngx-toastr';
@@ -15,6 +15,7 @@ export class FboComponent implements OnInit {
   submitted = false;
   waterTestFee = waterTestFee;
   clientType = clientType;
+  paymentMode = paymentMode;
   isDisabled: boolean = true;
   fboGeneralData: any;
   productList: string[] = [];
@@ -22,6 +23,8 @@ export class FboComponent implements OnInit {
   processAmnt: any;
   serviceName: any;
   addFbo: any;
+  isFoscos :boolean = false;
+  recipientORshop: string = 'Recipient';
 
   fboForm: FormGroup = new FormGroup({
     fbo_name: new FormControl(''),
@@ -36,8 +39,8 @@ export class FboComponent implements OnInit {
     service_name: new FormControl(''),
     client_type: new FormControl(''),
     recipient_no: new FormControl(''),
-    water_test_fee: new FormControl('')
-    // water_test_apply : new FormControl(true)
+    water_test_fee: new FormControl(''),
+    paymentmode : new FormControl('')
   })
 
 
@@ -73,7 +76,8 @@ export class FboComponent implements OnInit {
         service_name: ['', Validators.required],
         client_type: ['', Validators.required],
         recipient_no: ['', Validators.required],
-        water_test_fee: ['']
+        water_test_fee: [''],
+        paymentmode: ['', Validators.required]
       });
 
   }
@@ -81,15 +85,8 @@ export class FboComponent implements OnInit {
     return this.fboForm.controls;
   }
 
-  waterTestToggel(ckeckVal: any) {
-    //console.log(ckeckVal.target.checked);
-    this.isDisabled = !this.isDisabled
-    if (this.isDisabled) {
-      this.fboForm.get('water_test')?.disable();
-    } else {
-      this.fboForm.get('water_test')?.enable();
-    }
-  }
+
+  //Form Submit Methode
   onSubmit() {
     this.submitted = true;
     if (this.fboForm.invalid) {
@@ -127,7 +124,7 @@ export class FboComponent implements OnInit {
   }) */
   }
 
-  //Get Fbo General Data
+//Get Fbo General Data
   getFboGeneralData() {
     this._getFboGeneralData.getFboGeneralData().subscribe({
       next: (res) => {
@@ -147,19 +144,34 @@ export class FboComponent implements OnInit {
     })
   }
 
+//Reset the form
   onReset(): void {
     this.submitted = false;
 
     this.fboForm.reset();
   }
+
+//Get Product List
   getProduct(event: any) {
     this.productName = event.target.value;
     var filtered = this.fboGeneralData.filter((a: any) => a.key == this.productName)
     filtered = filtered[0].value;
     this.processAmnt = Object.values(filtered.processing_amount);
     this.serviceName = Object.values(filtered.service_name);
-    //console.log(this.processAmnt , this.serviceName)
+
+    if( this.productName == 'Foscos Training'){
+      alert('foscos selected');
+      this.recipientORshop = 'Shops';
+      this.isFoscos = true;
+     
+    }
+
   }
+
+serviceType(event:any){
+  console.log(event.target.value)
+}
+
 
 }
 
