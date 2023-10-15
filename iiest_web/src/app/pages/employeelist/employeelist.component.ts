@@ -55,6 +55,7 @@ export class EmployeelistComponent implements OnInit {
   }
 
   onSearchChange(): void{
+    this.pageNumber = 1;
     this.isSearch = true;
     this.filter();
   }

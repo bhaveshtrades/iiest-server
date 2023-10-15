@@ -27,4 +27,15 @@ function generateEmployeeID (companyName, employeeCount){
     return employeeId;
 }
 
-module.exports = { generateUsername, generatePassword, generateEmployeeID }
+//Function to generate Foscos ID for FBO Registration
+function generateFssaiID(randonNum, productName){
+    let fssaiID = '';
+    if(productName === 'Fostac Training'){
+        fssaiID = `IIEST/FC/${randonNum}`
+    }else if(productName === 'Foscos Training'){
+        fssaiID = `IIEST/FS/${randonNum}`
+    }
+    return fssaiID
+}
+
+module.exports = { generateUsername, generatePassword, generateEmployeeID, generateFssaiID }

@@ -2,6 +2,13 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const fboRegister = new Schema({
+    id_num: {
+        type: Number,
+        unique: true,
+        required: true,
+        min: 10000,
+        max: 99999
+    },
     fbo_name: {
         type: String,
         required: true
@@ -44,6 +51,10 @@ const fboRegister = new Schema({
         type: String, 
         required: true
     },
+    fssai_id: {
+        type: String, 
+        required: true
+    },
     client_type: {
         type: String,
         required: true
@@ -58,6 +69,22 @@ const fboRegister = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
+        required: true
+    },
+    payment_mode: {
+        type: String, 
+        required: true
+    },
+    license_category: {
+        type: String,
+        default: null
+    },
+    license_duration: {
+        type: String,
+        default: null
+    },
+    total_amount: {
+        type: Number,
         required: true
     },
     createdBy: {
