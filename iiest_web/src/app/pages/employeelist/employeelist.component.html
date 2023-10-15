@@ -27,7 +27,7 @@
         </select>
       </div>
       <div class="col-auto">
-        <fa-icon class="fa-2xl" style="margin: 7px 7px; color: #1957a9;" [icon]="faFileCsv"></fa-icon>
+        <fa-icon (click)="exportToCsv()" class="fa-2xl" style="cursor: pointer; margin: 7px 7px; color: #1957a9;" [icon]="faFileCsv"></fa-icon>
         <fa-icon class="fa-2xl" style="margin: 7px 7px; color: #c64115;" [icon]="faFilePdf"></fa-icon>
       </div>
     </div><!--//row-->

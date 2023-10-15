@@ -30,6 +30,7 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { EmployeeState } from './store/state/employee.state';
 import { FbolistComponent } from './pages/fbolist/fbolist.component';
+
 @NgModule({
   declarations: [
     AppComponent,

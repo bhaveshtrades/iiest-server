@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { waterTestFee, clientType, paymentMode } from '../../utils/config';
+import { waterTestFee, clientType, paymentMode, licenceType } from '../../utils/config';
 import { RegisterService } from '../../services/register.service';
 import { GetdataService } from '../../services/getdata.service';
 import { ToastrService } from 'ngx-toastr';
@@ -19,6 +19,7 @@ export class FboComponent implements OnInit {
   waterTestFee = waterTestFee;
   clientType = clientType;
   paymentMode = paymentMode;
+  licenceType = licenceType;
   isDisabled: boolean = true;
   fboGeneralData: any;
   productList: string[] = [];
@@ -172,7 +173,6 @@ export class FboComponent implements OnInit {
     this.serviceName = Object.values(filtered.service_name);
 
     if( this.productName == 'Foscos Training'){
-      alert('foscos selected');
       this.recipientORshop = 'Shops';
       this.isFoscos = true;
      

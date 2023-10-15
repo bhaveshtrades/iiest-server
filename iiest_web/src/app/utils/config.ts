@@ -9,7 +9,12 @@ export let waterTestFee = ['1500','2000'];
 export let clientType = ['General Client', 'Corporate Client'];
 
 //Payment Mode
-export let paymentMode = ['Cash','UPI']
+export let paymentMode = ['Cash','UPI'];
+export let licenceType = {
+   'licenceCategory': ['New Licence','Renewal','Modified'],
+   'Duration' : ['1','2','3','4','5']
+};
+
 
 
 

@@ -173,7 +173,7 @@
                             <select id="licenceCategory" formControlName="licenceCategory"
                                 class="form-select form-select-sm">
                                 <option value="" disabled selected>Select the Licence Category</option>
-                                <option *ngFor="let fee of waterTestFee" [ngValue]="fee">{{ fee }}</option>
+                                <option *ngFor="let category of licenceType.licenceCategory" [ngValue]="category">{{ category }}</option>
                             </select>
                         </div>
                         <div *ngIf="isFoscos" class="col-md-6">
@@ -181,7 +181,7 @@
                             <select id="licenceDuration" formControlName="licenceDuration"
                                 class="form-select form-select-sm">
                                 <option value="" disabled selected>Select the Licence Duration</option>
-                                <option *ngFor="let fee of waterTestFee" [ngValue]="fee">{{ fee }}</option>
+                                <option *ngFor="let duration of licenceType.Duration" [ngValue]="duration">{{ duration }} Year</option>
                             </select>
                         </div>
                         

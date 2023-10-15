@@ -1,40 +1,38 @@
 <div class="row g-3 mb-4 align-items-center justify-content-between">
-    <div class="col-auto">
-          <h1 class="app-page-title mb-0">FBO List</h1>
-    </div>
-    <div class="col-auto">
-       <div class="page-utilities">
-        <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
-          <div class="col-auto">
-            <form class="form">
-
-              <div class="input-group">
-                <fa-icon [icon]="faMagnifyingGlass" class="fa-sm" style="position: absolute; padding: 9px 10px;" [ngClass]="isSearch === false ? 'd-block':'d-none'"></fa-icon>
-              </div>
-              <input type="text" id="search-orders" [(ngModel)]="searchQuery" name="searchorders"
-                class="form-control form-control-sm search-orders" (input)="onSearchChange()">
+  <div class="col-auto">
+    <h1 class="app-page-title mb-0">FBO List</h1>
+  </div>
+  <div class="col-auto">
+    <div class="page-utilities">
+      <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+        <div class="col-auto">
+          <form class="form">
+            <div class="input-group">
+              <fa-icon [icon]="faMagnifyingGlass" class="fa-sm" style="position: absolute; padding: 9px 10px;"
+                [ngClass]="isSearch === false ? 'd-block':'d-none'"></fa-icon>
+            </div>
+            <input type="text" id="search-orders" [(ngModel)]="searchQuery" name="searchorders"
+              class="form-control form-control-sm search-orders" (input)="onSearchChange()">
           </form>
-                  
-          </div>
-          <div class="col-auto">
-            
-            <select class="form-select form-select-sm w-auto" [(ngModel)]="selectedFilter">
-              <option value="byOwner">Sort by owner</option>
-              <option value="byName">Sort by name</option>
-              <option value="byContact">Sort by contact</option>
-              <option value="byEmail">Sort by email</option>
-              
+        </div>
+        <div class="col-auto">
+          <select class="form-select form-select-sm w-auto" [(ngModel)]="selectedFilter">
+            <option value="byOwner">Sort by owner</option>
+            <option value="byName">Sort by name</option>
+            <option value="byContact">Sort by contact</option>
+            <option value="byEmail">Sort by email</option>
+
           </select>
-          </div>
-          <div class="col-auto">						    
-            <fa-icon class="fa-2xl" style="margin: 7px 7px; color: #1957a9;" [icon]="faFileCsv"></fa-icon>
-            <fa-icon class="fa-2xl" style="margin: 7px 7px; color: #c64115;" [icon]="faFilePdf"></fa-icon>
-          </div>
-        </div><!--//row-->
-      </div><!--//table-utilities-->
-    </div><!--//col-auto-->
-  </div><!--//row-->
- 
+        </div>
+        <div class="col-auto">
+          <fa-icon (click)="exportToCsv()" class="fa-2xl" style="margin: 7px 7px; color: #1957a9;" [icon]="faFileCsv"></fa-icon>
+          <fa-icon class="fa-2xl" style="margin: 7px 7px; color: #c64115;" [icon]="faFilePdf"></fa-icon>
+        </div>
+      </div><!--//row-->
+    </div><!--//table-utilities-->
+  </div><!--//col-auto-->
+</div><!--//row-->
+
 <!--   
   <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
     <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
@@ -45,11 +43,11 @@
 
 
 <div class="tab-content" id="orders-table-tab-content">
-      <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
-      <div class="app-card app-card-orders-table shadow-sm mb-5">
-        <div class="app-card-body">
-          <div class="table-responsive">
-              <table class="table app-table-hover mb-0 text-left">
+  <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+    <div class="app-card app-card-orders-table shadow-sm mb-5">
+      <div class="app-card-body">
+        <div class="table-responsive">
+          <table class="table app-table-hover mb-0 text-left">
             <thead>
               <tr>
                 <th class="cell">S.No</th>
@@ -63,21 +61,20 @@
                 <th class="cell">Product</th>
                 <th class="cell">Client Type</th>
                 <th class="cell">Recipient No</th>
-                <th class="cell">Water Test Fee</th>
-                <th class="cell text-center">Action</th>
+                <th class="cell">Water Test</th>
                 <th class="cell">Created At</th>
                 <th class="cell">Created By</th>
+                <th class="cell text-center">Action</th>
               </tr>
             </thead>
             <tbody *ngIf="filteredData?.length>0">
-
               <tr *ngFor="let fbo of filteredData | paginate: { itemsPerPage: 10, currentPage: pageNumber }">
                 <td class="cell"><span class="truncate">{{fbo.serialNumber}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.fbo_name}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.owner_name}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.owner_contact}}</span></td>
                 <td class="cell"><span class="truncate">
-                  <fa-icon class="fa-l" style="margin-right: 5px;" [icon]="faEnvelope"></fa-icon>{{fbo.email}}</span>
+                    <fa-icon class="fa-l" style="margin-right: 5px;" [icon]="faEnvelope"></fa-icon>{{fbo.email}}</span>
                 </td>
                 <td class="cell"><span class="truncate">{{fbo.state}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.district}}</span></td>
@@ -86,26 +83,27 @@
                 <td class="cell"><span class="truncate">{{fbo.client_type}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.recipient_no}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.water_test_fee}}</span></td>
+                <td class="cell"><span class="truncate">{{fbo.createdAt | date: 'shortDate'}}</span></td>
+                <td class="cell"><span class="truncate">{{fbo.createdBy}}</span></td>
                 <td class="cell text-center">
                   <fa-icon class="fa-l" style="margin-right: 7px; color: #1957a9;" [icon]="faEye"></fa-icon>
                   <fa-icon class="fa-l" style="margin-right: 7px; color: #1957a9;" [icon]="faPencil"></fa-icon>
                   <fa-icon class="fa-l" style="color: #c64115;" [icon]="faTrash"></fa-icon>
                 </td>
-                <td class="cell"><span class="truncate">{{fbo.createdAt | date: 'shortDate'}}</span></td>
-                <td class="cell"><span class="truncate">{{fbo.createdBy}}</span></td>
               </tr>
             </tbody>
+            <tbody *ngIf="filteredData?.length ==0">
+               <tr>
+                <td colspan="15" class="text-center fw-bold">----------------- No Data Found ----------------</td>
+               </tr>
+            </tbody>
           </table>
-            </div><!--//table-responsive-->
-           
-        </div><!--//app-card-body-->		
+        </div><!--//table-responsive-->
+
+      </div><!--//app-card-body-->
     </div><!--//app-card-->
 
     <div class="d-flex justify-content-end">
-      <pagination-controls
-        previousLabel="Prev"
-        nextLabel="Next"
-        (pageChange)="onTableDataChange($event)"
-      ></pagination-controls>
-      </div>
-
+      <pagination-controls previousLabel="Prev" nextLabel="Next"
+        (pageChange)="onTableDataChange($event)"></pagination-controls>
+    </div>
