@@ -44,9 +44,11 @@ export class FboComponent implements OnInit {
     client_type: new FormControl(''),
     recipient_no: new FormControl(''),
     water_test_fee: new FormControl(''),
-    paymentmode : new FormControl(''),
-    createdBy: new FormControl('')
-    // water_test_apply : new FormControl(true)
+    payment_mode : new FormControl(''),
+    createdBy: new FormControl(''),
+    licence_category :new FormControl(''),
+    licence_duration : new FormControl(''),
+    total_amount: new FormControl('')
   })
 
 
@@ -87,8 +89,11 @@ export class FboComponent implements OnInit {
         client_type: ['', Validators.required],
         recipient_no: ['', Validators.required],
         water_test_fee: [''],
-        paymentmode: ['', Validators.required],
-        createdBy: ['', Validators.required]  
+        payment_mode: ['', Validators.required],
+        createdBy: ['', Validators.required],
+        licence_category:['',Validators.required],
+        licence_duration:['', Validators.required],
+        total_amount:['', Validators.required] 
       });
 
       this.fboForm.patchValue({createdBy : this.userName})

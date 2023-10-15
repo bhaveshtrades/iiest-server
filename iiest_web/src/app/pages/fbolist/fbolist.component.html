@@ -53,15 +53,16 @@
                 <th class="cell">S.No</th>
                 <th class="cell">Fbo Name</th>
                 <th class="cell">Owner</th>
+                <th class="cell">FSSAI ID</th>
                 <th class="cell">Contact</th>
-                <th class="cell">Email</th>
-                <th class="cell">State</th>
+                <!--<th class="cell">Email</th>
+                 <th class="cell">State</th> -->
                 <th class="cell">District</th>
-                <th class="cell">Processing Fee</th>
+                <!-- <th class="cell">Processing Fee</th> -->
                 <th class="cell">Product</th>
                 <th class="cell">Client Type</th>
                 <th class="cell">Recipient No</th>
-                <th class="cell">Water Test</th>
+                <!-- <th class="cell">Water Test</th> -->
                 <th class="cell">Created At</th>
                 <th class="cell">Created By</th>
                 <th class="cell text-center">Action</th>
@@ -72,17 +73,18 @@
                 <td class="cell"><span class="truncate">{{fbo.serialNumber}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.fbo_name}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.owner_name}}</span></td>
+                <td class="cell"><span class="truncate">{{fbo.fssai_id}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.owner_contact}}</span></td>
-                <td class="cell"><span class="truncate">
+                <!--<td class="cell"><span class="truncate">
                     <fa-icon class="fa-l" style="margin-right: 5px;" [icon]="faEnvelope"></fa-icon>{{fbo.email}}</span>
                 </td>
-                <td class="cell"><span class="truncate">{{fbo.state}}</span></td>
+                 <td class="cell"><span class="truncate">{{fbo.state}}</span></td> -->
                 <td class="cell"><span class="truncate">{{fbo.district}}</span></td>
-                <td class="cell"><span class="truncate">{{fbo.processing_amount}}</span></td>
+                <!-- <td class="cell"><span class="truncate">{{fbo.processing_amount}}</span></td> -->
                 <td class="cell"><span class="truncate">{{fbo.product_name}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.client_type}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.recipient_no}}</span></td>
-                <td class="cell"><span class="truncate">{{fbo.water_test_fee}}</span></td>
+               <!--  <td class="cell"><span class="truncate">{{fbo.water_test_fee}}</span></td> -->
                 <td class="cell"><span class="truncate">{{fbo.createdAt | date: 'shortDate'}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.createdBy}}</span></td>
                 <td class="cell text-center">

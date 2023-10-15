@@ -51,6 +51,11 @@ export interface fbo {
   service_name: string,
   client_type: string,
   recipient_no: number,
+  water_test_fee: number,
+  payment_mode : string,
+  licence_category : string,
+  licence_duration : string,
+  total_amount: string,
   createdBy: string
-  // water_test_apply :number 
+   
 }

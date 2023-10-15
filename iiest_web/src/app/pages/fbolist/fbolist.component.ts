@@ -67,7 +67,8 @@ export class FbolistComponent implements OnInit {
     }
   }
 
-  onSearchChange(): void {
+  onSearchChange(): void{
+    this.pageNumber = 1;
     this.isSearch = true;
     this.filter();
   }

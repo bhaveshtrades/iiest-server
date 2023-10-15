@@ -169,29 +169,50 @@
                             </select>
                         </div>
                         <div *ngIf="isFoscos" class="col-md-6">
-                            <label for="licenceCategory" class=" form-label">Licence Category</label>
-                            <select id="licenceCategory" formControlName="licenceCategory"
+                            <label for="licence_category" class=" form-label">Licence Category<sup>*</sup></label>
+                            <select id="licence_category" formControlName="licence_category"
+                                [ngClass]="{ 'is-invalid': submitted && fbo['licence_category'].errors }"
                                 class="form-select form-select-sm">
                                 <option value="" disabled selected>Select the Licence Category</option>
                                 <option *ngFor="let category of licenceType.licenceCategory" [ngValue]="category">{{ category }}</option>
                             </select>
+                            <div *ngIf="submitted && fbo['licence_category'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['licence_category'].errors['required']">Licence Category is required</div>
+                            </div>
                         </div>
                         <div *ngIf="isFoscos" class="col-md-6">
-                            <label for="licenceDuration" class=" form-label">Licence Duration</label>
-                            <select id="licenceDuration" formControlName="licenceDuration"
+                            <label for="licence_duration" class=" form-label">Licence Duration<sup>*</sup></label>
+                            <select id="licence_duration" formControlName="licence_duration"
+                            [ngClass]="{ 'is-invalid': submitted && fbo['licence_duration'].errors }"
                                 class="form-select form-select-sm">
                                 <option value="" disabled selected>Select the Licence Duration</option>
                                 <option *ngFor="let duration of licenceType.Duration" [ngValue]="duration">{{ duration }} Year</option>
                             </select>
+                            <div *ngIf="submitted && fbo['licence_duration'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['licence_duration'].errors['required']">Licence Duration is required</div>
+                            </div>
                         </div>
                         
                         <div class="col-md-6">
-                            <label for="paymentmode" class=" form-label">Payment Mode<sup>*</sup></label>
-                            <select id="paymentmode" formControlName="paymentmode" placeholder="Payment Mode"
+                            <label for="payment_mode" class=" form-label">Payment Mode<sup>*</sup></label>
+                            <select id="payment_mode" formControlName="payment_mode" placeholder="Payment Mode"
+                            [ngClass]="{ 'is-invalid': submitted && fbo['payment_mode'].errors }"
                                 class="form-select form-select-sm">
                                 <option value="" disabled selected>Select Mode of Payment</option>
                                 <option *ngFor="let mode of paymentMode" [ngValue]="mode">{{ mode }}</option>
                             </select>
+                            <div *ngIf="submitted && fbo['payment_mode'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['payment_mode'].errors['required']">Mode of Payment is required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="total_amount" class=" form-label">Total Amount<sup>*</sup></label>
+                            <input type="text" placeholder="Total Amount"
+                                formControlName="total_amount" class="form-control form-control-sm" id="total_amount"
+                                [ngClass]="{ 'is-invalid': submitted && fbo['total_amount'].errors }" />
+                            <div *ngIf="submitted && fbo['total_amount'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['total_amount'].errors['required']">Total Amount Required</div>
+                            </div>
                         </div>
                         
                     </div>

@@ -35,7 +35,7 @@ export class EmployeelistComponent implements OnInit {
     useBom: true,
     noDownload: false,
     headers: [
-      "Employee Id", "Name" ,"Username","Gender","Date-of-Birth", "Email",
+      "Username","Employee Id", "Name" ,"Gender","Date-of-Birth", "Email",
       "Address","Zip", "Contact", "Company Name", "Department", "Designation", "Date-0f-Joining",
       "Salary", "Grade Pay", "Portal Type", "Project Name", "State","City","Country"]
   };
@@ -56,6 +56,7 @@ export class EmployeelistComponent implements OnInit {
        delete(item.id_num);
        delete(item._id);
        delete(item.__v)
+       console.log(item.state);
       });
       console.log(this.allEmployees)
       this.filter();
@@ -65,6 +66,7 @@ export class EmployeelistComponent implements OnInit {
   filter(): void {
     console.log(this.searchQuery)
     if (!this.searchQuery) {
+      this.isSearch =false;
       this.filteredEmployees = this.allEmployees;
     } else {
       if (this.selectedFilter === 'byName') {
@@ -79,7 +81,8 @@ export class EmployeelistComponent implements OnInit {
     }
   }
 
-  onSearchChange(): void {
+  onSearchChange(): void{
+    this.pageNumber = 1;
     this.isSearch = true;
     this.filter();
   }
