@@ -106,6 +106,25 @@ exports.employeeLogin = async(req, res)=>{
         }
 }
 
+//Controller for deleting employee
+exports.deleteEmployee = async(req, res)=>{
+    const objId =  req.params.id;
+    let success = false;
+    try {
+        const deletedEmployee = await employeeSchema.findByIdAndDelete(objId);
+        if(deletedEmployee){
+            success = true;
+            res.status(200).json({success, deletedEmployee});
+        }else{
+            success = false;
+            res.status(401).json({success, message: "Employee Not Found"});
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({message: "Internal Server Error"});
+    }
+}
+
 //Controller to get all employees data
 exports.allEmployeesData = async(req, res)=>{
     const employeesData = await employeeSchema.find();

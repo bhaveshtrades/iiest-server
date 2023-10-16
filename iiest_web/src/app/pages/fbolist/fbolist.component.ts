@@ -44,7 +44,7 @@ export class FbolistComponent implements OnInit {
 
   fetchAllFboData(): void {
     this.getDataService.getAllFboData().subscribe(res => {
-      this.allFBOEntries = res.fboData.map((elem: any, index: number) => ({ ...elem, serialNumber: index + 1 }));
+      this.allFBOEntries = res.fboData.map((elem: any, index: number) => ({ ...elem, serialNumber: index + 1 })).sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
       console.log('data',this.allFBOEntries);
       this.filter();
     })
@@ -61,8 +61,8 @@ export class FbolistComponent implements OnInit {
         this.filteredData = this.allFBOEntries.filter((elem: any) => elem.email.toLowerCase().includes(this.searchQuery.toLowerCase()))
       } else if (this.selectedFilter === 'byName') {
         this.filteredData = this.allFBOEntries.filter((elem: any) => elem.fbo_name.toLowerCase().includes(this.searchQuery.toLowerCase()))
-      } else if (this.selectedFilter === 'byContact') {
-        this.filteredData = this.allFBOEntries.filter((elem: any) => elem.owner_contact.toString().includes(this.searchQuery.toString()))
+      } else if (this.selectedFilter === 'byDistrict') {
+        this.filteredData = this.allFBOEntries.filter((elem: any) => elem.district.toLowerCase().includes(this.searchQuery.toLowerCase()))
       }
     }
   }

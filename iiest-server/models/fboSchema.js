@@ -68,7 +68,6 @@ const fboRegister = new Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now,
         required: true
     },
     payment_mode: {
