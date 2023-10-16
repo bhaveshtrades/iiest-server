@@ -91,19 +91,22 @@ export class FboComponent implements OnInit {
         water_test_fee: [''],
         payment_mode: ['', Validators.required],
         createdBy: ['', Validators.required],
-        licence_category:['',Validators.required],
-        licence_duration:['', Validators.required],
+        licence_category:[''],
+        licence_duration:[''],
         total_amount:['', Validators.required] 
       });
 
       this.fboForm.patchValue({createdBy : this.userName})
+      
 
   }
   get fbo(): { [key: string]: AbstractControl } {
     return this.fboForm.controls;
   }
 
-
+  setRequired() {
+		return [Validators.required];
+	}
   //Form Submit Methode
   onSubmit() {
     this.submitted = true;
@@ -179,11 +182,17 @@ export class FboComponent implements OnInit {
 
     if( this.productName == 'Foscos Training'){
       this.recipientORshop = 'Shops';
-      this.isFoscos = true;
-     
+      this.isFoscos = true;  
+      this.fboForm.controls['licence_category'].setValidators(this.setRequired());   
+      this.fboForm.controls['licence_duration'].setValidators(this.setRequired());  
+    }else {
+      this.fboForm.controls['licence_category'].clearValidators();
+      this.fboForm.controls['licence_duration'].clearValidators();
     }
+    
 
   }
+ 
 
 serviceType(event:any){
   console.log(event.target.value)
