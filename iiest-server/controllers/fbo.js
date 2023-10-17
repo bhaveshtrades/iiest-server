@@ -1,4 +1,5 @@
 const fboSchema = require('../models/fboSchema');
+const pastFboSchema = require('../models/pastFboSchema');
 const { generateFssaiID }= require('./empGenerator');
 
 
@@ -62,6 +63,33 @@ exports.fboRegister = async(req, res)=>{
             console.error(error);
             return res.status(500).json({message: "Internal Server Error"})
         }
+}
+
+//Controller for deleting FBO
+exports.deleteFbo = async(req, res)=>{
+    const objId =  req.params.id;
+    let success = false;
+
+    let date = new Date();
+
+    try {
+        const deletedFbo = await fboSchema.findByIdAndDelete(objId);
+        if(deletedFbo){
+
+            const {_id, ...pastFbo} = deletedFbo.toObject();
+
+            await pastFboSchema.create({...pastFbo, deletedAt: date}) //Adding deleted fbo to past fbo data
+
+            success = true;
+            return res.status(200).json({success, deletedFbo});
+        }else{
+            success = false;
+            return res.status(401).json({success, message: "Fbo Not Found"});
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({message: "Internal Server Error"});
+    }
 }
 
 //Controller to get all FBO Data

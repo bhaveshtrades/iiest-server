@@ -1,13 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GetdataService } from 'src/app/services/getdata.service';
 import { faEye, faPencil, faTrash, faEnvelope, faXmark, faCheck, faFileCsv, faFilePdf, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-//import { ngxCsv } from 'ngx-csv/ngx-csv.js';
-import {UtilitiesService} from 'src/app/services/utilities.service'
-import { EmployeeState } from 'src/app/store/state/employee.state';
-import { Select, Store } from '@ngxs/store';
-import { Observable, Subscription } from 'rxjs';
-import { Employee } from 'src/app/utils/registerinterface';
-import { GetEmployee } from 'src/app/store/actions/employee.action';
+import { ngxCsv } from 'ngx-csv/ngx-csv';
 
 @Component({
   selector: 'app-employeelist',
@@ -50,11 +44,8 @@ export class EmployeelistComponent implements OnInit, OnDestroy {
       "Salary", "Grade Pay", "Portal Type", "Project Name", "State","City","Country"]
   };
   
-  constructor(
-    private getDataService: GetdataService, 
-    private _utililitesService: UtilitiesService,
-    private store:Store) {
-     
+  constructor(private getDataService: GetdataService) {
+    
   }
 
   ngOnInit(): void {
@@ -62,24 +53,16 @@ export class EmployeelistComponent implements OnInit, OnDestroy {
   }
 
   fetchAllEmployees(): void {
-    this.allEmployees = this._utililitesService.getData();
-    if(Object.keys(this.allEmployees).length == 0){
-        this.getEmployees();
-        this.employees$.subscribe(res => {
-          this.allEmployees = res.employeesData;
-          this.filter();
-        })
-    }
-    /* this.getDataService.getEmployeeData().subscribe(res => {
+    this.getDataService.getEmployeeData().subscribe(res => {
       this.allEmployees = res.employeesData.map((emp: any, index: number) => ({ ...emp, serialNumber: index + 1 }));
       this.allEmployees.map((item:any, index:number) => {
        delete(item.password);
-       delete(item.id_num);
-       delete(item._id);
+      //  delete(item.id_num);
+      //  delete(item._id);
        delete(item.__v)
        //console.log(item.state);
       });
-      //console.log(this.allEmployees)
+      console.log(this.allEmployees)
       this.filter();
     }) */
     this.filter();
@@ -112,6 +95,22 @@ export class EmployeelistComponent implements OnInit, OnDestroy {
   onTableDataChange(event: any) {
     this.pageNumber = event;
     this.filter();
+  }
+
+  deleteEmployee(employee: any): void {
+    this.registerService.deleteEmployee(employee._id).subscribe(
+      res => {
+        if (res.success) {
+          const index = this.allEmployees.findIndex((entry: any) => entry._id === employee._id);
+          if (index !== -1) {
+            this.allEmployees.splice(index, 1);
+            this.filter();
+          }
+        } else {
+          console.error(res.message);
+        }
+      }
+    );
   }
   //Export To CSV
   exportToCsv() {

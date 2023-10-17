@@ -6,6 +6,7 @@ import { map} from 'rxjs/operators';
 import { catchError} from 'rxjs/operators'
 import { config } from '../utils/config'
 import { Router } from '@angular/router';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,10 +35,20 @@ export class RegisterService {
         this.handleError
       ));
   }
-  
+
   public loginEmployee(loginemployee: loginEmployee): Observable<any> {
     const url = `${this.url}/login`;
     return this.http.post<any>(url, loginemployee).pipe(catchError(this.handleError));
+  } 
+  
+  public deleteFbo(id: string): Observable<any> {
+    const url = `${this.url}/deleteFbo/${id}`;
+    return this.http.delete<any>(url).pipe(catchError(this.handleError));
+  } 
+
+  public deleteEmployee(id: string): Observable<any> {
+    const url = `${this.url}/deleteEmployee/${id}`;
+    return this.http.delete<any>(url).pipe(catchError(this.handleError));
   } 
 
 

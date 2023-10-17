@@ -1,4 +1,5 @@
 const employeeSchema = require('../models/employeeSchema');
+const pastEmployeeSchema = require('../models/pastEmployeeSchema');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { generateUsername, generatePassword, generateEmployeeID } = require('./empGenerator');
@@ -15,7 +16,7 @@ exports.employeeRegister = async(req, res)=>{
         let isUnique = false; //To check if id number generated is unique 
     
         //Fields being used for staff entry
-        const { employee_name, gender, email, alternate_contact, contact_no, dob, country, state, city, address, zip_code, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name } = req.body;
+        const { employee_name, gender, email, alternate_contact, contact_no, dob, country, state, city, address, zip_code, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, createdBy } = req.body;
 
     
         //To check if employee with same email exists 
@@ -56,9 +57,11 @@ exports.employeeRegister = async(req, res)=>{
         //Password Hashing
         const salt = await bcrypt.genSalt(10);
         const secPass = await bcrypt.hash(generatedPassword, salt);
+
+        let date = new Date();
     
         await employeeSchema.create({
-            id_num: idNumber, employee_name, gender, email, contact_no, alternate_contact, dob, country, state, city, address, zip_code, employee_id: generatedId, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username: generatedUsername, password: secPass
+            id_num: idNumber, employee_name, gender, email, contact_no, alternate_contact, dob, country, state, city, address, zip_code, employee_id: generatedId, portal_type, department, designation, salary, grade_pay, doj, company_name, project_name, username: generatedUsername, password: secPass, createdBy, createdAt: date
         });
 
         sendEmployeeInfo(generatedUsername, generatedPassword, generatedId, email)
@@ -110,14 +113,22 @@ exports.employeeLogin = async(req, res)=>{
 exports.deleteEmployee = async(req, res)=>{
     const objId =  req.params.id;
     let success = false;
+
+    let date = new Date();
+
     try {
         const deletedEmployee = await employeeSchema.findByIdAndDelete(objId);
         if(deletedEmployee){
+
+            const {_id, ...pastEmployee} = deletedEmployee.toObject();
+
+            await pastEmployeeSchema.create({...pastEmployee, deletedAt: date}) //Adding deleted employee to past employee data
+
             success = true;
-            res.status(200).json({success, deletedEmployee});
+            return res.status(200).json({success, deletedEmployee});
         }else{
             success = false;
-            res.status(401).json({success, message: "Employee Not Found"});
+            return res.status(401).json({success, message: "Employee Not Found"});
         }
     } catch (error) {
         console.error(error);

@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class FboComponent implements OnInit {
   userName: string = '';
-  userData:  any;
+  userData: any;
   parsedUserData: any;
   submitted = false;
   waterTestFee = waterTestFee;
