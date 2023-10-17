@@ -26,7 +26,6 @@ export class HomeComponent implements OnInit, OnDestroy{
   msg: Subscription;
   dnone:boolean =true;
   constructor(
-    private _getDataService: GetdataService,
     private _registerService: RegisterService,
     private store:Store,
     private _utilitiesService:UtilitiesService
@@ -34,7 +33,8 @@ export class HomeComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
       this.getEmployees();
       this.employees$.subscribe(res => {
-       this.data = Object.values(res)[0];
+       this.data = res;
+       console.log(this.data)
        this._utilitiesService.setData(this.data);
       }) 
       let loggedInUserData:any = this._registerService.LoggedInUserData(); 

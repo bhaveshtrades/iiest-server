@@ -12,7 +12,7 @@ export class UpdateEmployee {
 
 export class DeleteEmployee {
     static readonly type = '[Employee] Delete';
-    constructor(public id:string){}
+    constructor(public objId:string){}
 }
 
 export class GetEmployee {

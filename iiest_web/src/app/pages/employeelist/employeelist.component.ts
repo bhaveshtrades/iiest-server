@@ -1,13 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { GetdataService } from 'src/app/services/getdata.service';
 import { faEye, faPencil, faTrash, faEnvelope, faXmark, faCheck, faFileCsv, faFilePdf, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-//import { ngxCsv } from 'ngx-csv/ngx-csv.js';
 import {UtilitiesService} from 'src/app/services/utilities.service'
 import { EmployeeState } from 'src/app/store/state/employee.state';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
 import { Employee } from 'src/app/utils/registerinterface';
-import { GetEmployee } from 'src/app/store/actions/employee.action';
+import { DeleteEmployee, GetEmployee } from 'src/app/store/actions/employee.action';
+import { RegisterService } from 'src/app/services/register.service';
 
 @Component({
   selector: 'app-employeelist',
@@ -34,27 +33,11 @@ export class EmployeelistComponent implements OnInit, OnDestroy {
   faFileCsv = faFileCsv;
   faFilePdf = faFilePdf;
   faMagnifyingGlass = faMagnifyingGlass;
-  //ngx-csv Options
-  options = {
-    fieldSeparator: ',',
-    quoteStrings: '"',
-    decimalseparator: '.',
-    showLabels: true,
-    showTitle: true,
-    title: 'Your title',
-    useBom: true,
-    noDownload: false,
-    headers: [
-      "Username","Employee Id", "Name" ,"Gender","Date-of-Birth", "Email",
-      "Address","Zip", "Contact", "Company Name", "Department", "Designation", "Date-0f-Joining",
-      "Salary", "Grade Pay", "Portal Type", "Project Name", "State","City","Country"]
-  };
   
-  constructor(
-    private getDataService: GetdataService, 
+  constructor( 
     private _utililitesService: UtilitiesService,
+    private registerService: RegisterService,
     private store:Store) {
-     
   }
 
   ngOnInit(): void {
@@ -63,30 +46,18 @@ export class EmployeelistComponent implements OnInit, OnDestroy {
 
   fetchAllEmployees(): void {
     this.allEmployees = this._utililitesService.getData();
-    if(Object.keys(this.allEmployees).length == 0){
+    this.filter();
+    console.log(this.allEmployees);
+    if(this.allEmployees.length === 0){
         this.getEmployees();
         this.employees$.subscribe(res => {
-          this.allEmployees = res.employeesData;
+          this.allEmployees = res;
           this.filter();
         })
     }
-    /* this.getDataService.getEmployeeData().subscribe(res => {
-      this.allEmployees = res.employeesData.map((emp: any, index: number) => ({ ...emp, serialNumber: index + 1 }));
-      this.allEmployees.map((item:any, index:number) => {
-       delete(item.password);
-       delete(item.id_num);
-       delete(item._id);
-       delete(item.__v)
-       //console.log(item.state);
-      });
-      //console.log(this.allEmployees)
-      this.filter();
-    }) */
-    this.filter();
   }
 
   filter(): void {
-    //console.log(this.searchQuery)
     if (!this.searchQuery) {
       this.isSearch =false;
       this.filteredEmployees = this.allEmployees;
@@ -125,7 +96,25 @@ export class EmployeelistComponent implements OnInit, OnDestroy {
        }
      })
    }
+
+   onDeleteEmployee(objId: string): void{
+    this.store.dispatch(new DeleteEmployee(objId)).subscribe(()=>{
+      // this.getEmployees();
+      this.deleteEmployeeBackend(objId);
+    })
+   }
+
+   deleteEmployeeBackend(objId: string): void{
+      this.registerService.deleteEmployee(objId).subscribe(res =>{
+        if(res.success){
+          console.log(res)
+        }else{
+          console.log("Some error occured");
+        }
+      })
+   }
+   
    ngOnDestroy(): void {
-     this.empLoadedSub.unsubscribe();
+    //  this.empLoadedSub.unsubscribe();
    }
 }
