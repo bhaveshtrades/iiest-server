@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GetdataService } from 'src/app/services/getdata.service';
 import { faEye, faPencil, faTrash, faEnvelope, faXmark, faMagnifyingGlass, faFileCsv, faFilePdf } from '@fortawesome/free-solid-svg-icons';
-import { ngxCsv } from 'ngx-csv/ngx-csv';
+
 
 @Component({
   selector: 'app-fbolist',
@@ -45,13 +45,13 @@ export class FbolistComponent implements OnInit {
   fetchAllFboData(): void {
     this.getDataService.getAllFboData().subscribe(res => {
       this.allFBOEntries = res.fboData.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map((elem: any, index: number) => ({ ...elem, serialNumber: index + 1 }));
-      console.log('data',this.allFBOEntries);
+      //console.log('data',this.allFBOEntries);
       this.filter();
     })
   }
 
   filter(): void {
-    console.log(this.filteredData)
+    //console.log(this.filteredData)
     if (!this.searchQuery) {
       this.filteredData = this.allFBOEntries;
     } else {
@@ -81,6 +81,6 @@ export class FbolistComponent implements OnInit {
   //Export To CSV
   exportToCsv(){
     alert
-    new ngxCsv( this.allFBOEntries, 'Report', this.options)
+    //new ngxCsv( this.allFBOEntries, 'Report', this.options)
   }
 }

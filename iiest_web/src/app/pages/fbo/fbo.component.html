@@ -169,27 +169,27 @@
                             </select>
                         </div>
                         <div *ngIf="isFoscos" class="col-md-6">
-                            <label for="licence_category" class=" form-label">Licence Category<sup>*</sup></label>
-                            <select id="licence_category" formControlName="licence_category"
-                                [ngClass]="{ 'is-invalid': submitted && fbo['licence_category'].errors }"
+                            <label for="license_category" class=" form-label">Licence Category<sup>*</sup></label>
+                            <select id="license_category" formControlName="license_category"
+                                [ngClass]="{ 'is-invalid': submitted && fbo['license_category'].errors }"
                                 class="form-select form-select-sm">
                                 <option value="" disabled selected>Select the Licence Category</option>
                                 <option *ngFor="let category of licenceType.licenceCategory" [ngValue]="category">{{ category }}</option>
                             </select>
-                            <div *ngIf="submitted && fbo['licence_category'].errors" class="invalid-feedback">
-                                <div *ngIf="fbo['licence_category'].errors['required']">Licence Category is required</div>
+                            <div *ngIf="submitted && fbo['license_category'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['license_category'].errors['required']">Licence Category is required</div>
                             </div>
                         </div>
                         <div *ngIf="isFoscos" class="col-md-6">
-                            <label for="licence_duration" class=" form-label">Licence Duration<sup>*</sup></label>
-                            <select id="licence_duration" formControlName="licence_duration"
-                            [ngClass]="{ 'is-invalid': submitted && fbo['licence_duration'].errors }"
+                            <label for="license_duration" class=" form-label">Licence Duration<sup>*</sup></label>
+                            <select id="license_duration" formControlName="license_duration"
+                            [ngClass]="{ 'is-invalid': submitted && fbo['license_duration'].errors }"
                                 class="form-select form-select-sm">
                                 <option value="" disabled selected>Select the Licence Duration</option>
                                 <option *ngFor="let duration of licenceType.Duration" [ngValue]="duration">{{ duration }} Year</option>
                             </select>
-                            <div *ngIf="submitted && fbo['licence_duration'].errors" class="invalid-feedback">
-                                <div *ngIf="fbo['licence_duration'].errors['required']">Licence Duration is required</div>
+                            <div *ngIf="submitted && fbo['license_duration'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['license_duration'].errors['required']">Licence Duration is required</div>
                             </div>
                         </div>
                         

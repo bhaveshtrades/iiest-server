@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "angular2-csv": "^0.2.9",
-    "ngx-csv": "^0.3.2"
-  }
-}

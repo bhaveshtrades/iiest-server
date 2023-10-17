@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
       loggedInUserData = JSON.parse(loggedInUserData);
       this.userdata = loggedInUserData.employee_name;
       this.empName = loggedInUserData.employee_name;
-      console.log(this.empName);
+      //console.log(this.empName);
     }
     if(this.width >= 1200){
       this.isSideBar = true;

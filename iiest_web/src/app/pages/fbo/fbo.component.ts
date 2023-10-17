@@ -46,8 +46,8 @@ export class FboComponent implements OnInit {
     water_test_fee: new FormControl(''),
     payment_mode : new FormControl(''),
     createdBy: new FormControl(''),
-    licence_category :new FormControl(''),
-    licence_duration : new FormControl(''),
+    license_category :new FormControl(''),
+    license_duration : new FormControl(''),
     total_amount: new FormControl('')
   })
 
@@ -91,8 +91,8 @@ export class FboComponent implements OnInit {
         water_test_fee: [''],
         payment_mode: ['', Validators.required],
         createdBy: ['', Validators.required],
-        licence_category:[''],
-        licence_duration:[''],
+        license_category:[''],
+        license_duration:[''],
         total_amount:['', Validators.required] 
       });
 
@@ -183,11 +183,11 @@ export class FboComponent implements OnInit {
     if( this.productName == 'Foscos Training'){
       this.recipientORshop = 'Shops';
       this.isFoscos = true;  
-      this.fboForm.controls['licence_category'].setValidators(this.setRequired());   
-      this.fboForm.controls['licence_duration'].setValidators(this.setRequired());  
+      this.fboForm.controls['license_category'].setValidators(this.setRequired());   
+      this.fboForm.controls['license_duration'].setValidators(this.setRequired());  
     }else {
-      this.fboForm.controls['licence_category'].clearValidators();
-      this.fboForm.controls['licence_duration'].clearValidators();
+      this.fboForm.controls['license_category'].clearValidators();
+      this.fboForm.controls['license_duration'].clearValidators();
     }
     
 

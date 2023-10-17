@@ -30,6 +30,7 @@
     "export-to-csv": "^1.2.0",
     "font-awesome": "^4.7.0",
     "ngx-bootstrap": "^11.0.2",
+    "ngx-csv": "^0.3.2",
     "ngx-pagination": "^6.0.3",
     "ngx-toastr": "^17.0.2",
     "popper": "^1.0.1",

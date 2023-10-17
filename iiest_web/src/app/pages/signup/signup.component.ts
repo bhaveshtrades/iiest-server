@@ -61,7 +61,7 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this._registerService.msg);
+    //console.log(this._registerService.msg);
     this.dobValue;
     this.dojValue;
     this.form = this.formBuilder.group(
@@ -69,28 +69,13 @@ export class SignupComponent implements OnInit {
         employee_name: ['', Validators.required],
         gender: ['', Validators.required],
         dob: ['', Validators.required],
-        /*username: ['',
-          [
-            Validators.required,
-            Validators.minLength(6),
-            Validators.maxLength(20),
-          ],
-        ],*/
         email: ['',
           [
             Validators.required,
             Validators.email,
           ],
         ],
-        /*password: ['',
-          [
-            Validators.required,
-            Validators.minLength(6)
-          ],
-        ],
-        confirmPassword: ['', Validators.required],*/
         company_name: ['', Validators.required],
-        /*employee_id: ['IIEST/FD/240, IIEST/BC/241', Validators.required],*/
         portal_type: ['', Validators.required],
         doj: ['', Validators.required],
         project_name: ['', Validators.required],
@@ -121,12 +106,8 @@ export class SignupComponent implements OnInit {
           ],
         ],
         acceptTerms: [false, Validators.requiredTrue],
-      },
-      {
-        validators: [Validation.match('password', 'confirmPassword')],
       }
     );
-    console.log(this.calendar.getToday());
 
   }
 
@@ -143,7 +124,7 @@ export class SignupComponent implements OnInit {
     }
     this.form.value.dob = this.datePipe.transform(this.form.value.dob, 'yyyy-MM-dd');
     this.form.value.doj = this.datePipe.transform(this.form.value.doj, 'yyyy-MM-dd');
-    console.log(JSON.stringify(this.form.value, null, 2));
+   // console.log(JSON.stringify(this.form.value, null, 2));
     this.addemployee = this.form.value;
     this._registerService.addEmployee(this.addemployee)
       .subscribe((response: any) => {

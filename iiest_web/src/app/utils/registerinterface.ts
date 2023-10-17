@@ -1,4 +1,5 @@
 export interface Employee {
+  employeesData: any;
   employee_name: string;
   gender: string;
   dob: Date;
