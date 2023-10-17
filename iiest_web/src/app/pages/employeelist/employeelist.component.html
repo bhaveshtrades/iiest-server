@@ -9,30 +9,32 @@
           <form class="form">
 
             <div class="input-group">
-              <fa-icon [icon]="faMagnifyingGlass" class="fa-sm" style="position: absolute; padding: 9px 10px;" [ngClass]="isSearch === false ? 'd-block':'d-none'"></fa-icon>
+              <fa-icon [icon]="faMagnifyingGlass" class="fa-sm" style="position: absolute; padding: 9px 10px;"
+                [ngClass]="isSearch === false ? 'd-block':'d-none'"></fa-icon>
             </div>
             <input type="text" id="search-orders" [(ngModel)]="searchQuery" name="searchorders"
               class="form-control form-control-sm search-orders" (input)="onSearchChange()">
-        </form>
+          </form>
 
-      </div>
-      <div class="col-auto">
+        </div>
+        <div class="col-auto">
 
-        <select class="form-select form-select-sm w-auto" [(ngModel)]="selectedFilter">
-          <option value="byName" selected>Search by name</option>
-          <option value="byEmail">Search by email</option>
-          <option value="byEmpId">Search by employee ID</option>
-          <option value="byContact">Search by contact</option>
+          <select class="form-select form-select-sm w-auto" [(ngModel)]="selectedFilter">
+            <option value="byName" selected>Search by name</option>
+            <option value="byEmail">Search by email</option>
+            <option value="byEmpId">Search by employee ID</option>
+            <option value="byContact">Search by contact</option>
 
-        </select>
-      </div>
-      <div class="col-auto">
-        <fa-icon (click)="exportToCsv()" class="fa-2xl" style="cursor: pointer; margin: 7px 7px; color: #1957a9;" [icon]="faFileCsv"></fa-icon>
-        <fa-icon class="fa-2xl" style="margin: 7px 7px; color: #c64115;" [icon]="faFilePdf"></fa-icon>
-      </div>
-    </div><!--//row-->
-  </div><!--//table-utilities-->
-</div><!--//col-auto-->
+          </select>
+        </div>
+        <div class="col-auto">
+          <fa-icon (click)="exportToCsv()" class="fa-2xl" style="cursor: pointer; margin: 7px 7px; color: #1957a9;"
+            [icon]="faFileCsv"></fa-icon>
+          <fa-icon class="fa-2xl" style="margin: 7px 7px; color: #c64115;" [icon]="faFilePdf"></fa-icon>
+        </div>
+      </div><!--//row-->
+    </div><!--//table-utilities-->
+  </div><!--//col-auto-->
 </div><!--//row-->
 
 
@@ -69,7 +71,8 @@
             </thead>
             <tbody *ngIf="filteredEmployees?.length>0">
 
-              <tr *ngFor="let employee of filteredEmployees | paginate: { itemsPerPage: 10, currentPage: pageNumber }; let sr = index">
+              <tr
+                *ngFor="let employee of filteredEmployees | paginate: { itemsPerPage: 10, currentPage: pageNumber }; let sr = index">
                 <td class="cell"><span class="truncate">{{sr+1}}</span></td>
                 <td class="cell"><span class="truncate">{{employee.employee_name}}</span></td>
                 <td class="cell"><span class="truncate">{{employee.contact_no}}</span></td>
@@ -86,8 +89,8 @@
                 </td>
                 <td class="cell text-center">
                   <fa-icon class="fa-l" style="margin-right: 7px; color: #1957a9;" [icon]="faEye"></fa-icon>
-                  <fa-icon class="fa-l" style="margin-right: 7px; color: #1957a9;" [icon]="faPencil"></fa-icon>
-                  <fa-icon class="fa-l" style="color: #c64115;" [icon]="faTrash" (click)="deleteEmployee(employee)"></fa-icon>
+                  <fa-icon (click)="openModal()" class="fa-l" style="margin-right: 7px; color: #1957a9; cursor: pointer;" [icon]="faPencil"></fa-icon>
+                  <fa-icon class="fa-l" style="color: #c64115;" [icon]="faTrash"></fa-icon>
                 </td>
               </tr>
             </tbody>
@@ -96,7 +99,9 @@
 
       </div><!--//app-card-body-->
     </div><!--//app-card-->
- 
+
     <div class="d-flex justify-content-end">
       <pagination-controls previousLabel="Prev" nextLabel="Next"
-        (pageChange)="onTableDataChange($event)"></pagination-controls>
+        (pageChange)="onTableDataChange($event)">
+      </pagination-controls>
+    </div>

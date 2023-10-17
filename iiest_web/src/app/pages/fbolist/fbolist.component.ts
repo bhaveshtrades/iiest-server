@@ -25,20 +25,12 @@ export class FbolistComponent implements OnInit {
   faFilePdf = faFilePdf;
   faMagnifyingGlass = faMagnifyingGlass;
   pageNumber: number = 1;
-  //ngx-csv Options
-  options = {
-    fieldSeparator: ',',
-    quoteStrings: '"',
-    decimalseparator: '.',
-    showLabels: true,
-    showTitle: true,
-    title: 'Your title',
-    useBom: true,
-    noDownload: true,
-    headers: ["First Name", "Last Name", "ID"]
-  };
-  constructor(private getDataService: GetdataService, 
-              private registerService: RegisterService) { }
+ 
+  constructor(
+      private getDataService: GetdataService, 
+      private registerService: RegisterService
+    ) 
+    { }
 
   ngOnInit(): void {
     this.fetchAllFboData();
@@ -98,7 +90,6 @@ export class FbolistComponent implements OnInit {
 
   //Export To CSV
   exportToCsv(){
-    alert
-    //new ngxCsv( this.allFBOEntries, 'Report', this.options)
+   
   }
 }
