@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Selector,Action, StateContext, State } from "@ngxs/store";
 
 import { Employee } from "src/app/utils/registerinterface";
-import { GetEmployee } from "../actions/employee.action";
+import { DeleteEmployee, GetEmployee } from "../actions/employee.action";
 import { GetdataService } from "src/app/services/getdata.service";
 import { tap } from "rxjs";
 
@@ -40,11 +40,10 @@ export class EmployeeState {
     getEmployees({getState, setState}:StateContext<EmployeeStateModel>){
         console.log('State Action');
         return this._getDataService.getEmployeeData().pipe(tap(res => {
-            console.log(res);
             const state = getState();
             setState({
                 ...state,
-                employees:res,
+                employees:res.employeesData,
                 employeeLoaded:true
             })
         }))
@@ -62,5 +61,19 @@ export class EmployeeState {
               //console.info('complete')
             } 
         }) */
+    }
+    @Action(DeleteEmployee)
+    deleteEmployee({getState, setState}:StateContext<EmployeeStateModel>, {objId}: DeleteEmployee){
+        console.log('Delete Employee Action')
+
+        const state = getState();
+        console.log(state);
+        const updatedEmployeeList = state.employees.filter((emp: any) => emp._id !== objId);
+
+        setState({
+            ...state,
+            employees: updatedEmployeeList
+        })
+        console.log(getState())
     }
 }

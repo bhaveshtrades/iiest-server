@@ -25,12 +25,9 @@ export class FbolistComponent implements OnInit {
   faFilePdf = faFilePdf;
   faMagnifyingGlass = faMagnifyingGlass;
   pageNumber: number = 1;
- 
-  constructor(
-      private getDataService: GetdataService, 
-      private registerService: RegisterService
-    ) 
-    { }
+  
+  constructor(private getDataService: GetdataService, 
+              private registerService: RegisterService) { }
 
   ngOnInit(): void {
     this.fetchAllFboData();

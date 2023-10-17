@@ -5,17 +5,15 @@ import { EmployeeState } from 'src/app/store/state/employee.state';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
 import { Employee } from 'src/app/utils/registerinterface';
-import { GetEmployee } from 'src/app/store/actions/employee.action';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
-import { EditrecordComponent } from '../editrecord/editrecord.component';
+import { DeleteEmployee, GetEmployee } from 'src/app/store/actions/employee.action';
+import { RegisterService } from 'src/app/services/register.service';
 
 @Component({
   selector: 'app-employeelist',
   templateUrl: './employeelist.component.html',
   styleUrls: ['./employeelist.component.scss']
 })
-export class EmployeelistComponent implements OnInit, OnDestroy {
+export class EmployeelistComponent implements OnInit {
 
   @Select(EmployeeState.GetEmployeeList) employees$:Observable<Employee>;
   @Select(EmployeeState.employeeLoaded) employeeLoaded$:Observable<boolean>
@@ -37,12 +35,10 @@ export class EmployeelistComponent implements OnInit, OnDestroy {
   faMagnifyingGlass = faMagnifyingGlass;
   
   
-  constructor(
+  constructor( 
     private _utililitesService: UtilitiesService,
-    private modalService: NgbModal,
-    private router : Router,
+    private registerService: RegisterService,
     private store:Store) {
-     
   }
 
   ngOnInit(): void {
@@ -52,19 +48,17 @@ export class EmployeelistComponent implements OnInit, OnDestroy {
   fetchAllEmployees(): void {
     this.allEmployees = this._utililitesService.getData();
     this.filter();
-    if(Object.keys(this.allEmployees).length == 0){
-      console.log('here');
+    console.log(this.allEmployees);
+    if(this.allEmployees.length === 0){
         this.getEmployees();
         this.employees$.subscribe(res => {
-          this.allEmployees = res.employeesData;
+          this.allEmployees = res;
           this.filter();
         })
     }
-    
   }
 
   filter(): void {
-    //console.log(this.searchQuery)
     if (!this.searchQuery) {
       this.isSearch =false;
       this.filteredEmployees = this.allEmployees;
@@ -103,14 +97,25 @@ export class EmployeelistComponent implements OnInit, OnDestroy {
        }
      })
    }
-   ngOnDestroy(): void {
-     this.empLoadedSub.unsubscribe();
+
+   onDeleteEmployee(objId: string): void{
+    this.store.dispatch(new DeleteEmployee(objId)).subscribe(()=>{
+      // this.getEmployees();
+      this.deleteEmployeeBackend(objId);
+    })
    }
-   openModal(){
-    //if(!this.isToken){
-     this.modalService.open(EditrecordComponent, { size: 'lg', backdrop: 'static' });
-   /*  }else{
-        this.router.navigateByUrl('/home')
-    } */
-  }
+
+   deleteEmployeeBackend(objId: string): void{
+      this.registerService.deleteEmployee(objId).subscribe(res =>{
+        if(res.success){
+          console.log(res)
+        }else{
+          console.log("Some error occured");
+        }
+      })
+   }
+   
+   ngOnDestroy(): void {
+    //  this.empLoadedSub.unsubscribe();
+   }
 }
