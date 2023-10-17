@@ -3,7 +3,7 @@
     <div class="container-xl">
       <div class="row g-3 mb-4 align-items-center justify-content-between">
         <div class="col-auto">
-              <h1 class="app-page-title mb-2">Employee Registration Form</h1>
+              <h1 class="app-page-title mb-2">Employee {{formType}} Form</h1>{{isEditMode}}
         </div>
       </div><!--//row-->
       <div class="row gy-4 mb-3">
@@ -305,7 +305,7 @@
             </div>
           </div>          
           <div class="col-md-12">
-          <div class="form-group form-check">
+          <!-- <div class="form-group form-check">
             <input
               type="checkbox"
               id="acceptTerms"
@@ -316,10 +316,15 @@
             <div *ngIf="submitted && f['acceptTerms'].errors" class="invalid-feedback">
               Accept Terms is required
             </div>
-          </div>
+          </div> -->
         </div>
           <div class="col-6">
+          <button *ngIf="isEditMode; else otherContent" type="submit" class="btn btn-sm btn-primary">Update</button>
+          
+          <ng-template #otherContent>
             <button type="submit" class="btn btn-sm btn-primary">Register</button>
+          </ng-template>
+            
           </div>
           <div class="col-6 d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="button" (click)="onReset()" class="btn btn-sm btn-warning">Reset</button>
@@ -333,7 +338,7 @@
   
      <div class="app-content pt-3 p-md-3 p-lg-4">
       <div class="container-xl border border-1 rounded-3">
-        <app-employeelist class="border"></app-employeelist>  
+        <app-employeelist (isEditRecord)="isEditRecord($event)" class="border"></app-employeelist>  
       </div>
      </div>
 

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Selector,Action, StateContext, State } from "@ngxs/store";
 
 import { Employee } from "src/app/utils/registerinterface";
-import { DeleteEmployee, GetEmployee } from "../actions/employee.action";
+import { DeleteEmployee, GetEmployee, UpdateEmployee } from "../actions/employee.action";
 import { GetdataService } from "src/app/services/getdata.service";
 import { tap } from "rxjs";
 
@@ -62,6 +62,21 @@ export class EmployeeState {
             } 
         }) */
     }
+    @Action(UpdateEmployee)
+    updateEmployee({getState, setState}:StateContext<EmployeeStateModel>, {payload}: UpdateEmployee){
+        console.log('Update Employee Action')
+
+        //const state = getState();
+        //console.log(state);
+        //const updatedEmployeeList = state.employees.filter((emp: any) => emp._id !== objId);
+
+        /* setState({
+            ...state,
+            employees: updatedEmployeeList
+        })
+        console.log(getState()) */
+    }
+
     @Action(DeleteEmployee)
     deleteEmployee({getState, setState}:StateContext<EmployeeStateModel>, {objId}: DeleteEmployee){
         console.log('Delete Employee Action')

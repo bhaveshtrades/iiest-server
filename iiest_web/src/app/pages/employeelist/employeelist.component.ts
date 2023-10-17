@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { faEye, faPencil, faTrash, faEnvelope, faXmark, faCheck, faFileCsv, faFilePdf, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import {UtilitiesService} from 'src/app/services/utilities.service'
 import { EmployeeState } from 'src/app/store/state/employee.state';
@@ -14,7 +14,7 @@ import { RegisterService } from 'src/app/services/register.service';
   styleUrls: ['./employeelist.component.scss']
 })
 export class EmployeelistComponent implements OnInit {
-
+  @Output() isEditRecord = new EventEmitter();
   @Select(EmployeeState.GetEmployeeList) employees$:Observable<Employee>;
   @Select(EmployeeState.employeeLoaded) employeeLoaded$:Observable<boolean>
   empLoadedSub:Subscription;
@@ -33,7 +33,7 @@ export class EmployeelistComponent implements OnInit {
   faFileCsv = faFileCsv;
   faFilePdf = faFilePdf;
   faMagnifyingGlass = faMagnifyingGlass;
-  
+ 
   
   constructor( 
     private _utililitesService: UtilitiesService,
@@ -104,6 +104,14 @@ export class EmployeelistComponent implements OnInit {
       this.deleteEmployeeBackend(objId);
     })
    }
+   editRecord(res:any){
+    console.log(res);
+    var data = {
+      "isEditMode": true,
+      "Record":res
+    }
+    this.isEditRecord.emit(data);
+   }
 
    deleteEmployeeBackend(objId: string): void{
       this.registerService.deleteEmployee(objId).subscribe(res =>{
@@ -113,9 +121,5 @@ export class EmployeelistComponent implements OnInit {
           console.log("Some error occured");
         }
       })
-   }
-   
-   ngOnDestroy(): void {
-    //  this.empLoadedSub.unsubscribe();
    }
 }

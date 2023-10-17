@@ -24,6 +24,8 @@ export class SignupComponent implements OnInit {
   getPortalType: any;
   getProjectName : any;
   getGradePay : any;
+  formType :string = "Registration";
+  isEditMode : boolean = false;
   form: FormGroup = new FormGroup({
     employee_name: new FormControl(''),
     gender: new FormControl(''),
@@ -48,7 +50,7 @@ export class SignupComponent implements OnInit {
     state: new FormControl(''),
     country: new FormControl(''),
     zip_code: new FormControl(''),
-    acceptTerms: new FormControl(false),
+    //acceptTerms: new FormControl(false),
     createdBy: new FormControl('')
   });
   submitted = false;
@@ -112,7 +114,7 @@ export class SignupComponent implements OnInit {
             Validators.pattern(/^[0-9]{6}$/)
           ],
         ],
-        acceptTerms: [false, Validators.requiredTrue],
+        //acceptTerms: [false, Validators.requiredTrue],
         createdBy: ['', Validators.required]
       },
       {
@@ -172,4 +174,35 @@ export class SignupComponent implements OnInit {
       } 
   }) 
 }
+
+isEditRecord(param:any){
+  //console.log(param.Record);
+  this.isEditMode = param.isEditMode;
+  var record = param.Record;
+  this.formType = "Edit"
+  this.form.setValue({
+    'employee_name' : record.employee_name,
+    'gender': record.gender,
+    'dob': this.datePipe.transform(record.dob, 'yyyy-MM-dd'),
+    'email': record.email,
+    'company_name': record.company_name,
+    'portal_type': record.portal_type,
+    'project_name': record.project_name,
+    'doj': this.datePipe.transform(record.doj, 'yyyy-MM-dd'),
+    'department': record.department,
+    'designation': record.designation,
+    'salary': record.salary,
+    'grade_pay': record.grade_pay,
+    'contact_no': record.contact_no,
+    'alternate_contact': record.alternate_contact,
+    'address': record.address,
+    'city': record.city,
+    'state': record.state,
+    'country': record.country,
+    'zip_code': record.zip_code,
+    //'acceptTerms': record.,
+    'createdBy': record.createdBy
+  })
+}
+
 }
