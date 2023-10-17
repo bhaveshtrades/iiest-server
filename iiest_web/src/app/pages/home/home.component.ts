@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscriber, Subscription, interval } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { GetdataService } from 'src/app/services/getdata.service';
 import { GetEmployee } from 'src/app/store/actions/employee.action';
 import { Employee } from '../../utils/registerinterface';
