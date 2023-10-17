@@ -22,6 +22,7 @@ export interface Employee {
   country: string;
   zip: number;
   acceptTerms: boolean;
+  createdBy: string;
 }
 
 export interface AddConsumer {
@@ -57,5 +58,4 @@ export interface fbo {
   licence_duration : string,
   total_amount: string,
   createdBy: string
-   
 }

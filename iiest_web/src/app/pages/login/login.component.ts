@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
     get forgotPass(): { [key: string]: AbstractControl } {
       return this.formFp.controls;
     }
-/**********************Login Methode Start *******************/
+/**********************Login Method Start *******************/
     loginForm(){
       this.submitted = true;
       if (this.form.invalid) {

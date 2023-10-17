@@ -15,6 +15,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class SignupComponent implements OnInit {
+  userData: any;
+  userName: string = '';
+  parsedUserData: any;
   addemployee : Employee;
   dob: NgbDateStruct;
   getEmpGeneralData: any;
@@ -46,6 +49,7 @@ export class SignupComponent implements OnInit {
     country: new FormControl(''),
     zip_code: new FormControl(''),
     acceptTerms: new FormControl(false),
+    createdBy: new FormControl('')
   });
   submitted = false;
   dobValue: Date;
@@ -61,6 +65,9 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userData = this._registerService.LoggedInUserData();
+    this.parsedUserData = JSON.parse(this.userData);
+    this.userName = this.parsedUserData.employee_name;
     console.log(this._registerService.msg);
     this.dobValue;
     this.dojValue;
@@ -121,11 +128,14 @@ export class SignupComponent implements OnInit {
           ],
         ],
         acceptTerms: [false, Validators.requiredTrue],
+        createdBy: ['', Validators.required]
       },
       {
         validators: [Validation.match('password', 'confirmPassword')],
       }
     );
+
+    this.form.patchValue({createdBy: this.userName});
     console.log(this.calendar.getToday());
 
   }

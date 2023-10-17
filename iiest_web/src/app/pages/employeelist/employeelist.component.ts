@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GetdataService } from 'src/app/services/getdata.service';
 import { faEye, faPencil, faTrash, faEnvelope, faXmark, faCheck, faFileCsv, faFilePdf, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
+import { RegisterService } from 'src/app/services/register.service';
 
 @Component({
   selector: 'app-employeelist',
@@ -40,9 +41,7 @@ export class EmployeelistComponent implements OnInit {
       "Salary", "Grade Pay", "Portal Type", "Project Name", "State","City","Country"]
   };
   
-  constructor(private getDataService: GetdataService) {
-    
-  }
+  constructor(private getDataService: GetdataService, private registerService: RegisterService) {}
 
   ngOnInit(): void {
     this.fetchAllEmployees();
@@ -50,15 +49,15 @@ export class EmployeelistComponent implements OnInit {
 
   fetchAllEmployees(): void {
     this.getDataService.getEmployeeData().subscribe(res => {
-      this.allEmployees = res.employeesData.map((emp: any, index: number) => ({ ...emp, serialNumber: index + 1 }));
+      this.allEmployees = res.employeesData.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map((emp: any, index: number) => ({ ...emp, serialNumber: index + 1 }));
       this.allEmployees.map((item:any, index:number) => {
        delete(item.password);
-       delete(item.id_num);
-       delete(item._id);
+      //  delete(item.id_num);
+      //  delete(item._id);
        delete(item.__v)
        console.log(item.state);
       });
-      console.log(this.allEmployees)
+      console.log(this.allEmployees[62].createdAt)
       this.filter();
     })
   }
@@ -90,6 +89,22 @@ export class EmployeelistComponent implements OnInit {
   onTableDataChange(event: any) {
     this.pageNumber = event;
     this.filter();
+  }
+
+  deleteEmployee(employee: any): void {
+    this.registerService.deleteEmployee(employee._id).subscribe(
+      res => {
+        if (res.success) {
+          const index = this.allEmployees.findIndex((entry: any) => entry._id === employee._id);
+          if (index !== -1) {
+            this.allEmployees.splice(index, 1);
+            this.filter();
+          }
+        } else {
+          console.error(res.message);
+        }
+      }
+    );
   }
   //Export To CSV
   exportToCsv() {

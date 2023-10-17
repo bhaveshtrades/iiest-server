@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GetdataService } from 'src/app/services/getdata.service';
+import { RegisterService } from 'src/app/services/register.service';
 import { faEye, faPencil, faTrash, faEnvelope, faXmark, faMagnifyingGlass, faFileCsv, faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 
@@ -36,7 +37,8 @@ export class FbolistComponent implements OnInit {
     noDownload: true,
     headers: ["First Name", "Last Name", "ID"]
   };
-  constructor(private getDataService: GetdataService) { }
+  constructor(private getDataService: GetdataService, 
+              private registerService: RegisterService) { }
 
   ngOnInit(): void {
     this.fetchAllFboData();
@@ -76,6 +78,22 @@ export class FbolistComponent implements OnInit {
   onTableDataChange(event: any) {
     this.pageNumber = event;
     this.filter();
+  }
+
+  deleteFBO(fbo: any): void {
+    this.registerService.deleteFbo(fbo._id).subscribe(
+      res => {
+        if (res.success) {
+          const index = this.allFBOEntries.findIndex((entry: any) => entry._id === fbo._id);
+          if (index !== -1) {
+            this.allFBOEntries.splice(index, 1);
+            this.filter();
+          }
+        } else {
+          console.error(res.message);
+        }
+      }
+    );
   }
 
   //Export To CSV
