@@ -11,7 +11,6 @@ export class UtilitiesService {
 
 public setData(data:any) { // call this method from the component and pass the result you get from the API to set it in the service
   this.employeeData = data;
-  //this.getData(this.employeeData);
 }
 
 
