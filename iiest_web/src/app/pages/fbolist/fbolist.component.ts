@@ -70,7 +70,10 @@ export class FbolistComponent implements OnInit {
   }
 
   deleteFBO(fbo: any): void {
-    this.registerService.deleteFbo(fbo._id).subscribe(
+    const loggedInUserData: any = this.registerService.LoggedInUserData();
+    const parsedData = JSON.parse(loggedInUserData);
+    const deletedBy = parsedData.employee_name;
+    this.registerService.deleteFbo(fbo._id, deletedBy).subscribe(
       res => {
         if (res.success) {
           const index = this.allFBOEntries.findIndex((entry: any) => entry._id === fbo._id);

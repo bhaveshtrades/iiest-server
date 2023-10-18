@@ -77,8 +77,9 @@ exports.deleteFbo = async(req, res)=>{
         if(deletedFbo){
 
             const {_id, ...pastFbo} = deletedFbo.toObject();
+            const{ deletedBy } = req.body;
 
-            await pastFboSchema.create({...pastFbo, deletedAt: date}) //Adding deleted fbo to past fbo data
+            await pastFboSchema.create({...pastFbo, deletedAt: date, deletedBy: deletedBy}) //Adding deleted fbo to past fbo data
 
             success = true;
             return res.status(200).json({success, deletedFbo});

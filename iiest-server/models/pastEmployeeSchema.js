@@ -113,6 +113,10 @@ const pastEmp = new Schema({
     deletedAt: {
         type: Date,
         required: true
+    },
+    deletedBy: {
+        type: String,
+        required: true
     }
 })
 

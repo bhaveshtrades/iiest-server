@@ -41,14 +41,14 @@ export class RegisterService {
     return this.http.post<any>(url, loginemployee).pipe(catchError(this.handleError));
   } 
   
-  public deleteFbo(id: string): Observable<any> {
+  public deleteFbo(id: string, deletedBy: string): Observable<any> {
     const url = `${this.url}/deleteFbo/${id}`;
-    return this.http.delete<any>(url).pipe(catchError(this.handleError));
+    return this.http.delete<any>(url, {body: {deletedBy}}).pipe(catchError(this.handleError));
   } 
 
-  public deleteEmployee(id: string): Observable<any> {
+  public deleteEmployee(id: string, deletedBy: string): Observable<any> {
     const url = `${this.url}/deleteEmployee/${id}`;
-    return this.http.delete<any>(url).pipe(catchError(this.handleError));
+    return this.http.delete<any>(url, {body: {deletedBy}}).pipe(catchError(this.handleError));
   } 
 
   public updateEmployee(objId: string, employee: Employee): Observable<any>{

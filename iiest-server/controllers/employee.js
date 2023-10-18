@@ -112,6 +112,7 @@ exports.employeeLogin = async(req, res)=>{
 //Controller for deleting employee
 exports.deleteEmployee = async(req, res)=>{
     const objId =  req.params.id;
+    const {deletedBy} = req.body;
     let success = false;
 
     let date = new Date();
@@ -122,7 +123,7 @@ exports.deleteEmployee = async(req, res)=>{
 
             const {_id, ...pastEmployee} = deletedEmployee.toObject();
 
-            await pastEmployeeSchema.create({...pastEmployee, deletedAt: date}) //Adding deleted employee to past employee data
+            await pastEmployeeSchema.create({...pastEmployee, deletedAt: date, deletedBy: deletedBy}) //Adding deleted employee to past employee data
 
             success = true;
             return res.status(200).json({success, deletedEmployee});

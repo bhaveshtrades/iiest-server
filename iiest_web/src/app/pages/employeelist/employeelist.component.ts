@@ -115,7 +115,10 @@ export class EmployeelistComponent implements OnInit {
    }
 
    deleteEmployeeBackend(objId: string): void{
-      this.registerService.deleteEmployee(objId).subscribe(res =>{
+      const loggedInUserData: any = this.registerService.LoggedInUserData();
+      const parsedData = JSON.parse(loggedInUserData);
+      const deletedBy = parsedData.employee_name;
+      this.registerService.deleteEmployee(objId, deletedBy).subscribe(res =>{
         if(res.success){
           console.log(res)
         }else{
