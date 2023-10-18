@@ -7,6 +7,10 @@ import {GetdataService} from '../../services/getdata.service'
 import Validation from '../../utils/validation'
 import { NgbDate, NgbDateStruct, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { EmployeeState } from 'src/app/store/state/employee.state';
+import { Store, Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { GetEmployee, UpdateEmployee } from 'src/app/store/actions/employee.action';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +19,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class SignupComponent implements OnInit {
+  @Select(EmployeeState.GetEmployeeList) employees$:Observable<Employee>;
   userData: any;
+  objId: string;
+  editedData: any;
   userName: string = '';
   parsedUserData: any;
   addemployee : Employee;
@@ -62,7 +69,8 @@ export class SignupComponent implements OnInit {
     private datePipe: DatePipe,
     private _registerService: RegisterService,
     private _toastrService : ToastrService,
-    private _getdataService: GetdataService) {
+    private _getdataService: GetdataService,
+    private store: Store) {
     this.empGeneralData();
   }
 
@@ -133,29 +141,41 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(): void {
+
     this.submitted = true;
 
     if (this.form.invalid) {
       return;
     }
+
     this.form.value.dob = this.datePipe.transform(this.form.value.dob, 'yyyy-MM-dd');
     this.form.value.doj = this.datePipe.transform(this.form.value.doj, 'yyyy-MM-dd');
-   // console.log(JSON.stringify(this.form.value, null, 2));
-    this.addemployee = this.form.value;
-    this._registerService.addEmployee(this.addemployee)
+
+    if(this.isEditMode){
+      this.editedData = this.form.value;
+      this.store.dispatch(new UpdateEmployee(this.objId, this.editedData));
+      this._registerService.updateEmployee(this.objId, this.editedData).subscribe(res =>{
+        if(res.success){
+          console.log('Update Successful');
+        }
+      })
+    }else{
+      this.addemployee = this.form.value;
+      this._registerService.addEmployee(this.addemployee)
       .subscribe((response: any) => {
         if (response.success) {
           this._toastrService.success('Message Success', response.message)
         } else {
           this._toastrService.error('Message Error!', response.message);
         }
-        //console.log(response);
     });
+    }
   }
   onReset(): void {
     this.submitted = false;
     this.form.reset();
   }
+
 
   empGeneralData(){
     this._getdataService.getGeneralData().subscribe( {
@@ -175,10 +195,17 @@ export class SignupComponent implements OnInit {
   }) 
 }
 
+backToRegister(){
+  this.isEditMode = false;
+  this.form.reset();
+}
+
 isEditRecord(param:any){
-  //console.log(param.Record);
+  console.log(param.Record);
   this.isEditMode = param.isEditMode;
-  var record = param.Record;
+  const record = param.Record;
+  this.objId = record._id
+  console.log(record);
   this.formType = "Edit"
   this.form.setValue({
     'employee_name' : record.employee_name,
@@ -204,5 +231,4 @@ isEditRecord(param:any){
     'createdBy': record.createdBy
   })
 }
-
 }

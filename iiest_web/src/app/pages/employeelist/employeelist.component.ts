@@ -104,11 +104,12 @@ export class EmployeelistComponent implements OnInit {
       this.deleteEmployeeBackend(objId);
     })
    }
-   editRecord(res:any){
+   
+   editRecord(res:any): void{
     console.log(res);
     var data = {
-      "isEditMode": true,
-      "Record":res
+      isEditMode: true,
+      Record: res
     }
     this.isEditRecord.emit(data);
    }

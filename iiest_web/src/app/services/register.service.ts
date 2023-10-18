@@ -51,6 +51,11 @@ export class RegisterService {
     return this.http.delete<any>(url).pipe(catchError(this.handleError));
   } 
 
+  public updateEmployee(objId: string, employee: Employee): Observable<any>{
+    const url = `${this.url}/editEmployee/${objId}`;
+    return this.http.put<any>(url, employee).pipe(catchError(this.handleError));
+  }
+
 
   private handleError(err: HttpErrorResponse): Observable<never> {
     // just a test ... more could would go here

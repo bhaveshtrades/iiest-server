@@ -63,32 +63,28 @@ export class EmployeeState {
         }) */
     }
     @Action(UpdateEmployee)
-    updateEmployee({getState, setState}:StateContext<EmployeeStateModel>, {payload}: UpdateEmployee){
-        console.log('Update Employee Action')
+    updateEmployee({getState, setState}:StateContext<EmployeeStateModel>, {objId, payload}: UpdateEmployee){
+        
+        const state = getState();
+        const updatedEmployees = state.employees.map((employee: any)=>
+            employee._id === objId ? {...employee, ...payload} : employee
+        )
 
-        //const state = getState();
-        //console.log(state);
-        //const updatedEmployeeList = state.employees.filter((emp: any) => emp._id !== objId);
-
-        /* setState({
+        setState({
             ...state,
-            employees: updatedEmployeeList
+            employees: updatedEmployees
         })
-        console.log(getState()) */
     }
 
     @Action(DeleteEmployee)
     deleteEmployee({getState, setState}:StateContext<EmployeeStateModel>, {objId}: DeleteEmployee){
-        console.log('Delete Employee Action')
 
         const state = getState();
-        console.log(state);
         const updatedEmployeeList = state.employees.filter((emp: any) => emp._id !== objId);
 
         setState({
             ...state,
             employees: updatedEmployeeList
         })
-        console.log(getState())
     }
 }

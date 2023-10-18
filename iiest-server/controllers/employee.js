@@ -136,6 +136,32 @@ exports.deleteEmployee = async(req, res)=>{
     }
 }
 
+//Controller for editing employee data
+exports.editEmployee = async(req, res)=>{
+
+    try {
+
+        let objId = req.params.id;
+        let success = false;
+
+        const updatedEmployeeData = req.body;
+
+        const updatedEmployee = await employeeSchema.findByIdAndUpdate(objId, updatedEmployeeData, {new: true});
+
+        if(!updatedEmployee){
+            success = false;
+            return res.status(401).json({success, message: "Employee Not Found"});
+        }
+
+        success = true;
+        return res.status(201).json({success, updatedEmployee})
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({message: "Internal Server Error"});
+    }
+}
+
 //Controller to get all employees data
 exports.allEmployeesData = async(req, res)=>{
     const employeesData = await employeeSchema.find();
