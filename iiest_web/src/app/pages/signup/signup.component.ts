@@ -130,7 +130,7 @@ export class SignupComponent implements OnInit {
       }
     );
 
-    this.form.patchValue({createdBy: this.parsedUserData.employee_id});
+    this.form.patchValue({createdBy: `${this.userName}(${this.parsedUserData.employee_id})`});
     console.log(this.calendar.getToday());
 
   }
@@ -152,7 +152,7 @@ export class SignupComponent implements OnInit {
     if(this.isEditMode){
       this.editedData = this.form.value;
       this.store.dispatch(new UpdateEmployee(this.objId, this.editedData));
-      this._registerService.updateEmployee(this.objId, this.editedData, this.parsedUserData.employee_id).subscribe(response =>{
+      this._registerService.updateEmployee(this.objId, this.editedData, `${this.userName}(${this.parsedUserData.employee_id})`).subscribe(response =>{
         if(response.success){
           this._toastrService.success('Record Edited Successfully', response.message);
           this.backToRegister();
