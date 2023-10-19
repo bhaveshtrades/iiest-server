@@ -96,7 +96,7 @@ export class FboComponent implements OnInit {
         total_amount:['', Validators.required] 
       });
 
-      this.fboForm.patchValue({createdBy : this.userName})
+      this.fboForm.patchValue({createdBy : this.parsedUserData.employee_id})
       
 
   }

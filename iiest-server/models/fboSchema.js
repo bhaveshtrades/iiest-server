@@ -89,6 +89,10 @@ const fboRegister = new Schema({
     createdBy: {
         type: String, 
         required: true
+    },
+    lastEdit: {
+        type: String,
+        default: 'Not edited yet'
     }
 });
 

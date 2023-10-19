@@ -109,6 +109,10 @@ const employeeRegister = new Schema({
     createdAt: {
         type: Date,
         required: true
+    },
+    lastEdit: {
+        type: String,
+        default: 'Not edited yet'
     }
 })
 

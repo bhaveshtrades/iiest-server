@@ -146,8 +146,9 @@ exports.editEmployee = async(req, res)=>{
         let success = false;
 
         const updatedEmployeeData = req.body;
+        const editedBy = req.body.editedBy
 
-        const updatedEmployee = await employeeSchema.findByIdAndUpdate(objId, updatedEmployeeData, {new: true});
+        const updatedEmployee = await employeeSchema.findByIdAndUpdate(objId, {...updatedEmployeeData, lastEdit: editedBy}, {new: true});
 
         if(!updatedEmployee){
             success = false;

@@ -65,8 +65,11 @@
                 <th class="cell">Employee ID</th>
                 <th class="cell">Company</th>
                 <th class="cell">Email</th>
+                <th class="cell">Created By</th>
                 <th class="cell text-center">Status</th>
                 <th class="cell text-center">Action</th>
+                <th class="cell">Last Edit</th>
+                
               </tr>
             </thead>
             <tbody *ngIf="filteredEmployees?.length>0">
@@ -83,6 +86,7 @@
                     <fa-icon class="fa-l" style="margin-right: 5px;"
                       [icon]="faEnvelope"></fa-icon>{{employee.email}}</span>
                 </td>
+                <td class="cell"><span class="truncate">{{employee.createdBy}}</span></td>
                 <td class="cell text-center">
                   <!-- <fa-icon class="fa-light fa-l" style="margin-right: 7px; color: #c64115;" [icon]="faXmark"></fa-icon> -->
                   <fa-icon class="fa-l" style="color: #138a25;" [icon]="faCheck"></fa-icon>
@@ -92,6 +96,7 @@
                   <fa-icon class="fa-l" (click)="editRecord(employee)" style="cursor:pointer; margin-right: 7px; color: #1957a9;" [icon]="faPencil"></fa-icon>
                   <fa-icon class="fa-l" (click)="onDeleteEmployee(employee._id)"style="color: #c64115; cursor: pointer;" [icon]="faTrash" ></fa-icon>
                 </td>
+                <td class="cell"><span class="truncate">{{employee.lastEdit}}</span></td>
               </tr>
             </tbody>
           </table>
