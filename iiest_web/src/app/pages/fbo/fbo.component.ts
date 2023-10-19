@@ -190,6 +190,7 @@ export class FboComponent implements OnInit {
       this.fboForm.controls['license_category'].setValidators(this.setRequired());   
       this.fboForm.controls['license_duration'].setValidators(this.setRequired());  
     }else {
+      this.isFoscos = false; 
       this.fboForm.controls['license_category'].clearValidators();
       this.fboForm.controls['license_duration'].clearValidators();
     }
