@@ -180,6 +180,7 @@ export class FboComponent implements OnInit {
 //Reset the form
   onReset(): void {
     this.submitted = false;
+    
     this.fboForm.reset();
   }
 
@@ -197,7 +198,6 @@ export class FboComponent implements OnInit {
       this.fboForm.controls['license_category'].setValidators(this.setRequired());   
       this.fboForm.controls['license_duration'].setValidators(this.setRequired());  
     }else {
-      this.isFoscos = false; 
       this.fboForm.controls['license_category'].clearValidators();
       this.fboForm.controls['license_duration'].clearValidators();
     }
