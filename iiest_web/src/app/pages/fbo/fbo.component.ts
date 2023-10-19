@@ -14,6 +14,8 @@ import { ToastrService } from 'ngx-toastr';
 export class FboComponent implements OnInit {
   userName: string = '';
   userData: any;
+  objId: string;
+  editedData: any;
   parsedUserData: any;
   submitted = false;
   waterTestFee = waterTestFee;
@@ -29,6 +31,8 @@ export class FboComponent implements OnInit {
   addFbo: any;
   isFoscos :boolean = false;
   recipientORshop: string = 'Recipient';
+  isEditMode : boolean = false;
+  formType :string = "Registration";
 
   fboForm: FormGroup = new FormGroup({
     fbo_name: new FormControl(''),
@@ -197,7 +201,39 @@ export class FboComponent implements OnInit {
 serviceType(event:any){
   console.log(event.target.value)
 }
-
+backToRegister(){
+  this.submitted = false;
+  this.isEditMode = false;
+  this.fboForm.reset();
+}
+isEditRecord(param:any){
+  console.log(param.Record);
+  this.isEditMode = param.isEditMode;
+  const record = param.Record;
+  this.objId = record._id
+  console.log(record);
+  this.formType = "Edit"
+  this.fboForm.setValue({
+    fbo_name: record.fbo_name,
+    owner_name: record.owner_name,
+    owner_contact: record.owner_contact,
+    email: record.email,
+    state: record.state,
+    district: record.district,
+    address: record.address,
+    product_name: record.product_name,
+    processing_amount: record.processing_amount,
+    service_name: record.service_name,
+    client_type: record.client_type,
+    recipient_no: record.recipient_no,
+    water_test_fee: record.water_test_fee,
+    payment_mode : record.payment_mode,
+    createdBy: record.createdBy,
+    license_category :record.license_category,
+    license_duration : record.license_duration,
+    total_amount: record.total_amount
+  })
+}
 
 }
 

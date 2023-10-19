@@ -7,6 +7,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Employee } from 'src/app/utils/registerinterface';
 import { DeleteEmployee, GetEmployee } from 'src/app/store/actions/employee.action';
 import { RegisterService } from 'src/app/services/register.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-employeelist',
@@ -38,7 +39,8 @@ export class EmployeelistComponent implements OnInit {
   constructor( 
     private _utililitesService: UtilitiesService,
     private registerService: RegisterService,
-    private store:Store) {
+    private store:Store,
+    private _toastrService : ToastrService,) {
   }
 
   ngOnInit(): void {
@@ -120,9 +122,9 @@ export class EmployeelistComponent implements OnInit {
       const deletedBy = parsedData.employee_id;
       this.registerService.deleteEmployee(objId, deletedBy).subscribe(res =>{
         if(res.success){
-          console.log(res)
+          this._toastrService.success('Record Edited Successfully', res.message);
         }else{
-          console.log("Some error occured");
+          this._toastrService.success('Message Error!', res.message);
         }
       })
    }

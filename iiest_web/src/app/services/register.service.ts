@@ -63,24 +63,24 @@ export class RegisterService {
   }
 
   storeToken(currentUser:any){
-    localStorage.setItem('issLoggedIn', 'true')
-    localStorage.setItem('token', currentUser.authToken)
-    localStorage.setItem("LoggedInUser", JSON.stringify(currentUser.employee_user));
+    sessionStorage.setItem('issLoggedIn', 'true')
+    sessionStorage.setItem('token', currentUser.authToken)
+    sessionStorage.setItem("LoggedInUser", JSON.stringify(currentUser.employee_user));
     
   }
 
   getToken(){
-    return localStorage.getItem('token')
+    return sessionStorage.getItem('token')
   }
   LoggedInUserData(){
-    return localStorage.getItem('LoggedInUser')
+    return sessionStorage.getItem('LoggedInUser')
   }
 
   isLoggedIn(){
-    return !!localStorage.getItem('token')
+    return !!sessionStorage.getItem('token')
   }
   signout(){
-    localStorage.clear();
+    sessionStorage.clear();
     this.router.navigate([''])
   }
 }

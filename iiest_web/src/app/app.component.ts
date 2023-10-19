@@ -33,8 +33,10 @@ export class AppComponent implements OnInit {
     });
     this.isToken = this._registerService.isLoggedIn();
     if(!this.isToken){
-    localStorage.setItem('issLoggedIn','false');
-    localStorage.setItem('token','')
+    sessionStorage.setItem('issLoggedIn','false');
+    sessionStorage
+  
+    sessionStorage.setItem('token','')
     }
   }
   ngOnInit(): void {

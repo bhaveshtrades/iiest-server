@@ -1,4 +1,4 @@
-import { Employee, fbo } from "src/app/utils/registerinterface";
+import { Employee } from "src/app/utils/registerinterface";
 
 export class AddEmployee {
     static readonly type = '[Employee] Add';

@@ -4,8 +4,8 @@ import { CanActivateFn, Router } from '@angular/router';
 export const authGuard: CanActivateFn = (route, state) => {
 
   let _route = inject(Router)
-  let issLoggedIn = localStorage.getItem('isLoggedIn');
-  let issToken =  localStorage.getItem('token');
+  let issLoggedIn = sessionStorage.getItem('isLoggedIn');
+  let issToken =  sessionStorage.getItem('token');
  if(issLoggedIn == 'false' || issToken == '' || issToken == null){
     _route.navigate(['/main']);
     //alert('Not logged in ');

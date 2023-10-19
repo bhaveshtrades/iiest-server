@@ -112,7 +112,7 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (res) => { 
           console.log(res)
-          localStorage.setItem('token', res.authToken);
+          sessionStorage.setItem('token', res.authToken);
           this.activeModal.close();
           this.route.navigate(['/home']); 
         },

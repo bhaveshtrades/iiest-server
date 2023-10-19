@@ -141,9 +141,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(): void {
-
     this.submitted = true;
-
     if (this.form.invalid) {
       return;
     }
@@ -154,9 +152,12 @@ export class SignupComponent implements OnInit {
     if(this.isEditMode){
       this.editedData = this.form.value;
       this.store.dispatch(new UpdateEmployee(this.objId, this.editedData));
-      this._registerService.updateEmployee(this.objId, this.editedData, this.parsedUserData.employee_id).subscribe(res =>{
-        if(res.success){
-          console.log('Update Successful');
+      this._registerService.updateEmployee(this.objId, this.editedData, this.parsedUserData.employee_id).subscribe(response =>{
+        if(response.success){
+          this._toastrService.success('Record Edited Successfully', response.message);
+          this.backToRegister();
+        }else{
+          this._toastrService.error('Message Error!', response.message);
         }
       })
     }else{
@@ -164,17 +165,19 @@ export class SignupComponent implements OnInit {
       this._registerService.addEmployee(this.addemployee)
       .subscribe((response: any) => {
         if (response.success) {
-          this._toastrService.success('Message Success', response.message)
+          this._toastrService.success('REcord Added Successfully', response.message);
+          this.onReset();
         } else {
           this._toastrService.error('Message Error!', response.message);
         }
     });
     }
   }
-  onReset(): void {
-    this.submitted = false;
-    this.form.reset();
-  }
+
+onReset(): void {
+  this.submitted = false;
+  this.form.reset();
+}
 
 
   empGeneralData(){
@@ -196,6 +199,7 @@ export class SignupComponent implements OnInit {
 }
 
 backToRegister(){
+  this.submitted = false;
   this.isEditMode = false;
   this.form.reset();
 }
