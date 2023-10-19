@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { GetdataService } from 'src/app/services/getdata.service';
 import { RegisterService } from 'src/app/services/register.service';
 import { faEye, faPencil, faTrash, faEnvelope, faXmark, faMagnifyingGlass, faFileCsv, faFilePdf } from '@fortawesome/free-solid-svg-icons';
@@ -10,6 +10,7 @@ import { faEye, faPencil, faTrash, faEnvelope, faXmark, faMagnifyingGlass, faFil
   styleUrls: ['./fbolist.component.scss']
 })
 export class FbolistComponent implements OnInit {
+  @Output() isEditRecord = new EventEmitter();
   createdBy: any;
   allFBOEntries: any;
   selectedFilter: string = 'byOwner';
@@ -68,6 +69,16 @@ export class FbolistComponent implements OnInit {
     this.pageNumber = event;
     this.filter();
   }
+
+  //Edit Mode Emitter to Parent component fbo
+  editRecord(res:any): void{
+    console.log(res);
+    var data = {
+      isEditMode: true,
+      Record: res
+    }
+    this.isEditRecord.emit(data);
+   }
 
   deleteFBO(fbo: any): void {
     const loggedInUserData: any = this.registerService.LoggedInUserData();

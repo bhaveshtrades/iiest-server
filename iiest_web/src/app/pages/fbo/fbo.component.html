@@ -2,11 +2,15 @@
     <div class="container-xl">
         <div class="row g-3 mb-4 align-items-center justify-content-between">
             <div class="col-auto">
-                <h1 class="app-page-title mb-2">FBO Registration Form</h1>
+                <h1 class="app-page-title mb-2">FBO {{formType}} Form</h1>
+            </div>
+            <div class="col-auto" [ngClass]="isEditMode ?'d-block': 'd-none'">
+                <button type="submit" class="btn btn-sm btn-primary" (click)="backToRegister()">Register Form</button>
             </div>
         </div>
         <div class="row gy-4 mb-3">
-            <form [formGroup]="fboForm" class="row g-3 border border-1 rounded-3 pb-3" autocomplete="off" (ngSubmit)="onSubmit()">
+            <form [formGroup]="fboForm" class="row g-3 border border-1 rounded-3 pb-3" autocomplete="off"
+                (ngSubmit)="onSubmit()">
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-6">
@@ -174,29 +178,33 @@
                                 [ngClass]="{ 'is-invalid': submitted && fbo['license_category'].errors }"
                                 class="form-select form-select-sm">
                                 <option value="" disabled selected>Select the Licence Category</option>
-                                <option *ngFor="let category of licenceType.licenceCategory" [ngValue]="category">{{ category }}</option>
+                                <option *ngFor="let category of licenceType.licenceCategory" [ngValue]="category">{{
+                                    category }}</option>
                             </select>
                             <div *ngIf="submitted && fbo['license_category'].errors" class="invalid-feedback">
-                                <div *ngIf="fbo['license_category'].errors['required']">Licence Category is required</div>
+                                <div *ngIf="fbo['license_category'].errors['required']">Licence Category is required
+                                </div>
                             </div>
                         </div>
                         <div *ngIf="isFoscos" class="col-md-6">
                             <label for="license_duration" class=" form-label">Licence Duration<sup>*</sup></label>
                             <select id="license_duration" formControlName="license_duration"
-                            [ngClass]="{ 'is-invalid': submitted && fbo['license_duration'].errors }"
+                                [ngClass]="{ 'is-invalid': submitted && fbo['license_duration'].errors }"
                                 class="form-select form-select-sm">
                                 <option value="" disabled selected>Select the Licence Duration</option>
-                                <option *ngFor="let duration of licenceType.Duration" [ngValue]="duration">{{ duration }} Year</option>
+                                <option *ngFor="let duration of licenceType.Duration" [ngValue]="duration">{{ duration
+                                    }} Year</option>
                             </select>
                             <div *ngIf="submitted && fbo['license_duration'].errors" class="invalid-feedback">
-                                <div *ngIf="fbo['license_duration'].errors['required']">Licence Duration is required</div>
+                                <div *ngIf="fbo['license_duration'].errors['required']">Licence Duration is required
+                                </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-6">
                             <label for="payment_mode" class=" form-label">Payment Mode<sup>*</sup></label>
                             <select id="payment_mode" formControlName="payment_mode" placeholder="Payment Mode"
-                            [ngClass]="{ 'is-invalid': submitted && fbo['payment_mode'].errors }"
+                                [ngClass]="{ 'is-invalid': submitted && fbo['payment_mode'].errors }"
                                 class="form-select form-select-sm">
                                 <option value="" disabled selected>Select Mode of Payment</option>
                                 <option *ngFor="let mode of paymentMode" [ngValue]="mode">{{ mode }}</option>
@@ -207,18 +215,23 @@
                         </div>
                         <div class="col-md-6">
                             <label for="total_amount" class=" form-label">Total Amount<sup>*</sup></label>
-                            <input type="text" placeholder="Total Amount"
-                                formControlName="total_amount" class="form-control form-control-sm" id="total_amount"
+                            <input type="text" placeholder="Total Amount" formControlName="total_amount"
+                                class="form-control form-control-sm" id="total_amount"
                                 [ngClass]="{ 'is-invalid': submitted && fbo['total_amount'].errors }" />
                             <div *ngIf="submitted && fbo['total_amount'].errors" class="invalid-feedback">
                                 <div *ngIf="fbo['total_amount'].errors['required']">Total Amount Required</div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="col-6">
-                    <button type="submit" class="btn btn-sm btn-primary">Register</button>
+                    <button *ngIf="isEditMode; else otherContent" type="submit"
+                        class="btn btn-sm btn-primary">Update</button>
+
+                    <ng-template #otherContent>
+                        <button type="submit" class="btn btn-sm btn-primary">Register</button>
+                    </ng-template>
                 </div>
                 <div class="col-6 d-grid gap-2 d-md-flex justify-content-md-end">
                     <button type="button" (click)="onReset()" class="btn btn-sm btn-warning">Reset</button>
@@ -226,9 +239,9 @@
             </form>
         </div>
     </div>
-</div> 
+</div>
 <div class="app-content pt-3 p-md-3 p-lg-4">
     <div class="container-xl border border-1 rounded-3">
-        <app-fbolist class="border"></app-fbolist>
+        <app-fbolist (isEditRecord)="isEditRecord($event)" class="border"></app-fbolist>
     </div>
 </div>
