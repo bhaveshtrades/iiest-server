@@ -56,6 +56,11 @@ export class RegisterService {
     return this.http.put<any>(url, {...employee, editedBy}).pipe(catchError(this.handleError));
   }
 
+  public updateFbo(objId: string, editedData: Object, editedBy: string): Observable<any>{
+    const url = `${this.url}/editFbo/${objId}`;
+    return this.http.put<any>(url, {...editedData, editedBy}).pipe(catchError(this.handleError));
+  }
+
 
   private handleError(err: HttpErrorResponse): Observable<never> {
     // just a test ... more could would go here

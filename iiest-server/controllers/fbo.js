@@ -93,6 +93,33 @@ exports.deleteFbo = async(req, res)=>{
     }
 }
 
+//Controller for editing FBO data
+exports.editFbo = async(req, res)=>{
+
+    try {
+
+        let objId = req.params.id;
+        let success = false;
+
+        const updatedFboData = req.body;
+        const editedBy = req.body.editedBy
+
+        const updatedFbo = await fboSchema.findByIdAndUpdate(objId, {...updatedFboData, lastEdit: editedBy}, {new: true});
+
+        if(!updatedFbo){
+            success = false;
+            return res.status(401).json({success, message: "Employee Not Found"});
+        }
+
+        success = true;
+        return res.status(201).json({success, updatedFbo})
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({message: "Internal Server Error"});
+    }
+}
+
 //Controller to get all FBO Data
 exports.allFBOData  = async(req, res)=>{
     try {

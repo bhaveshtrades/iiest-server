@@ -101,9 +101,8 @@ export class FboComponent implements OnInit {
         total_amount: ['', Validators.required]
       });
 
-    this.fboForm.patchValue({ createdBy: this.parsedUserData.employee_id })
-
-
+      this.fboForm.patchValue({createdBy : `${this.userName}(${this.parsedUserData.employee_id})`})
+      
   }
   get fbo(): { [key: string]: AbstractControl } {
     return this.fboForm.controls;
@@ -119,18 +118,27 @@ export class FboComponent implements OnInit {
       return;
     }
 
-    console.log(JSON.stringify(this.fboForm.value, null, 2));
-    this.addFbo = this.fboForm.value;
-    this._registerService.addFbo(this.addFbo)
+    if(this.isEditMode){
+      this.editedData = this.fboForm.value;
+      this._registerService.updateFbo(this.objId, this.editedData, `${this.userName}(${this.parsedUserData.employee_id})`).subscribe(res=>{
+        if(res.success){
+          this._toastrService.success('Record edited successfully', res.message);
+          this.backToRegister();
+        }
+      });
+    }else{
+      this.addFbo = this.fboForm.value;
+      this._registerService.addFbo(this.addFbo)
       .subscribe((response: any) => {
         if (response.success) {
-          this._toastrService.success('Message Success', response.message)
+          this._toastrService.success('Message Success', response.message);
+          this.onReset();
         } else {
           this._toastrService.error('Message Error!', response.message);
         }
         //console.log(response);
       });
-    this.onReset();
+    }
   }
 
 
@@ -157,7 +165,7 @@ export class FboComponent implements OnInit {
   //Reset the form
   onReset(): void {
     this.submitted = false;
-
+    
     this.fboForm.reset();
   }
 
@@ -173,12 +181,10 @@ export class FboComponent implements OnInit {
 
     if (this.productName == 'Foscos Training') {
       this.recipientORshop = 'Shops';
-      this.isFoscos = true;
-      this.fboForm.controls['license_category'].setValidators(this.setRequired());
-      this.fboForm.controls['license_duration'].setValidators(this.setRequired());
-    } else {
-      this.isFoscos = false;
-      this.recipientORshop = 'Recipient';
+      this.isFoscos = true;  
+      this.fboForm.controls['license_category'].setValidators(this.setRequired());   
+      this.fboForm.controls['license_duration'].setValidators(this.setRequired());  
+    }else {
       this.fboForm.controls['license_category'].clearValidators();
       this.fboForm.controls['license_duration'].clearValidators();
     }
