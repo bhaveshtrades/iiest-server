@@ -189,6 +189,12 @@ onReset(): void {
       },
       error: (err) => {
         let errorObj = err.error
+        if(errorObj.userError){
+          this._registerService.signout();
+        }
+        // if(errorObj.userError){
+        //   this._registerService.signout();
+        // }
         //this.error = true;
         //this.errorMgs = errorObj.message
       },

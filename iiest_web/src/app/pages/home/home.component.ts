@@ -35,8 +35,7 @@ export class HomeComponent implements OnInit, OnDestroy{
       this.employees$.subscribe(res => {
        this.data = res;
        console.log(this.data)
-       this._utilitiesService.setData(this.data);
-      }) 
+      })
       let loggedInUserData:any = this._registerService.LoggedInUserData(); 
       loggedInUserData = JSON.parse(loggedInUserData)
       this.empName = loggedInUserData.employee_name;

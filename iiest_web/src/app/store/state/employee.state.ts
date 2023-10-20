@@ -5,6 +5,7 @@ import { Employee } from "src/app/utils/registerinterface";
 import { DeleteEmployee, GetEmployee, UpdateEmployee } from "../actions/employee.action";
 import { GetdataService } from "src/app/services/getdata.service";
 import { tap } from "rxjs";
+import { RegisterService } from "src/app/services/register.service";
 
 //State Model
 export class EmployeeStateModel {
@@ -24,7 +25,8 @@ export class EmployeeStateModel {
 @Injectable()
 
 export class EmployeeState {
-    constructor(private _getDataService: GetdataService){}
+    constructor(private _getDataService: GetdataService,
+                private _regitserService: RegisterService){}
 
     @Selector()
     static GetEmployeeList(state:EmployeeStateModel){
@@ -39,14 +41,22 @@ export class EmployeeState {
     @Action(GetEmployee)
     getEmployees({getState, setState}:StateContext<EmployeeStateModel>){
         console.log('State Action');
-        return this._getDataService.getEmployeeData().pipe(tap(res => {
+         this._getDataService.getEmployeeData().pipe(tap(res => {
             const state = getState();
+            console.log(res)
             setState({
                 ...state,
                 employees:res.employeesData,
                 employeeLoaded:true
             })
-        }))
+        })).subscribe({
+            error: (err)=>{
+                let errorObj = err.error
+                if(errorObj.userError){
+                    this._regitserService.signout();
+                }
+            }
+        })
         
        /*  this._getDataService.getGenericData().subscribe( {
             next: (res) => { 

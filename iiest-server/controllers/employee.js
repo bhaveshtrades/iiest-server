@@ -54,6 +54,8 @@ exports.employeeRegister = async(req, res)=>{
 
         let generatedPassword = generatePassword(10); //Calling function to generate employee password
 
+        console.log(generatedUsername, generatedPassword);
+
         //Password Hashing
         const salt = await bcrypt.genSalt(10);
         const secPass = await bcrypt.hash(generatedPassword, salt);
@@ -94,8 +96,8 @@ exports.employeeLogin = async(req, res)=>{
         }
     
         const data = {
-            employee_user:{
-                id: employee_user.id_num
+            user:{
+                id: employee_user.id
             }
         }    
     

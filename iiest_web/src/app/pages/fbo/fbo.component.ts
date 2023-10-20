@@ -110,7 +110,7 @@ export class FboComponent implements OnInit {
   setRequired() {
 		return [Validators.required];
 	}
-  //Form Submit Methode
+  //Form Submit Method
   onSubmit() {
     this.submitted = true;
     if (this.fboForm.invalid) {
