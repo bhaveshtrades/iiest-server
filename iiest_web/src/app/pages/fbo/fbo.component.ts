@@ -29,10 +29,11 @@ export class FboComponent implements OnInit {
   processAmnt: any;
   serviceName: any;
   addFbo: any;
-  isFoscos :boolean = false;
+  isFoscos: boolean = false;
   recipientORshop: string = 'Recipient';
-  isEditMode : boolean = false;
-  formType :string = "Registration";
+  isEditMode: boolean = false;
+  formType: string = "Registration";
+  isReadOnly: boolean = false;
 
   fboForm: FormGroup = new FormGroup({
     fbo_name: new FormControl(''),
@@ -48,10 +49,10 @@ export class FboComponent implements OnInit {
     client_type: new FormControl(''),
     recipient_no: new FormControl(''),
     water_test_fee: new FormControl(''),
-    payment_mode : new FormControl(''),
+    payment_mode: new FormControl(''),
     createdBy: new FormControl(''),
-    license_category :new FormControl(''),
-    license_duration : new FormControl(''),
+    license_category: new FormControl(''),
+    license_duration: new FormControl(''),
     total_amount: new FormControl('')
   })
 
@@ -66,7 +67,7 @@ export class FboComponent implements OnInit {
   }
   ngOnInit(): void {
 
-    this.userData = this._registerService.LoggedInUserData(); 
+    this.userData = this._registerService.LoggedInUserData();
     this.parsedUserData = JSON.parse(this.userData)
     this.userName = this.parsedUserData.employee_name;
 
@@ -95,9 +96,9 @@ export class FboComponent implements OnInit {
         water_test_fee: [''],
         payment_mode: ['', Validators.required],
         createdBy: ['', Validators.required],
-        license_category:[''],
-        license_duration:[''],
-        total_amount:['', Validators.required] 
+        license_category: [''],
+        license_duration: [''],
+        total_amount: ['', Validators.required]
       });
 
       this.fboForm.patchValue({createdBy : `${this.userName}(${this.parsedUserData.employee_id})`})
@@ -108,9 +109,9 @@ export class FboComponent implements OnInit {
   }
 
   setRequired() {
-		return [Validators.required];
-	}
-  //Form Submit Method
+    return [Validators.required];
+  }
+  //Form Submit Methode
   onSubmit() {
     this.submitted = true;
     if (this.fboForm.invalid) {
@@ -141,23 +142,7 @@ export class FboComponent implements OnInit {
   }
 
 
-  getEmployees() {
-    /* this._getDataService.getGenericData().subscribe( {
-      next: (res) => { 
-        console.log(res)
-      },
-      error: (err) => {
-        let errorObj = err.error
-        this.error = true;
-        this.errorMgs = errorObj.message
-      },
-      complete: () =>{ 
-        //console.info('complete')
-      } 
-  }) */
-  }
-
-//Get Fbo General Data
+  //Get Fbo General Data
   getFboGeneralData() {
     this._getFboGeneralData.getFboGeneralData().subscribe({
       next: (res) => {
@@ -177,22 +162,24 @@ export class FboComponent implements OnInit {
     })
   }
 
-//Reset the form
+  //Reset the form
   onReset(): void {
     this.submitted = false;
     
     this.fboForm.reset();
   }
 
-//Get Product List
+  //Get Product List
   getProduct(event: any) {
+    console.log(this.productName);
+    this.clearFunc();
     this.productName = event.target.value;
     var filtered = this.fboGeneralData.filter((a: any) => a.key == this.productName)
     filtered = filtered[0].value;
     this.processAmnt = Object.values(filtered.processing_amount);
     this.serviceName = Object.values(filtered.service_name);
 
-    if( this.productName == 'Foscos Training'){
+    if (this.productName == 'Foscos Training') {
       this.recipientORshop = 'Shops';
       this.isFoscos = true;  
       this.fboForm.controls['license_category'].setValidators(this.setRequired());   
@@ -201,47 +188,108 @@ export class FboComponent implements OnInit {
       this.fboForm.controls['license_category'].clearValidators();
       this.fboForm.controls['license_duration'].clearValidators();
     }
-    
-
   }
- 
+  //Processing Amount + GST
+  processAmount(event: any) {
+    if(this.fboForm.value.client_type != '' || this.fboForm.value.recipient_no != '' || this.fboForm.value.total_amount != ''){
+      var GST_amount = (Number(this.fboForm.value.processing_amount) ) * 18 / 100;
+      var total_amount = (Number(GST_amount) + Number(this.fboForm.value.processing_amount * this.fboForm.value.recipient_no));
+      this.fboForm.patchValue({ 'total_amount': total_amount });
+    }
+  }
+  //Water test Ammount + GST
+  waterTestAdd(event:any){
+    if(event.target.value != 0){
+    var processAmnt = (Number(this.fboForm.value.processing_amount * this.fboForm.value.recipient_no)) + Number(this.fboForm.value.water_test_fee);
+    var GST_amount = processAmnt * 18 / 100;
+    var total_amount = (Number(GST_amount) + processAmnt);
+    this.fboForm.patchValue({ 'total_amount': total_amount });
+    }
+    else{
+      var processAmnt = (Number(this.fboForm.value.processing_amount * this.fboForm.value.recipient_no));
+      var GST_amount = processAmnt * 18 / 100;
+      var total_amount = (Number(GST_amount) + processAmnt);
+      this.fboForm.patchValue({ 'total_amount': total_amount });
+    }
+  }
 
-serviceType(event:any){
-  console.log(event.target.value)
-}
-backToRegister(){
-  this.submitted = false;
-  this.isEditMode = false;
-  this.fboForm.reset();
-}
-isEditRecord(param:any){
-  console.log(param.Record);
-  this.isEditMode = param.isEditMode;
-  const record = param.Record;
-  this.objId = record._id
-  console.log(record);
-  this.formType = "Edit"
-  this.fboForm.setValue({
-    fbo_name: record.fbo_name,
-    owner_name: record.owner_name,
-    owner_contact: record.owner_contact,
-    email: record.email,
-    state: record.state,
-    district: record.district,
-    address: record.address,
-    product_name: record.product_name,
-    processing_amount: record.processing_amount,
-    service_name: record.service_name,
-    client_type: record.client_type,
-    recipient_no: record.recipient_no,
-    water_test_fee: record.water_test_fee,
-    payment_mode : record.payment_mode,
-    createdBy: record.createdBy,
-    license_category :record.license_category,
-    license_duration : record.license_duration,
-    total_amount: record.total_amount
-  })
-}
+  //Client Type + GST
+  clienttypeFun(event: any) {
+    if (event.target.value === 'General Client') {
+      this.fboForm.patchValue({ 'recipient_no': 1 })
+      this.isReadOnly = true;
+      var total_amount = this.GSTandTotalAmnt(1)
+      this.fboForm.patchValue({ 'total_amount': total_amount });
+    }
+    if (event.target.value === 'Corporate Client') {
+      var val = 2;
+      this.fboForm.patchValue({ 'recipient_no': val });
+      this.recipientCount(val);
+    }
+  }
+  backToRegister() {
+    this.submitted = false;
+    this.isEditMode = false;
+    this.fboForm.reset();
+  }
+  isEditRecord(param: any) {
+    console.log(param.Record);
+    this.isEditMode = param.isEditMode;
+    const record = param.Record;
+    this.objId = record._id
+    console.log(record);
+    this.formType = "Edit"
+    this.fboForm.setValue({
+      fbo_name: record.fbo_name,
+      owner_name: record.owner_name,
+      owner_contact: record.owner_contact,
+      email: record.email,
+      state: record.state,
+      district: record.district,
+      address: record.address,
+      product_name: record.product_name,
+      processing_amount: record.processing_amount,
+      service_name: record.service_name,
+      client_type: record.client_type,
+      recipient_no: record.recipient_no,
+      water_test_fee: record.water_test_fee,
+      payment_mode: record.payment_mode,
+      createdBy: record.createdBy,
+      license_category: record.license_category,
+      license_duration: record.license_duration,
+      total_amount: record.total_amount
+    })
+  }
 
+  //Recipient Count based Total Amount calulation
+  recipientCount(val: any) {
+    this.isReadOnly = false;
+    if (typeof (val) == 'number') {
+      var total_amount = this.GSTandTotalAmnt(val)
+      this.fboForm.patchValue({ 'total_amount': total_amount });
+    } else {
+      var recipient = val.target.value;
+      var total_amount = this.GSTandTotalAmnt(recipient)
+      this.fboForm.patchValue({ 'total_amount': total_amount });
+    }
+  }
+
+  //GST Calculation and Add to Total Amount
+  GSTandTotalAmnt(param: any) {
+    console.log(param)
+    var processAmnt = this.fboForm.value.processing_amount * param;
+    var GST_amount = processAmnt * 18 / 100;
+    var total_amount = Number(GST_amount) + processAmnt;
+    return total_amount;
+  }
+
+  //On Product Change clear these inputs
+  clearFunc() {
+    this.fboForm.patchValue({ 'processing_amount': '' })
+    this.fboForm.patchValue({ 'client_type': '' })
+    this.fboForm.patchValue({ 'recipient_no': '' })
+    this.fboForm.patchValue({ 'total_amount': '' })
+    this.fboForm.patchValue({ 'service_name': '' })
+  }
 }
 
