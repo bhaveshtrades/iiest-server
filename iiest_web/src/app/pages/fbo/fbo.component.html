@@ -112,7 +112,7 @@
                             <label for="processing_amount" class="form-label">Processing Amount<sup>*</sup></label>
                             <select id="processing_amount"
                                 [ngClass]="{ 'is-invalid': submitted && fbo['processing_amount'].errors }"
-                                formControlName="processing_amount" class="form-select form-select-sm">
+                                formControlName="processing_amount" (click)="processAmount($event)" class="form-select form-select-sm">
                                 <option value="" disabled selected>Select the Processing Fee</option>
                                 <option *ngFor="let processamnt of processAmnt" [value]="processamnt">{{ processamnt }}
                                 </option>
@@ -142,9 +142,10 @@
                             <label for="client_type" class="form-label">Client Type<sup>*</sup></label>
                             <select id="client_type"
                                 [ngClass]="{ 'is-invalid': submitted && fbo['client_type'].errors }"
-                                formControlName="client_type" class="form-select form-select-sm">
+                                formControlName="client_type" (change)="clienttypeFun($event)"
+                                class="form-select form-select-sm" >
                                 <option value="" disabled selected>Select the Client Type</option>
-                                <option *ngFor="let clienttype of clientType" [ngValue]="clienttype">{{ clienttype }}
+                                <option *ngFor="let clienttype of clientType" [value]="clienttype">{{ clienttype }}
                                 </option>
                             </select>
                             <div *ngIf="submitted && fbo['client_type'].errors" class="invalid-feedback">
@@ -157,19 +158,20 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="recipient_no" class="form-label">No. of {{recipientORshop}}<sup>*</sup></label>
-                            <input type="number" min="0" step="1" placeholder="No. of {{recipientORshop}}"
-                                formControlName="recipient_no" class="form-control form-control-sm" id="recipient_no"
+                            <input type="number" min="0" step="1" placeholder="No. of {{recipientORshop}}" [readonly]="isReadOnly"
+                                formControlName="recipient_no" class="form-control form-control-sm" id="recipient_no" 
+                                (change)="recipientCount($event)"
                                 [ngClass]="{ 'is-invalid': submitted && fbo['recipient_no'].errors }" />
                             <div *ngIf="submitted && fbo['recipient_no'].errors" class="invalid-feedback">
                                 <div *ngIf="fbo['recipient_no'].errors['required']">No. of Recipient is required</div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div *ngIf="isFoscos" class="col-md-6">
                             <label for="water_test_fee" class=" form-label">Water Test fee</label>
                             <select id="water_test_fee" formControlName="water_test_fee"
-                                class="form-select form-select-sm">
+                                class="form-select form-select-sm" (click)="waterTestAdd($event)">
                                 <option value="" disabled selected>Select the Water Test Fee</option>
-                                <option *ngFor="let fee of waterTestFee" [ngValue]="fee">{{ fee }}</option>
+                                <option *ngFor="let fee of waterTestFee" [value]="fee">{{ fee }}</option>
                             </select>
                         </div>
                         <div *ngIf="isFoscos" class="col-md-6">
@@ -202,6 +204,16 @@
                         </div>
 
                         <div class="col-md-6">
+                            <label for="total_amount" class=" form-label">Total Amount<sup>*</sup></label>
+                            <input type="text" placeholder="Total Amount" formControlName="total_amount" 
+                                class="form-control form-control-sm" id="total_amount"
+                                [ngClass]="{ 'is-invalid': submitted && fbo['total_amount'].errors }" />
+                            <div *ngIf="submitted && fbo['total_amount'].errors" class="invalid-feedback">
+                                <div *ngIf="fbo['total_amount'].errors['required']">Total Amount Required</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
                             <label for="payment_mode" class=" form-label">Payment Mode<sup>*</sup></label>
                             <select id="payment_mode" formControlName="payment_mode" placeholder="Payment Mode"
                                 [ngClass]="{ 'is-invalid': submitted && fbo['payment_mode'].errors }"
@@ -213,15 +225,7 @@
                                 <div *ngIf="fbo['payment_mode'].errors['required']">Mode of Payment is required</div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="total_amount" class=" form-label">Total Amount<sup>*</sup></label>
-                            <input type="text" placeholder="Total Amount" formControlName="total_amount"
-                                class="form-control form-control-sm" id="total_amount"
-                                [ngClass]="{ 'is-invalid': submitted && fbo['total_amount'].errors }" />
-                            <div *ngIf="submitted && fbo['total_amount'].errors" class="invalid-feedback">
-                                <div *ngIf="fbo['total_amount'].errors['required']">Total Amount Required</div>
-                            </div>
-                        </div>
+                        
 
                     </div>
                 </div>
