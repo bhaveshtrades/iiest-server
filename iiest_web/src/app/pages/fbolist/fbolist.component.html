@@ -26,7 +26,7 @@
         </div>
         <div class="col-auto">
           <fa-icon (click)="exportToCsv()" class="fa-2xl" style="margin: 7px 7px; color: #1957a9;" [icon]="faFileCsv"></fa-icon>
-          <fa-icon class="fa-2xl" style="margin: 7px 7px; color: #c64115;" [icon]="faFilePdf"></fa-icon>
+          <!-- <fa-icon class="fa-2xl" style="margin: 7px 7px; color: #c64115;" [icon]="faFilePdf"></fa-icon> -->
         </div>
       </div><!--//row-->
     </div><!--//table-utilities-->
@@ -64,7 +64,7 @@
                 <th class="cell">Recipient No</th>
                 <!-- <th class="cell">Water Test</th> -->
                 <th class="cell">Created At</th>
-                <th class="cell">Created By</th>
+                <!-- <th class="cell">Created By</th> -->
                 <th class="cell text-center">Action</th>
               </tr>
             </thead>
@@ -86,11 +86,11 @@
                 <td class="cell"><span class="truncate">{{fbo.recipient_no}}</span></td>
                <!--  <td class="cell"><span class="truncate">{{fbo.water_test_fee}}</span></td> -->
                 <td class="cell"><span class="truncate">{{fbo.createdAt | date: 'shortDate'}}</span></td>
-                <td class="cell"><span class="truncate">{{fbo.createdBy}}</span></td>
+                <!-- <td class="cell"><span class="truncate">{{fbo.createdBy}}</span></td> -->
                 <td class="cell text-center">
                   <fa-icon class="fa-l" style="margin-right: 7px; color: #1957a9;" [icon]="faEye"></fa-icon>
-                  <fa-icon class="fa-l" (click)="editRecord(fbo)"style="margin-right: 7px; color: #1957a9;" [icon]="faPencil"></fa-icon>
-                  <fa-icon class="fa-l" style="color: #c64115;" [icon]="faTrash" (click)="deleteFBO(fbo)"></fa-icon>
+                  <!-- <fa-icon class="fa-l" (click)="editRecord(fbo)"style="margin-right: 7px; color: #1957a9;" [icon]="faPencil"></fa-icon> -->
+                  <!-- <fa-icon class="fa-l" style="color: #c64115;" [icon]="faTrash" (click)="deleteFBO(fbo)"></fa-icon> -->
                 </td>
               </tr>
             </tbody>

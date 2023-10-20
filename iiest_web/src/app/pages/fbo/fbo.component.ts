@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 export class FboComponent implements OnInit {
   userName: string = '';
   userData: any;
+  minValue: number = 1;
   objId: string;
   editedData: any;
   parsedUserData: any;
@@ -181,7 +182,7 @@ export class FboComponent implements OnInit {
 
     if (this.productName == 'Foscos Training') {
       this.recipientORshop = 'Shops';
-      this.isFoscos = true;  
+      this.isFoscos = true;       
       this.fboForm.controls['license_category'].setValidators(this.setRequired());   
       this.fboForm.controls['license_duration'].setValidators(this.setRequired());  
     }else {
@@ -222,6 +223,7 @@ export class FboComponent implements OnInit {
       this.fboForm.patchValue({ 'total_amount': total_amount });
     }
     if (event.target.value === 'Corporate Client') {
+      this.minValue = 2;
       var val = 2;
       this.fboForm.patchValue({ 'recipient_no': val });
       this.recipientCount(val);
