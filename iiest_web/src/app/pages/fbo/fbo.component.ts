@@ -130,7 +130,7 @@ export class FboComponent implements OnInit {
     }else{
       this.addFbo = this.fboForm.value;
       this._registerService.addFbo(this.addFbo)
-      .subscribe((response: any) => {
+      .subscribe((response) => {
         if (response.success) {
           this._toastrService.success('Message Success', response.message);
           this.onReset();
@@ -138,6 +138,12 @@ export class FboComponent implements OnInit {
           this._toastrService.error('Message Error!', response.message);
         }
         //console.log(response);
+      },
+      err =>{
+        let errorObj = err;
+        if(errorObj.userError){
+          this._registerService.signout();
+        }
       });
     }
   }
@@ -154,6 +160,9 @@ export class FboComponent implements OnInit {
       },
       error: (err) => {
         let errorObj = err.error
+        if(errorObj.userError){
+          this._registerService.signout();
+        }
         //this.error = true;
         //this.errorMgs = errorObj.message
       },

@@ -151,25 +151,37 @@ export class SignupComponent implements OnInit {
 
     if(this.isEditMode){
       this.editedData = this.form.value;
-      this.store.dispatch(new UpdateEmployee(this.objId, this.editedData));
       this._registerService.updateEmployee(this.objId, this.editedData, `${this.userName}(${this.parsedUserData.employee_id})`).subscribe(response =>{
         if(response.success){
+          this.store.dispatch(new UpdateEmployee(this.objId, this.editedData));
           this._toastrService.success('Record Edited Successfully', response.message);
           this.backToRegister();
         }else{
           this._toastrService.error('Message Error!', response.message);
         }
-      })
+      },
+      err => {
+        let errorObj = err.error
+        if(errorObj.userError){
+          this._registerService.signout();
+        }
+    })
     }else{
       this.addemployee = this.form.value;
       this._registerService.addEmployee(this.addemployee)
-      .subscribe((response: any) => {
+      .subscribe((response) => {
         if (response.success) {
-          this._toastrService.success('REcord Added Successfully', response.message);
+          this._toastrService.success('Record Added Successfully', response.message);
           this.onReset();
         } else {
           this._toastrService.error('Message Error!', response.message);
         }
+    },
+    err => {
+      let errorObj = err.error
+      if(errorObj.userError){
+        this._registerService.signout();
+      }
     });
     }
   }
@@ -192,9 +204,6 @@ onReset(): void {
         if(errorObj.userError){
           this._registerService.signout();
         }
-        // if(errorObj.userError){
-        //   this._registerService.signout();
-        // }
         //this.error = true;
         //this.errorMgs = errorObj.message
       },

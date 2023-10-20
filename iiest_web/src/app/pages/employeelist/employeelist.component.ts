@@ -99,13 +99,6 @@ export class EmployeelistComponent implements OnInit {
        }
      })
    }
-
-   onDeleteEmployee(objId: string): void{
-    this.store.dispatch(new DeleteEmployee(objId)).subscribe(()=>{
-      // this.getEmployees();
-      this.deleteEmployeeBackend(objId);
-    })
-   }
    
    editRecord(res:any): void{
     console.log(res);
@@ -116,15 +109,22 @@ export class EmployeelistComponent implements OnInit {
     this.isEditRecord.emit(data);
    }
 
-   deleteEmployeeBackend(objId: string): void{
+   deleteEmployee(objId: string): void{
       const loggedInUserData: any = this.registerService.LoggedInUserData();
       const parsedData = JSON.parse(loggedInUserData);
       const deletedBy = `${parsedData.employee_name}(${parsedData.employee_id})`;
       this.registerService.deleteEmployee(objId, deletedBy).subscribe(res =>{
         if(res.success){
+          this.store.dispatch(new DeleteEmployee(objId))
           this._toastrService.success('Record Edited Successfully', res.message);
         }else{
           this._toastrService.success('Message Error!', res.message);
+        }
+      },
+      err =>{
+        let errorObj = err;
+        if(errorObj.userError){
+          this.registerService.signout();
         }
       })
    }
