@@ -47,7 +47,7 @@
     <div class="app-card app-card-orders-table shadow-sm mb-5">
       <div class="app-card-body">
         <div class="table-responsive">
-          <table class="table app-table-hover table-striped mb-0 text-left">
+          <table class="table app-table-hover table-striped mb-0 text-left" id="data-to-export">
             <thead>
               <tr>
                 <th class="cell">S.No</th>
@@ -61,7 +61,8 @@
                 <!-- <th class="cell">Processing Fee</th> -->
                 <th class="cell">Product</th>
                 <th class="cell">Client Type</th>
-                <th class="cell">Recipient No</th>
+                <th class="cell">Recipient/Shop No</th>
+                <th class="cell">Total Amount</th>
                 <!-- <th class="cell">Water Test</th> -->
                 <th class="cell">Created At</th>
                 <!-- <th class="cell">Created By</th> -->
@@ -84,6 +85,7 @@
                 <td class="cell"><span class="truncate">{{fbo.product_name}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.client_type}}</span></td>
                 <td class="cell"><span class="truncate">{{fbo.recipient_no}}</span></td>
+                <td class="cell"><span class="truncate">{{fbo.total_amount}}</span></td>
                <!--  <td class="cell"><span class="truncate">{{fbo.water_test_fee}}</span></td> -->
                 <td class="cell"><span class="truncate">{{fbo.createdAt | date: 'shortDate'}}</span></td>
                 <!-- <td class="cell"><span class="truncate">{{fbo.createdBy}}</span></td> -->

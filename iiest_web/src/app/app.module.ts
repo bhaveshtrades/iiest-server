@@ -20,6 +20,7 @@ import { EmployeelistComponent } from './pages/employeelist/employeelist.compone
 import { DatePipe } from '@angular/common';
 import { LandingpageComponent } from './pages/landingpage/landingpage.component';
 import { AuthInterceptor} from './interceptors/auth.interceptor';
+import { ExportAsModule } from 'ngx-export-as'
 //services
 import {GetdataService} from './services/getdata.service'
 //Toastr
@@ -31,6 +32,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { EmployeeState } from './store/state/employee.state';
 import { FbolistComponent } from './pages/fbolist/fbolist.component';
 import { EditrecordComponent } from './pages/editrecord/editrecord.component';
+import { QrCodeModule } from 'ng-qrcode';
 
 @NgModule({
   declarations: [
@@ -52,12 +54,15 @@ import { EditrecordComponent } from './pages/editrecord/editrecord.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    QrCodeModule,
     FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
     FontAwesomeModule,
     NgxPaginationModule,
+    ExportAsModule,
+    QrCodeModule,
     //ngxs Modlues
     NgxsModule.forRoot([EmployeeState]),
     NgxsLoggerPluginModule.forRoot(),

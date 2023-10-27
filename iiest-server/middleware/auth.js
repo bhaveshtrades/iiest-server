@@ -12,7 +12,8 @@ const authMiddleware = async(req, res, next)=>{
     }
     try {
         const data = jwt.verify(token,  JWT_SECRET);
-        const userCheck = await employeeSchema.findById(data.user.id);
+        const userCheck = await employeeSchema.findById(data.user.id).select('-password');
+        req.user = userCheck;
         if(userCheck){
            return next();
         }else{

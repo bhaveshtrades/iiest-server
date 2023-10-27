@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { GetdataService } from 'src/app/services/getdata.service';
 import { RegisterService } from 'src/app/services/register.service';
 import { faEye, faPencil, faTrash, faEnvelope, faXmark, faMagnifyingGlass, faFileCsv, faFilePdf } from '@fortawesome/free-solid-svg-icons';
+import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class FbolistComponent implements OnInit {
   pageNumber: number = 1;
   
   constructor(private getDataService: GetdataService, 
-              private registerService: RegisterService) { }
+              private registerService: RegisterService,
+              private exportAsService: ExportAsService) { }
 
   ngOnInit(): void {
     this.fetchAllFboData();
@@ -112,7 +114,14 @@ export class FbolistComponent implements OnInit {
   }
 
   //Export To CSV
-  exportToCsv(){
-   
+  exportToCsv(): void {
+    const options: ExportAsConfig = {
+      type: 'csv',
+      elementIdOrContent: 'data-to-export',
+    };
+
+    this.exportAsService.save(options, 'table_data').subscribe(() => {
+      console.log('Save completed');
+    });
   }
 }

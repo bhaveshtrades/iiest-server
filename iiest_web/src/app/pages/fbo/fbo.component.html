@@ -112,7 +112,7 @@
                             <label for="processing_amount" class="form-label">Processing Amount<sup>*</sup></label>
                             <select id="processing_amount"
                                 [ngClass]="{ 'is-invalid': submitted && fbo['processing_amount'].errors }"
-                                formControlName="processing_amount" (click)="processAmount($event)" class="form-select form-select-sm">
+                                formControlName="processing_amount" (change)="processAmount($event)" class="form-select form-select-sm">
                                 <option value="" disabled selected>Select the Processing Fee</option>
                                 <option *ngFor="let processamnt of processAmnt" [value]="processamnt">{{ processamnt }}
                                 </option>
@@ -218,18 +218,27 @@
                             <label for="payment_mode" class=" form-label">Payment Mode<sup>*</sup></label>
                             <select id="payment_mode" formControlName="payment_mode" placeholder="Payment Mode"
                                 [ngClass]="{ 'is-invalid': submitted && fbo['payment_mode'].errors }"
-                                class="form-select form-select-sm">
+                                class="form-select form-select-sm" (change)="ModeofPayment($event)">
                                 <option value="" disabled selected>Select Mode of Payment</option>
-                                <option *ngFor="let mode of paymentMode" [ngValue]="mode">{{ mode }}</option>
+                                <option *ngFor="let mode of paymentMode" [value]="mode">{{ mode }}</option>
                             </select>
                             <div *ngIf="submitted && fbo['payment_mode'].errors" class="invalid-feedback">
                                 <div *ngIf="fbo['payment_mode'].errors['required']">Mode of Payment is required</div>
                             </div>
                         </div>
                         
+                        <!-- <div class="col-md-6">
+                            <qr-code *ngIf="isQrCode" [value]="'upi://pay?pa=intellemo@icici&pn=Intellemo&tn=cftrhwetaw4gta&am=' + fboForm.value.total_amount"></qr-code>
+                        </div> -->
 
                     </div>
+                    <div class="col-md-12 m-0 mt-3 d-flex justify-content-center">
+                            <qr-code *ngIf="isQrCode" [value]="'upi://pay?pa=intellemo@icici&pn=Intellemo&tn=cftrhwetaw4gta&am=' + fboForm.value.total_amount" size="300"></qr-code>
+                    </div>
                 </div>
+
+                
+
                 <div class="col-6">
                     <button *ngIf="isEditMode; else otherContent" type="submit"
                         class="btn btn-sm btn-primary">Update</button>

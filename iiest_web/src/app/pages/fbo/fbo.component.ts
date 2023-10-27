@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./fbo.component.scss']
 })
 export class FboComponent implements OnInit {
+  isQrCode = false;
   userName: string = '';
   userData: any;
   minValue: number = 1;
@@ -31,7 +32,7 @@ export class FboComponent implements OnInit {
   serviceName: any;
   addFbo: any;
   isFoscos: boolean = false;
-  recipientORshop: string = 'Recipient';
+  recipientORshop: string = 'Recipients';
   isEditMode: boolean = false;
   formType: string = "Registration";
   isReadOnly: boolean = false;
@@ -181,8 +182,8 @@ export class FboComponent implements OnInit {
 
   //Get Product List
   getProduct(event: any) {
-    console.log(this.productName);
     this.clearFunc();
+    this.isQrCode = false;
     this.productName = event.target.value;
     var filtered = this.fboGeneralData.filter((a: any) => a.key == this.productName)
     filtered = filtered[0].value;
@@ -195,6 +196,8 @@ export class FboComponent implements OnInit {
       this.fboForm.controls['license_category'].setValidators(this.setRequired());   
       this.fboForm.controls['license_duration'].setValidators(this.setRequired());  
     }else {
+      this.recipientORshop = 'Recipients';
+      this.isFoscos = false;
       this.fboForm.controls['license_category'].clearValidators();
       this.fboForm.controls['license_duration'].clearValidators();
     }
@@ -292,6 +295,14 @@ export class FboComponent implements OnInit {
     var GST_amount = processAmnt * 18 / 100;
     var total_amount = Number(GST_amount) + processAmnt;
     return total_amount;
+  }
+
+  ModeofPayment(event: any){
+    if(this.fboForm.value.total_amount !== '' && event.target.value == 'UPI'){
+      this.isQrCode = true;
+    }else{
+      this.isQrCode = false;
+    }
   }
 
   //On Product Change clear these inputs

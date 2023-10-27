@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const { shopSchema, recipientSchema } = require('./recipientSchema')
 
-const fboRegister = new Schema({
+const baseFboSchema = {
     id_num: {
         type: Number,
         unique: true,
@@ -70,17 +71,16 @@ const fboRegister = new Schema({
         type: Date,
         required: true
     },
+    recipientDetails: {
+        type: [{
+            type: {type: String, required: true},
+            data: {type: Schema.Types.Mixed}
+        }],
+        default: []
+    },
     payment_mode: {
         type: String, 
         required: true
-    },
-    license_category: {
-        type: String,
-        default: null
-    },
-    license_duration: {
-        type: String,
-        default: null
     },
     total_amount: {
         type: Number,
@@ -94,7 +94,38 @@ const fboRegister = new Schema({
         type: String,
         default: 'Not edited yet'
     }
+}
+
+const fboModel = mongoose.model('fbo_registers', new Schema({}, { discriminatorKey: 'fbo_type' }));
+
+const fostacSchema = new Schema({
+    ...baseFboSchema
 });
 
-const fboSchema = mongoose.model('fbo_registers', fboRegister);
-module.exports = fboSchema;
+const foscosSchema = new Schema({
+    ...baseFboSchema,
+    license_category: {
+        type: String,
+        required: true
+    },
+    license_duration: {
+        type: Number,
+        required: true
+    }
+});
+
+const fostacModel = fboModel.discriminator('Fostac Training', fostacSchema);
+const foscosModel = fboModel.discriminator('Foscos Training', foscosSchema);
+
+fboModel.schema.pre('validate', function (next) {
+    if (this.isModified('product_name')) {
+        this.recipientDetails = this.product_name === 'Foscos Training' ? [{type: 'shop', data: shopSchema}] : [{type: 'recipient', data: recipientSchema}];
+    }
+    next();
+});
+
+module.exports = {
+    fboModel,
+    fostacModel,
+    foscosModel
+};
