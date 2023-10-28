@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const { shopSchema, recipientSchema } = require('./recipientSchema')
 
 const baseFboSchema = {
     id_num: {
@@ -74,7 +73,7 @@ const baseFboSchema = {
     recipientDetails: {
         type: [{
             type: {type: String, required: true},
-            data: {type: Schema.Types.Mixed}
+            data: {type: Array, required: true}
         }],
         default: []
     },
@@ -92,6 +91,7 @@ const baseFboSchema = {
     },
     lastEdit: {
         type: String,
+        required: true,
         default: 'Not edited yet'
     }
 }
@@ -116,13 +116,6 @@ const foscosSchema = new Schema({
 
 const fostacModel = fboModel.discriminator('Fostac Training', fostacSchema);
 const foscosModel = fboModel.discriminator('Foscos Training', foscosSchema);
-
-fboModel.schema.pre('validate', function (next) {
-    if (this.isModified('product_name')) {
-        this.recipientDetails = this.product_name === 'Foscos Training' ? [{type: 'shop', data: shopSchema}] : [{type: 'recipient', data: recipientSchema}];
-    }
-    next();
-});
 
 module.exports = {
     fboModel,

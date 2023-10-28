@@ -14,4 +14,4 @@ async function generateInvoice(idNumber ,data){
     }
 }
 
-module.exports = {generateInvoice}
+module.exports = { generateInvoice }

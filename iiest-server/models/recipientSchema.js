@@ -1,4 +1,5 @@
-const { Schema } = require("mongoose")
+const { Schema } = require('mongoose')
+const Joi = require('joi');
 
 const recipientSchema = new Schema({
     operatorName: {
@@ -17,6 +18,12 @@ const recipientSchema = new Schema({
     }
 })
 
+const recipientValidationSchema = Joi.object({
+    operatorName: Joi.string().required(),
+    address: Joi.string().required(),
+    eBill: Joi.string().required()
+})
+
 const shopSchema = new Schema({
     name: {
         type: String, 
@@ -33,5 +40,10 @@ const shopSchema = new Schema({
         unique: true
     }
 })
+const shopValidationSchema = Joi.object({
+    name: Joi.string().required(),
+    phoneNo: Joi.number().required(),
+    aadharNo: Joi.number().required()
+})
 
-module.exports = { recipientSchema, shopSchema }
+module.exports = { recipientSchema, shopSchema, recipientValidationSchema, shopValidationSchema }

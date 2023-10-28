@@ -1,8 +1,7 @@
-const { default: mongoose } = require('mongoose');
 const { fboModel } = require('../models/fboSchema');
-const {shopSchema, recipientSchema} = require('../models/recipientSchema');
+const { recipientValidationSchema, shopValidationSchema } = require('../models/recipientSchema');
 
-//Controller for adding shop or recipient data
+// Controller for adding shop or recipient data
 exports.addRecipient = async (req, res) => {
     try {
         const objId = req.params.id;
@@ -17,19 +16,16 @@ exports.addRecipient = async (req, res) => {
 
         if (selectedFbo.product_name === 'Foscos Training') {
             const { name, phoneNo, aadharNo } = req.body;
-            const shopFormData = { name, phoneNo, aadharNo };
-            const Shop = mongoose.model('Shop', shopSchema);
-            await Shop.validate(shopFormData);
-            recipientData = { type: 'shop', data: shopFormData };
+            let shopData = await shopValidationSchema.validateAsync({ name, phoneNo, aadharNo });
+            recipientData = { type: 'shop', data: shopData };
         } else {
             const { operatorName, address, eBill } = req.body;
-            const recipientFormData = { operatorName, address, eBill };
-            const Recipient = mongoose.model('Recipient', recipientSchema);
-            await Recipient.validate(recipientFormData);
-            recipientData = { type: 'recipient', data: recipientFormData };
+            let recipientDataObject = await recipientValidationSchema.validateAsync({ operatorName, address, eBill });
+            recipientData = { type: 'recipient', data: recipientDataObject };
         }
 
         selectedFbo.recipientDetails.push(recipientData);
+
         const updatedFboData = await selectedFbo.save();
 
         if (!updatedFboData) {
@@ -37,7 +33,6 @@ exports.addRecipient = async (req, res) => {
         }
 
         success = true;
-        console.log(updatedFboData);
         return res.status(200).json({ success, message: 'Recipient added successfully', data: updatedFboData.recipientDetails });
 
     } catch (error) {
