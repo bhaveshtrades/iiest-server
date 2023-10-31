@@ -151,7 +151,8 @@ export class SignupComponent implements OnInit {
 
     if(this.isEditMode){
       this.editedData = this.form.value;
-      this._registerService.updateEmployee(this.objId, this.editedData, `${this.userName}(${this.parsedUserData.employee_id})`).subscribe(response =>{
+      this._registerService.updateEmployee(this.objId, this.editedData, `${this.userName}(${this.parsedUserData.employee_id})`).subscribe({
+        next: (response) =>{
         if(response.success){
           this.store.dispatch(new UpdateEmployee(this.objId, this.editedData));
           this._toastrService.success('Record Edited Successfully', response.message);
@@ -160,16 +161,17 @@ export class SignupComponent implements OnInit {
           this._toastrService.error('Message Error!', response.message);
         }
       },
-      err => {
+        error: (err) => {
         let errorObj = err.error
+        console.log(errorObj)
         if(errorObj.userError){
           this._registerService.signout();
         }
-    })
+    }})
     }else{
       this.addemployee = this.form.value;
-      this._registerService.addEmployee(this.addemployee)
-      .subscribe((response) => {
+      this._registerService.addEmployee(this.addemployee).subscribe({
+        next: (response) => {
         if (response.success) {
           this._toastrService.success('Record Added Successfully', response.message);
           this.onReset();
@@ -177,12 +179,20 @@ export class SignupComponent implements OnInit {
           this._toastrService.error('Message Error!', response.message);
         }
     },
-    err => {
-      let errorObj = err.error
-      if(errorObj.userError){
+        error: (err) => {
+        let errorObj = err.error
+        if(errorObj.userError){
         this._registerService.signout();
+        }else if(errorObj.emailErr){
+        this._toastrService.error('Message Error!', errorObj.emailError);
+        }else if(errorObj.contactErr){
+        this._toastrService.error('Message Error!', errorObj.contactErr);
+        }else if(errorObj.alternateContactErr){
+        this._toastrService.error('Message Error!', errorObj.alternateContactErr);
+        }else if(errorObj.addressErr){
+        this._toastrService.error('Message Error!', errorObj.addressErr);
       }
-    });
+    }});
     }
   }
 
@@ -204,12 +214,7 @@ onReset(): void {
         if(errorObj.userError){
           this._registerService.signout();
         }
-        //this.error = true;
-        //this.errorMgs = errorObj.message
-      },
-      complete: () =>{ 
-        //console.info('complete')
-      } 
+      }
   }) 
 }
 

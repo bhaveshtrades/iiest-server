@@ -122,30 +122,36 @@ export class FboComponent implements OnInit {
 
     if(this.isEditMode){
       this.editedData = this.fboForm.value;
-      this._registerService.updateFbo(this.objId, this.editedData, `${this.userName}(${this.parsedUserData.employee_id})`).subscribe(res=>{
-        if(res.success){
-          this._toastrService.success('Record edited successfully', res.message);
-          this.backToRegister();
+      this._registerService.updateFbo(this.objId, this.editedData, `${this.userName}(${this.parsedUserData.employee_id})`).subscribe({
+        next: (res)=>{
+          if(res.success){
+            this._toastrService.success('Record edited successfully', res.message);
+            this.backToRegister();
+          }
         }
       });
     }else{
       this.addFbo = this.fboForm.value;
-      this._registerService.addFbo(this.addFbo)
-      .subscribe((response) => {
-        if (response.success) {
-          this._toastrService.success('Message Success', response.message);
-          this.onReset();
-        } else {
-          this._toastrService.error('Message Error!', response.message);
-        }
-        //console.log(response);
-      },
-      err =>{
-        let errorObj = err;
-        if(errorObj.userError){
+      this._registerService.addFbo(this.addFbo).subscribe({
+        next: (res)=>{
+          if(res.success){
+            this._toastrService.success('Record edited successfully', res.message);
+            this.backToRegister();
+          }
+        },
+        error: (err)=>{
+          let errorObj = err.error;
+          if(errorObj.userError){
           this._registerService.signout();
+          }else if(errorObj.contactErr){
+          this._toastrService.error('Message Error!', errorObj.contactErr);
+          }else if(errorObj.emailErr){
+          this._toastrService.error('Message Error!', errorObj.emailErr);
+          }else if(errorObj.addressErr){
+          this._toastrService.error('Message Error!', errorObj.addressErr);
+          }
         }
-      });
+      })
     }
   }
 
@@ -164,11 +170,6 @@ export class FboComponent implements OnInit {
         if(errorObj.userError){
           this._registerService.signout();
         }
-        //this.error = true;
-        //this.errorMgs = errorObj.message
-      },
-      complete: () => {
-        //console.info('complete')
       }
     })
   }

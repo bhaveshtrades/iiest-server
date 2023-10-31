@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { faEye, faPencil, faTrash, faEnvelope, faXmark, faCheck, faFileCsv, faFilePdf, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import {UtilitiesService} from 'src/app/services/utilities.service'
+import { UtilitiesService } from 'src/app/services/utilities.service'
 import { EmployeeState } from 'src/app/store/state/employee.state';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
@@ -8,6 +8,8 @@ import { Employee } from 'src/app/utils/registerinterface';
 import { DeleteEmployee, GetEmployee } from 'src/app/store/actions/employee.action';
 import { RegisterService } from 'src/app/services/register.service';
 import { ToastrService } from 'ngx-toastr';
+import { Papa } from 'ngx-papaparse';
+import { FileSaverService } from 'ngx-filesaver'
 
 @Component({
   selector: 'app-employeelist',
@@ -40,7 +42,9 @@ export class EmployeelistComponent implements OnInit {
     private _utililitesService: UtilitiesService,
     private registerService: RegisterService,
     private store:Store,
-    private _toastrService : ToastrService,) {
+    private _toastrService : ToastrService,
+    private papa: Papa,
+    private fileSaverService: FileSaverService) {
   }
 
   ngOnInit(): void {
@@ -89,7 +93,11 @@ export class EmployeelistComponent implements OnInit {
   }
   //Export To CSV
   exportToCsv() {
-    
+    const csvData = this.papa.unparse(this.filteredEmployees, {header: true})
+
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8' });
+
+    this.fileSaverService.save(blob, 'employeelist.csv');
   }
 
   getEmployees(){
@@ -113,7 +121,8 @@ export class EmployeelistComponent implements OnInit {
       const loggedInUserData: any = this.registerService.LoggedInUserData();
       const parsedData = JSON.parse(loggedInUserData);
       const deletedBy = `${parsedData.employee_name}(${parsedData.employee_id})`;
-      this.registerService.deleteEmployee(objId, deletedBy).subscribe(res =>{
+      this.registerService.deleteEmployee(objId, deletedBy).subscribe({
+        next: (res) =>{
         if(res.success){
           this.store.dispatch(new DeleteEmployee(objId))
           this._toastrService.success('Record Edited Successfully', res.message);
@@ -121,11 +130,11 @@ export class EmployeelistComponent implements OnInit {
           this._toastrService.success('Message Error!', res.message);
         }
       },
-      err =>{
+        error: (err) =>{
         let errorObj = err;
         if(errorObj.userError){
           this.registerService.signout();
         }
-      })
+      }})
    }
 }

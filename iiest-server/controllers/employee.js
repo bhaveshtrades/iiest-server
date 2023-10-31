@@ -22,19 +22,24 @@ exports.employeeRegister = async(req, res)=>{
         //To check if employee with same email exists 
         const existing_email = await employeeSchema.findOne({email});
         if(existing_email){
-            return res.status(401).json({success, message: "Employee with this email already exists"});
+            return res.status(401).json({success, emailErr: "Employee with this email already exists"});
         }
     
         //To check if employye with same phone number exists
         const existing_contact = await employeeSchema.findOne({contact_no});
         if(existing_contact){
-            return res.status(401).json({success, message: "Employee with this phone number already exists"});
+            return res.status(401).json({success, contactErr: "Employee with this phone number already exists"});
         }
     
         //To check if employye with same alternate phone number exists
         const existing_alternate_no = await employeeSchema.findOne({alternate_contact});
         if(existing_alternate_no){
-            return res.status(401).json({success, message: "Employee with this phone number already exists"});
+            return res.status(401).json({success, alternateContactErr: "Employee with this alternate phone number already exists"});
+        }
+
+        const existing_address = await employeeSchema.findOne({address});
+        if(existing_address){
+            return res.status(401).json({success, addressErr: "Employee with this address already exists"});
         }
 
         let idNumber; //Variable being used for id number

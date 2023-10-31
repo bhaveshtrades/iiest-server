@@ -37,17 +37,18 @@ export class FbolistComponent implements OnInit {
   }
 
   fetchAllFboData(): void {
-    this.getDataService.getAllFboData().subscribe(res => {
+    this.getDataService.getAllFboData().subscribe({
+      next: (res)=> {
       this.allFBOEntries = res.fboData.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map((elem: any, index: number) => ({ ...elem, serialNumber: index + 1 }));
       //console.log('data',this.allFBOEntries);
       this.filter();
     },
-    err =>{
+      error: (err) =>{
       let errorObj = err;
       if(errorObj.userError){
         this.registerService.signout();
       }
-    })
+    }})
   }
 
   filter(): void {
@@ -92,8 +93,8 @@ export class FbolistComponent implements OnInit {
     const loggedInUserData: any = this.registerService.LoggedInUserData();
     const parsedData = JSON.parse(loggedInUserData);
     const deletedBy = parsedData.employee_id;
-    this.registerService.deleteFbo(fbo._id, deletedBy).subscribe(
-      res => {
+    this.registerService.deleteFbo(fbo._id, deletedBy).subscribe({
+      next: (res) => {
         if (res.success) {
           const index = this.allFBOEntries.findIndex((entry: any) => entry._id === fbo._id);
           if (index !== -1) {
@@ -104,13 +105,13 @@ export class FbolistComponent implements OnInit {
           console.error(res.message);
         }
       },
-      err =>{
+      error: (err) =>{
         let errorObj = err;
         if(errorObj.userError){
           this.registerService.signout();
         }
       }
-    );
+  });
   }
 
   //Export To CSV

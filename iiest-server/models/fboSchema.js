@@ -37,7 +37,8 @@ const baseFboSchema = {
     },
     address: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     product_name: {
         type: String, 
@@ -53,7 +54,8 @@ const baseFboSchema = {
     },
     fssai_id: {
         type: String, 
-        required: true
+        required: true,
+        unique: true
     },
     client_type: {
         type: String,

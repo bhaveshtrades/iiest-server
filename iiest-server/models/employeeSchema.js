@@ -50,7 +50,8 @@ const employeeRegister = new Schema({
     },
     address: {
         type: String, 
-        required: true
+        required: true,
+        unique: true
     },
     zip_code: {
         type: Number, 

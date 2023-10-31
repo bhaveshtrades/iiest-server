@@ -33,6 +33,8 @@ import { EmployeeState } from './store/state/employee.state';
 import { FbolistComponent } from './pages/fbolist/fbolist.component';
 import { EditrecordComponent } from './pages/editrecord/editrecord.component';
 import { QrCodeModule } from 'ng-qrcode';
+import { Papa } from 'ngx-papaparse';
+import { FileSaverModule } from 'ngx-filesaver';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,7 @@ import { QrCodeModule } from 'ng-qrcode';
     NgxPaginationModule,
     ExportAsModule,
     QrCodeModule,
+    FileSaverModule,
     //ngxs Modlues
     NgxsModule.forRoot([EmployeeState]),
     NgxsLoggerPluginModule.forRoot(),
@@ -76,7 +79,8 @@ import { QrCodeModule } from 'ng-qrcode';
   providers: [
     DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi :true},
-    GetdataService  
+    GetdataService ,
+    Papa 
 ],
   bootstrap: [AppComponent]
 })
