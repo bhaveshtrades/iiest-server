@@ -12718,6 +12718,12 @@
  .app-auth-footer .copyright {
    font-size: 0.75rem;
  }
+ .selector:hover{
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+  font-weight: bold;
+ }
  @media (max-width: 767.98px) {
    .auth-background-col {
      display: none;

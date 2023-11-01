@@ -3,6 +3,8 @@ import { GetdataService } from 'src/app/services/getdata.service';
 import { RegisterService } from 'src/app/services/register.service';
 import { faEye, faPencil, faTrash, faEnvelope, faXmark, faMagnifyingGlass, faFileCsv, faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
+import { RecipientComponent } from '../recipient/recipient.component'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -12,6 +14,7 @@ import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
 })
 export class FbolistComponent implements OnInit {
   @Output() isEditRecord = new EventEmitter();
+  
   createdBy: any;
   allFBOEntries: any;
   selectedFilter: string = 'byOwner';
@@ -27,10 +30,13 @@ export class FbolistComponent implements OnInit {
   faFilePdf = faFilePdf;
   faMagnifyingGlass = faMagnifyingGlass;
   pageNumber: number = 1;
+ 
+  isModal: boolean =false;
   
   constructor(private getDataService: GetdataService, 
               private registerService: RegisterService,
-              private exportAsService: ExportAsService) { }
+              private exportAsService: ExportAsService,
+              private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.fetchAllFboData();
@@ -125,4 +131,16 @@ export class FbolistComponent implements OnInit {
       console.log('Save completed');
     });
   }
+
+  //Recipient Add
+  recipient(res:any){
+    if(res !== ''){
+      
+      const modalRef = this.modalService.open(RecipientComponent, { size: 'lg', backdrop: 'static' });
+      modalRef.componentInstance.fboData = res;
+    }else{
+        //this.router.navigateByUrl('/home')
+    }
+  }
+
 }

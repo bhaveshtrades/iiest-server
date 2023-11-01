@@ -35,6 +35,7 @@ import { EditrecordComponent } from './pages/editrecord/editrecord.component';
 import { QrCodeModule } from 'ng-qrcode';
 import { Papa } from 'ngx-papaparse';
 import { FileSaverModule } from 'ngx-filesaver';
+import { RecipientComponent } from './pages/recipient/recipient.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { FileSaverModule } from 'ngx-filesaver';
     EmployeelistComponent,
     LandingpageComponent,
     FbolistComponent,
-    EditrecordComponent
+    EditrecordComponent,
+    RecipientComponent
   ],
   imports: [
     BrowserModule,
