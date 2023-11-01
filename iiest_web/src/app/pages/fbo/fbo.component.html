@@ -36,7 +36,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="owner_contact" class="form-label">Mobile No.<sup>*</sup></label>
-                            <input type="text" placeholder="Mobile No." formControlName="owner_contact"
+                            <input type="number" placeholder="Mobile No." formControlName="owner_contact"
                                 class="form-control form-control-sm" id="owner_contact"
                                 [ngClass]="{ 'is-invalid': submitted && fbo['owner_contact'].errors }" />
                             <div *ngIf="submitted && fbo['owner_contact'].errors" class="invalid-feedback">

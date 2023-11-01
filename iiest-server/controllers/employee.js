@@ -153,6 +153,28 @@ exports.editEmployee = async(req, res)=>{
         let success = false;
 
         const updatedEmployeeData = req.body;
+        console.log(updatedEmployeeData);
+        
+        const existing_email = await employeeSchema.findOne({email: updatedEmployeeData.email});
+        if(existing_email){
+            return res.status(401).json({success, emailErr: "Employee with this email already exists"});
+        }
+    
+        const existing_contact = await employeeSchema.findOne({contact_no: updatedEmployeeData.contact_no});
+        if(existing_contact){
+            return res.status(401).json({success, contactErr: "Employee with this phone number already exists"});
+        }
+        
+        const existing_alternate_no = await employeeSchema.findOne({alternate_contact: updatedEmployeeData.alternate_contact});
+        if(existing_alternate_no){
+            return res.status(401).json({success, alternateContactErr: "Employee with this alternate phone number already exists"});
+        }
+
+        const existing_address = await employeeSchema.findOne({address: updatedEmployeeData.address});
+        if(existing_address){
+            return res.status(401).json({success, addressErr: "Employee with this address already exists"});
+        }
+
         const editedBy = req.body.editedBy;
 
         const updatedEmployee = await employeeSchema.findByIdAndUpdate(objId, {...updatedEmployeeData, lastEdit: editedBy}, {new: true});

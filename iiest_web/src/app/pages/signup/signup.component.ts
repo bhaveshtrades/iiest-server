@@ -163,9 +163,16 @@ export class SignupComponent implements OnInit {
       },
         error: (err) => {
         let errorObj = err.error
-        console.log(errorObj)
         if(errorObj.userError){
           this._registerService.signout();
+        }else if(errorObj.emailErr){
+          this._toastrService.error('Message Error!', errorObj.emailErr);
+        }else if(errorObj.contactErr){
+          this._toastrService.error('Message Error!', errorObj.contactErr);
+        }else if(errorObj.alternateContactErr){
+          this._toastrService.error('Message Error!', errorObj.alternateContactErr);
+        }else if(errorObj.addressErr){
+          this._toastrService.error('Message Error!', errorObj.addressErr);
         }
     }})
     }else{
@@ -184,7 +191,7 @@ export class SignupComponent implements OnInit {
         if(errorObj.userError){
         this._registerService.signout();
         }else if(errorObj.emailErr){
-        this._toastrService.error('Message Error!', errorObj.emailError);
+        this._toastrService.error('Message Error!', errorObj.emailErr);
         }else if(errorObj.contactErr){
         this._toastrService.error('Message Error!', errorObj.contactErr);
         }else if(errorObj.alternateContactErr){

@@ -16,12 +16,12 @@ exports.addRecipient = async (req, res) => {
 
         if (selectedFbo.product_name === 'Foscos Training') {
             const { operatorName, address, eBill } = req.body;
-            let shopData = await shopValidationSchema.validateAsync({ operatorName, address, eBill });
-            recipientData = { type: 'shop', data: shopData };
+            let shopDataObject = await shopValidationSchema.validateAsync({ operatorName, address, eBill });
+            recipientData = shopDataObject;
         } else {
             const { name, phoneNo, aadharNo } = req.body;
             let recipientDataObject = await recipientValidationSchema.validateAsync({ name, phoneNo, aadharNo });
-            recipientData = { type: 'recipient', data: recipientDataObject };
+            recipientData = recipientDataObject;
         }
 
         selectedFbo.recipientDetails.push(recipientData);

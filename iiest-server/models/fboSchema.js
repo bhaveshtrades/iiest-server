@@ -73,10 +73,8 @@ const baseFboSchema = {
         required: true
     },
     recipientDetails: {
-        type: [{
-            type: {type: String, required: true},
-            data: {type: Array, required: true}
-        }],
+        type: [Object],
+        required: true,
         default: []
     },
     payment_mode: {
@@ -95,6 +93,11 @@ const baseFboSchema = {
         type: String,
         required: true,
         default: 'Not edited yet'
+    },
+    checkStatus: {
+        type: String, 
+        required: true,
+        default: 'Pending'
     }
 }
 
