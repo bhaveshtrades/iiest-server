@@ -15,26 +15,30 @@ exports.addRecipient = async (req, res) => {
         }
 
         if (selectedFbo.product_name === 'Foscos Training') {
-            const { operatorName, address, eBill } = req.body;
-            let shopDataObject = await shopValidationSchema.validateAsync({ operatorName, address, eBill });
-            recipientData = shopDataObject;
+            const shopDataArray = req.body;
+            const shopDataObjects = await Promise.all(shopDataArray.map(async (shopData) => {
+                return await shopValidationSchema.validateAsync(shopData);
+            }));
+            recipientData = shopDataObjects;
         } else {
-            const { name, phoneNo, aadharNo } = req.body;
-            let recipientDataObject = await recipientValidationSchema.validateAsync({ name, phoneNo, aadharNo });
-            recipientData = recipientDataObject;
+            const recipientDataArray = req.body;
+            const recipientDataObjects = await Promise.all(recipientDataArray.map(async (recipientData) => {
+                return await recipientValidationSchema.validateAsync(recipientData);
+            }));
+            recipientData = recipientDataObjects;
         }
 
-        selectedFbo.recipientDetails.push(recipientData);
-
+        await selectedFbo.recipientDetails.push(...recipientData);
+        
         const updatedFboData = await selectedFbo.save();
+        
 
         if (!updatedFboData) {
             return res.status(404).json({ success, message: 'FBO not found' });
         }
 
         success = true;
-        return res.status(200).json({ success, message: 'Recipient added successfully', data: updatedFboData.recipientDetails });
-
+        return res.status(200).json({ success, message: 'Recipients added successfully', data: updatedFboData.recipientDetails });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Internal Server Error' });
