@@ -2,59 +2,44 @@
   <h6 class="modal-title text-white" id="modal-basic-title">Recipients</h6>
   <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="activeModal.dismiss()"></button>
 </div>
-<form *ngIf="recipientData.length < 0">
+<form [formGroup]="recipientform" autocomplete="off" (ngSubmit)="onSubmit()">
   <div class="modal-body">
-    <!-- <div class="mb-3">
-          <label for="username">Username</label>
-          <div class="input-group">
-              <div class="input-group-prepend">
-                  <span class="input-group-text">
-                      <fa-icon [icon]="fauser"></fa-icon>
-                  </span>
-                </div>
-              <input
-                  type="text"
-                  id="username"
-                  class="form-control form-control-sm"
-                  placeholder="Username"
-                  formControlName="username"
-                  name="username"
-                  [ngClass]="{ 'is-invalid': submitted && f['username'].errors }"/>
-                  <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
-                      <div *ngIf="f['username'].errors['required']">Username is required</div>
-                  </div>
-          </div>
+    <div class="row">
+      <div class="col-md-4">
+        <label for="name" class="form-label">Recipient Name<sup>*</sup></label>
+        <input type="text" id="name" class="form-control form-control-sm" placeholder="Recipient Name"
+          formControlName="name" name="name"
+          [ngClass]="{ 'is-invalid': submitted && recipient['name'].errors }" />
+        <div *ngIf="submitted && recipient['name'].errors" class="invalid-feedback">
+          <div *ngIf="recipient['name'].errors['required']">Recipient Name is required</div>
+        </div>
       </div>
-      <div class="mb-3">
-          <label for="password">Password</label>
-          
-          <div class="input-group">
-              <div class="input-group-prepend">
-                  <span class="input-group-text">
-                      <fa-icon [icon]="falock"></fa-icon>
-                  </span>
-                </div>
-              <input
-                  type="password"
-                  id="password"
-                  class="form-control form-control-sm"
-                  placeholder="Password"
-                  formControlName="password"
-                  name="password"
-                  [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"/>
-                  <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
-                      <div *ngIf="f['password'].errors['required']">Password is required</div>
-                  </div>
-          </div>
-      </div> -->
+
+      <div class="col-md-4">
+        <label for="phoneNo" class="form-label">Mobile No.<sup>*</sup></label>
+        <input type="text" placeholder="Mobile No." formControlName="phoneNo" class="form-control form-control-sm"
+          id="phoneNo" [ngClass]="{ 'is-invalid': submitted && recipient['phoneNo'].errors }" />
+        <div *ngIf="submitted && recipient['phoneNo'].errors" class="invalid-feedback">
+          <div *ngIf="recipient['phoneNo'].errors['required']">Mobile No. is required</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label for="aadharNo" class="form-label">Aadhar No.<sup>*</sup></label>
+        <input type="text" placeholder="Aadhar No." formControlName="aadharNo" class="form-control form-control-sm"
+          id="aadharNo" [ngClass]="{ 'is-invalid': submitted && recipient['aadharNo'].errors }" />
+        <div *ngIf="submitted && recipient['aadharNo'].errors" class="invalid-feedback">
+          <div *ngIf="recipient['aadharNo'].errors['required']">Aadhar No. is required</div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="modal-footer text-left">
-    <button type="submit" class="btn btn-outline-dark">Add Recipient</button>
+    <button type="submit" class="btn btn-sm btn-outline-dark">Add Recipient</button>
   </div>
 </form>
 
 
-<div class="row g-3 mb-4 align-items-center justify-content-between">
+<div class="row g-3 mb-4 mx-2 align-items-center justify-content-between">
   <div class="col-auto">
     <h1 class="app-page-title mb-0">FBO List</h1>
   </div>
@@ -98,7 +83,7 @@
   </nav> -->
 
 
-<div class="tab-content" id="orders-table-tab-content">
+<div class="tab-content mx-3" id="orders-table-tab-content">
   <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
     <div class="app-card app-card-orders-table shadow-sm mb-5">
       <div class="app-card-body">
@@ -114,14 +99,14 @@
               </tr>
             </thead>
             <tbody *ngIf="recipientData?.length>0">
-              
+
               <!-- <tr *ngFor="let recipient of recipientData | paginate: { itemsPerPage: 10, currentPage: pageNumber }"> -->
               <tr *ngFor="let recipients of recipientData let sr = index">
                 <td class="cell"><span class="truncate">{{sr+1}}</span></td>
                 <td class="cell"><span class="truncate">{{recipients.name}}</span></td>
                 <td class="cell"><span class="truncate">{{recipients.phoneNo}}</span></td>
                 <td class="cell"><span class="truncate">{{recipients.aadharNo}}</span></td>
-      
+
               </tr>
             </tbody>
             <tbody *ngIf="recipientData?.length == 0">

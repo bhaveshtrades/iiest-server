@@ -60,3 +60,18 @@ export interface fbo {
   total_amount: string,
   createdBy: string
 }
+export interface fboRecipient {
+  name :string;
+  phoneNo : number;
+  aadhaNo : number
+}
+export interface fboRecipient {
+  name :string;
+  phoneNo : number;
+  aadhaNo : number
+}
+export interface fboShop {
+  operatorName :string;
+  address : string;
+  eBill : string
+}

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Employee, fbo, loginEmployee} from '../utils/registerinterface';
+import { Employee, fbo, fboRecipient, loginEmployee} from '../utils/registerinterface';
 import { Observable, throwError} from 'rxjs';
 import { map} from 'rxjs/operators';
 import { catchError} from 'rxjs/operators'
@@ -31,6 +31,15 @@ export class RegisterService {
   public addFbo(addFbo: fbo): Observable<any> {
     const url = `${this.url}/fboregister`
     return this.http.post<any>(url, addFbo).pipe(
+      catchError(
+        this.handleError
+      ));
+  }
+
+  public addFboRecipent(objId: string, addFboRecipent:fboRecipient): Observable<any> {
+    
+    const url = `${this.url}fbo/recipientDetails/${objId}`
+    return this.http.patch<any>(url, addFboRecipent).pipe(
       catchError(
         this.handleError
       ));
