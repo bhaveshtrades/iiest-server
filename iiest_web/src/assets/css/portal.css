@@ -12724,6 +12724,11 @@
   text-decoration: underline;
   font-weight: bold;
  }
+ sup{
+  color:rgb(237, 28, 13);
+  font-weight: bold;
+  font-size: 12px;
+}
  @media (max-width: 767.98px) {
    .auth-background-col {
      display: none;

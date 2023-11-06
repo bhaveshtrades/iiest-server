@@ -1,9 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { GetdataService } from 'src/app/services/getdata.service';
 import { RegisterService } from 'src/app/services/register.service';
-import { faEye, faPencil, faTrash, faEnvelope, faXmark, faMagnifyingGlass, faFileCsv, faFilePdf } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPencil, faTrash, faEnvelope, faXmark, faMagnifyingGlass, faFileCsv, faFilePdf, faIndianRupeeSign } from '@fortawesome/free-solid-svg-icons';
 import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
 import { RecipientComponent } from '../recipient/recipient.component'
+import {ViewFboComponent} from  '../view-fbo/view-fbo.component'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -28,6 +29,7 @@ export class FbolistComponent implements OnInit {
   faXmark = faXmark;
   faFileCsv = faFileCsv;
   faFilePdf = faFilePdf;
+  faIndianRupeeSign =faIndianRupeeSign;
   faMagnifyingGlass = faMagnifyingGlass;
   pageNumber: number = 1;
  
@@ -135,12 +137,17 @@ export class FbolistComponent implements OnInit {
   //Recipient Add
   recipient(res:any){
     if(res !== ''){
-      
       const modalRef = this.modalService.open(RecipientComponent, { size: 'lg', backdrop: 'static' });
       modalRef.componentInstance.fboData = res;
     }else{
         //this.router.navigateByUrl('/home')
     }
+  }
+
+  //View FBO Details
+  viewFboDetails(res:any){
+    const modalRef = this.modalService.open(ViewFboComponent, { size: 'lg', backdrop: 'static' });
+      modalRef.componentInstance.fboData = res;
   }
 
 }
