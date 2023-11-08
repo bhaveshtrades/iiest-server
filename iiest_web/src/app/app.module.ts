@@ -36,6 +36,7 @@ import { QrCodeModule } from 'ng-qrcode';
 import { Papa } from 'ngx-papaparse';
 import { FileSaverModule } from 'ngx-filesaver';
 import { RecipientComponent } from './pages/recipient/recipient.component';
+import { ViewFboComponent } from './pages/view-fbo/view-fbo.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { RecipientComponent } from './pages/recipient/recipient.component';
     LandingpageComponent,
     FbolistComponent,
     EditrecordComponent,
-    RecipientComponent
+    RecipientComponent,
+    ViewFboComponent
   ],
   imports: [
     BrowserModule,
