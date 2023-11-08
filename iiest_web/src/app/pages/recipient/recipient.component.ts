@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RecipientComponent implements OnInit {
   @Input() public fboData: any;
+  selectedFile: File | null = null;
   fboID: any;
   fboType: string;
   fboRecipientCount : number;
@@ -35,6 +36,7 @@ export class RecipientComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    console.log(this.addRecipient);
     console.log(this.fboData)
     this.fboType = this.fboData.fbo_type;
     this.fboRecipientCount = this.fboData.recipient_no;
@@ -88,31 +90,78 @@ export class RecipientComponent implements OnInit {
     if (this.recipientform.invalid) {
       return;
     }
-    this.addRecipient = this.recipientform.value;
-    this._registerService.addFboRecipent(this.fboID, this.addRecipient).subscribe({
-      next: (res) => {
-        if (res.success) {
-          this._toastrService.success('Record Added successfully', res.message);
-          this.closeModal();
+
+    let formData = new FormData()
+
+    if(this.fboType === 'Fostac Training'){
+
+      console.log(this.recipientform.get('name')?.value)
+      console.log(this.recipientform.get('aadharNo')?.value)
+
+      formData.append('name', this.recipientform.get('name')?.value)
+      formData.append('phoneNo', this.recipientform.get('phoneNo')?.value)
+      formData.append('aadharNo', this.recipientform.get('aadharNo')?.value)
+
+      this.addRecipient = [formData]
+
+      this._registerService.addFboRecipent(this.fboID, this.addRecipient).subscribe({
+        next: (res) => {
+          if (res.success) {
+            this._toastrService.success('Record Added successfully', res.message);
+            this.closeModal();
+          }
+        },
+        error: (err) => {
+          let errorObj = err.error;
+          if (errorObj.userError) {
+            this._registerService.signout();
+          } else if (errorObj.contactErr) {
+            this._toastrService.error('Message Error!', errorObj.contactErr);
+          } else if (errorObj.emailErr) {
+            this._toastrService.error('Message Error!', errorObj.emailErr);
+          } else if (errorObj.addressErr) {
+            this._toastrService.error('Message Error!', errorObj.addressErr);
+          }
         }
-      },
-      error: (err) => {
-        let errorObj = err.error;
-        if (errorObj.userError) {
-          this._registerService.signout();
-        } else if (errorObj.contactErr) {
-          this._toastrService.error('Message Error!', errorObj.contactErr);
-        } else if (errorObj.emailErr) {
-          this._toastrService.error('Message Error!', errorObj.emailErr);
-        } else if (errorObj.addressErr) {
-          this._toastrService.error('Message Error!', errorObj.addressErr);
-        }
+      })
+    }else if(this.fboType === 'Foscos Training'){
+      formData.append('operatorName', this.recipientform.get('operatorName')?.value)
+      formData.append('address', this.recipientform.get('address')?.value)
+      if (this.selectedFile) {
+        formData.append('eBill', this.selectedFile);
       }
-    })
+
+      console.log(this.recipientform.get('eBill')?.value)
+
+      this.addRecipient = formData;
+
+      console.log(this.addRecipient)
+
+      this._registerService.addFboShop(this.fboID, this.addRecipient).subscribe({
+        next: (res) => {
+          if (res.success) {
+            this._toastrService.success('Record Added successfully', res.message);
+            this.closeModal();
+          }
+        },
+        error: (err) => {
+          let errorObj = err.error;
+          if (errorObj.userError) {
+            this._registerService.signout();
+          } else if (errorObj.contactErr) {
+            this._toastrService.error('Message Error!', errorObj.contactErr);
+          } else if (errorObj.emailErr) {
+            this._toastrService.error('Message Error!', errorObj.emailErr);
+          } else if (errorObj.addressErr) {
+            this._toastrService.error('Message Error!', errorObj.addressErr);
+          }
+        }
+      })
+    }
   }
   closeModal() {
     this.activeModal.close();
-  }
+  } 
 
   //file type validation
   onImageChangeFromFile($event:any)
@@ -122,7 +171,8 @@ export class RecipientComponent implements OnInit {
         console.log(file);
           if(file.type == "image/jpeg" || file.type == "image/png") {
             console.log("correct");
-           
+            this.selectedFile = file;
+            console.log(this.selectedFile);
           }
           else {
             //call validation

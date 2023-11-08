@@ -4,6 +4,10 @@ const { fboRegister, allFBOData, deleteFbo, editFbo } = require('../controllers/
 const { fboFormData } = require('../controllers/generalData');
 const { addRecipient } = require('../controllers/recipient');
 const authMiddleware = require('../middleware/auth');
+const multer = require('multer')
+
+const eBillStorage = multer.memoryStorage()
+const eBillUpload = multer({storage: eBillStorage});
 
 const router = express.Router();
 
@@ -12,6 +16,6 @@ router.post('/fboregister', authMiddleware, fboFormValidation, fboRegister); //R
 router.delete('/deleteFbo/:id', authMiddleware, deleteFbo); //Router for deleting FBO
 router.put('/editFbo/:id', authMiddleware, editFbo); //Router for editing FBO data
 router.get('/fbogeneraldata', authMiddleware, fboFormData); //Router for general FBO form data
-router.patch('/fbo/recipientDetails/:id', addRecipient); //Router for adding shop or recipientdata
+router.post('/fbo/recipientDetails/:id', eBillUpload.single('eBill'), addRecipient); //Router for adding shop or recipientdata
 
 module.exports = router;

@@ -1,7 +1,8 @@
+const mongoose = require('mongoose');
 const { fboModel } = require('../models/fboSchema');
 const { recipientValidationSchema, shopValidationSchema } = require('../models/recipientSchema');
+const { GridFSBucket } = require('mongodb');
 
-// Controller for adding shop or recipient data
 exports.addRecipient = async (req, res) => {
     try {
         const objId = req.params.id;
@@ -15,30 +16,54 @@ exports.addRecipient = async (req, res) => {
         }
 
         if (selectedFbo.product_name === 'Foscos Training') {
-            const shopDataArray = req.body;
-            const shopDataObjects = await Promise.all(shopDataArray.map(async (shopData) => {
-                return await shopValidationSchema.validateAsync(shopData);
-            }));
-            recipientData = shopDataObjects;
+            const shopBody = req.body;
+            const file = req.file;
+            console.log(file);
+            const bucket = new GridFSBucket(mongoose.connection.db, { bucketName: 'eBills' });
+            const uploadStream = bucket.openUploadStream(file.originalname);
+
+        // Write the file data to the stream
+            uploadStream.write(file.buffer);
+
+        // Close the stream to save the file
+            uploadStream.end((err) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send('Error uploading file.');
+            } 
+                console.log(`File ${file.originalname} uploaded successfully.`);
+            });
+            const shopDataValid = await shopValidationSchema.validateAsync(shopBody);
+            recipientData = shopDataValid;
+
+            await selectedFbo.recipientDetails.push(recipientData);
+        
+            const updatedFboData = await selectedFbo.save();
+    
+            if (!updatedFboData) {
+                return res.status(404).json({ success, message: 'FBO not found' });
+            }
+    
+            success = true;
+            return res.status(200).json({ success, message: 'Recipients added successfully', data: updatedFboData.recipientDetails });
+
         } else {
-            const recipientDataArray = req.body;
-            const recipientDataObjects = await Promise.all(recipientDataArray.map(async (recipientData) => {
-                return await recipientValidationSchema.validateAsync(recipientData);
-            }));
-            recipientData = recipientDataObjects;
-        }
+            const recipientBody = req.body;
+            const recipientDataValid = await recipientValidationSchema.validateAsync(recipientBody);
+            recipientData = recipientDataValid;
 
-        await selectedFbo.recipientDetails.push(...recipientData);
+            await selectedFbo.recipientDetails.push(recipientData);
         
-        const updatedFboData = await selectedFbo.save();
-        
+            const updatedFboData = await selectedFbo.save();
+    
+            if (!updatedFboData) {
+                return res.status(404).json({ success, message: 'FBO not found' });
+            }
+    
+            success = true;
+            return res.status(200).json({ success, message: 'Recipients added successfully', data: updatedFboData.recipientDetails });
 
-        if (!updatedFboData) {
-            return res.status(404).json({ success, message: 'FBO not found' });
         }
-
-        success = true;
-        return res.status(200).json({ success, message: 'Recipients added successfully', data: updatedFboData.recipientDetails });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Internal Server Error' });
