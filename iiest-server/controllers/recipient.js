@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const { fboModel } = require('../models/fboSchema');
 const { recipientValidationSchema, shopValidationSchema } = require('../models/recipientSchema');
-const { GridFSBucket } = require('mongodb');
+// const { GridFSBucket } = require('mongodb');
+const { createFsBucket } = require('../config/db')
 
 exports.addRecipient = async (req, res) => {
     try {
@@ -19,17 +20,14 @@ exports.addRecipient = async (req, res) => {
             const shopBody = req.body;
             const file = req.file;
             console.log(file);
-            const bucket = new GridFSBucket(mongoose.connection.db, { bucketName: 'eBills' });
-            const uploadStream = bucket.openUploadStream(file.originalname);
+            const bucket = createFsBucket();
+            const uploadStream = bucket.openUploadStream(`${Date.now()}_${file.originalname}`);
 
-        // Write the file data to the stream
             uploadStream.write(file.buffer);
 
-        // Close the stream to save the file
             uploadStream.end((err) => {
             if (err) {
                 console.error(err);
-                res.status(500).send('Error uploading file.');
             } 
                 console.log(`File ${file.originalname} uploaded successfully.`);
             });
