@@ -52,7 +52,7 @@ const baseFboSchema = {
         type: String, 
         required: true
     },
-    fssai_id: {
+    customer_id: {
         type: String, 
         required: true,
         unique: true
@@ -98,6 +98,16 @@ const baseFboSchema = {
         type: String, 
         required: true,
         default: 'Pending'
+    },
+    village: {
+        type: String
+    },
+    tehsil: {
+        type: String
+    },
+    pincode: {
+        type: Number,
+        required: true
     }
 }
 

@@ -1,6 +1,6 @@
 const { foscosModel, fostacModel, fboModel } = require('../models/fboSchema');
 const pastFboSchema = require('../models/pastFboSchema');
-const { generateFssaiID } = require('./empGenerator');
+const { generateCustomerId } = require('./empGenerator');
 const { generateInvoice } = require('./invoiceGenerate')
 
 
@@ -41,7 +41,7 @@ exports.fboRegister = async (req, res) => {
     }
 
     // Calling function for generating FSSAI id
-    const generatedFssaiId = generateFssaiID(idNumber, product_name);
+    const generatedCustomerId = generateCustomerId(idNumber);
 
     let date = new Date();
 
@@ -53,9 +53,11 @@ exports.fboRegister = async (req, res) => {
       selectedModel = fostacModel;
     }
     // Create a document using the selected model
-    await selectedModel.create({
-      id_num: idNumber, fbo_name, owner_name, owner_contact, email, state, district, address, product_name, processing_amount, service_name, fssai_id: generatedFssaiId, client_type, recipient_no, water_test_fee, createdAt: date, payment_mode, createdBy, license_category, license_duration, total_amount
+    const createdFbo = await selectedModel.create({
+      id_num: idNumber, fbo_name, owner_name, owner_contact, email, state, district, address, product_name, processing_amount, service_name, customer_id: generatedCustomerId, client_type, recipient_no, water_test_fee, createdAt: date, payment_mode, createdBy, license_category, license_duration, total_amount
     });
+
+    console.log(createdFbo);
 
     const invoiceData = {
       "currency": "INR", 

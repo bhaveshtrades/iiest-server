@@ -1,7 +1,5 @@
-const mongoose = require('mongoose');
 const { fboModel } = require('../models/fboSchema');
 const { recipientValidationSchema, shopValidationSchema } = require('../models/recipientSchema');
-// const { GridFSBucket } = require('mongodb');
 const { createFsBucket } = require('../config/db')
 
 exports.addRecipient = async (req, res) => {

@@ -102,7 +102,7 @@ export class RecipientComponent implements OnInit {
       formData.append('phoneNo', this.recipientform.get('phoneNo')?.value)
       formData.append('aadharNo', this.recipientform.get('aadharNo')?.value)
 
-      this.addRecipient = [formData]
+      this.addRecipient = formData
 
       this._registerService.addFboRecipent(this.fboID, this.addRecipient).subscribe({
         next: (res) => {
