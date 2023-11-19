@@ -2,37 +2,90 @@ const { foscosModel, fostacModel, fboModel } = require('../models/fboSchema');
 const pastFboSchema = require('../models/pastFboSchema');
 const { generateCustomerId } = require('./empGenerator');
 const { generateInvoice } = require('./invoiceGenerate')
+const axios = require('axios');
+const sha256 = require('sha256');
+const uniqid = require('uniqid');
 
 
 //Controller for FBO Registration
+exports.fboPayment = async(req, res)=>{
+  try {
+  
+  let tx_uuid = uniqid();
+
+  let normalPayLoad = {
+    "merchantId": "PGTESTPAYUAT93",
+    "merchantTransactionId": tx_uuid,
+    "merchantUserId": "MUID123",
+    "amount": req.body.total_amount * 100,
+    "redirectUrl": "http://localhost:3000/iiest/pay-return-url",
+    "redirectMode": "POST",
+    "callbackUrl": "http://localhost:3000/iiest/pay-return-url",
+    "paymentInstrument": {
+      "type": "PAY_PAGE"
+    }
+  }
+
+  let saltKey = '875126e4-5a13-4dae-ad60-5b8c8b629035';
+  let saltIndex = 1
+  let bufferObj = Buffer.from(JSON.stringify(normalPayLoad), "utf8");
+  let base64String = bufferObj.toString("base64");
+  
+  let string = base64String + '/pg/v1/pay' + saltKey;
+  
+  let sha256_val = sha256(string);
+  let checksum = sha256_val + '###' + saltIndex;
+
+  axios.post('https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay', {
+    'request': base64String
+  }, {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-VERIFY': checksum,
+      'accept': 'application/json'
+    }
+  }).then(async function (response) {
+    console.log(response.data.data.instrumentResponse.redirectInfo.url);
+    res.redirect(response.data.data.instrumentResponse.redirectInfo.url);
+  }).catch(function (error) {
+    console.log(error);
+  });
+  } catch (error) {
+    return res.status(500).json({message: 'Internal Server Error'});
+  }
+}
+
+exports.fboPayReturn = async(req, res)=>{
+  if (req.body.code == 'PAYMENT_SUCCESS' && req.body.merchantId && req.body.transactionId && req.body.providerReferenceId){
+      console.log(req.body);
+  }
+}
+
 exports.fboRegister = async (req, res) => {
   try {
-    let success = false;
-    let isUnique = false;
+      let success = false;
+      let isUnique = false;
 
-    // Fields to be used for FBO form
-    const { fbo_name, owner_name, owner_contact, email, state, district, address, product_name, processing_amount, service_name, client_type, recipient_no, water_test_fee, payment_mode, createdBy, license_category, license_duration, total_amount } = req.body;
+      const { fbo_name, owner_name, owner_contact, email, state, district, address, product_name, processing_amount, service_name, client_type, recipient_no, water_test_fee, payment_mode, createdBy, license_category, license_duration, total_amount, village, tehsil, pincode } = req.body;
 
-    // To check if owner contact is already in use
-    const existing_owner_contact = await fboModel.findOne({ owner_contact });
-    if (existing_owner_contact) {
+      const existing_owner_contact = await fboModel.findOne({ owner_contact });
+      if (existing_owner_contact) {
       return res.status(401).json({ success, contactErr: "This owner contact is already in use." });
-    }
+      }
 
-    // To check if email is already in use
-    const existing_email = await fboModel.findOne({ email });
-    if (existing_email) {
+      const existing_email = await fboModel.findOne({ email });
+      if (existing_email) {
       return res.status(401).json({ success, emailErr: "This email is already in use." });
-    }
+      }
 
-    const existing_address = await fboModel.findOne({ address });
-    if(existing_address){
+      const existing_address = await fboModel.findOne({ address });
+      if(existing_address){
       return res.status(401).json({ success, addressErr: "This address is already in use." })
-    }
+      }
 
     let idNumber;
 
-    while (!isUnique) {
+      while (!isUnique) {
       idNumber = Math.floor(10000 + Math.random() * 90000);
       const existingNumber = await fboModel.findOne({ id_num: idNumber });
       if (!existingNumber) {
@@ -40,21 +93,19 @@ exports.fboRegister = async (req, res) => {
       }
     }
 
-    // Calling function for generating FSSAI id
     const generatedCustomerId = generateCustomerId(idNumber);
 
     let date = new Date();
 
-    // Determine the model based on the product_name
     let selectedModel;
     if (product_name === 'Foscos Training') {
       selectedModel = foscosModel;
     } else {
       selectedModel = fostacModel;
     }
-    // Create a document using the selected model
+
     const createdFbo = await selectedModel.create({
-      id_num: idNumber, fbo_name, owner_name, owner_contact, email, state, district, address, product_name, processing_amount, service_name, customer_id: generatedCustomerId, client_type, recipient_no, water_test_fee, createdAt: date, payment_mode, createdBy, license_category, license_duration, total_amount
+      id_num: idNumber, fbo_name, owner_name, owner_contact, email, state, district, address, product_name, processing_amount, service_name, customer_id: generatedCustomerId, client_type, recipient_no, water_test_fee, createdAt: date, payment_mode, createdBy, license_category, license_duration, total_amount, village, tehsil, pincode
     });
 
     console.log(createdFbo);
@@ -97,7 +148,6 @@ exports.fboRegister = async (req, res) => {
 
     success = true;
     return res.status(201).json({ success, message: "FBO Registration Successful" });
-
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Internal Server Error" });

@@ -68,7 +68,7 @@
                 <th class="cell">Created By</th>
                 <th class="cell text-center">Status</th>
                 <th class="cell text-center">Action</th>
-                <th class="cell">Last Edit</th>
+                <!-- <th class="cell">Last Edit</th> -->
                 
               </tr>
             </thead>
@@ -96,7 +96,7 @@
                   <fa-icon class="fa-l" (click)="editRecord(employee)" style="cursor:pointer; margin-right: 7px; color: #1957a9;" [icon]="faPencil"></fa-icon>
                   <fa-icon class="fa-l" (click)="deleteEmployee(employee._id)"style="color: #c64115; cursor: pointer;" [icon]="faTrash" ></fa-icon>
                 </td>
-                <td class="cell"><span class="truncate">{{employee.lastEdit}}</span></td>
+                <!-- <td class="cell"><span class="truncate">{{employee.lastEdit}}</span></td> -->
               </tr>
             </tbody>
           </table>

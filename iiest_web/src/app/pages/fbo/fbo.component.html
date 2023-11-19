@@ -106,8 +106,8 @@
                         </div>
                         <div class="col-md-6">
                             <label for="pincode" class="form-label">Pincode</label>
-                            <input type="text" placeholder="Pincode" formControlName="pincode" id="pincode"
-                            class="form-control form-control-sm" autocomplete="off"/>
+                            <input type="number" placeholder="Pincode" formControlName="pincode" id="pincode"
+                            class="form-control form-control-sm" autocomplete="off" min="100000" max="999999"/>
                         </div>
                         
                     </div>
@@ -226,7 +226,7 @@
                         <div class="col-md-6">
                             <label for="total_amount" class=" form-label">Total Amount<sup>*</sup>
                                 <span style="font-size: x-small;">(18% GST Included)</span></label>
-                            <input type="text" placeholder="Total Amount" formControlName="total_amount" 
+                            <input type="number" placeholder="Total Amount" formControlName="total_amount" 
                                 class="form-control form-control-sm" id="total_amount"
                                 [ngClass]="{ 'is-invalid': submitted && fbo['total_amount'].errors }" readonly/>
                             <div *ngIf="submitted && fbo['total_amount'].errors" class="invalid-feedback">
@@ -253,7 +253,8 @@
 
                     </div>
                     <div class="col-md-12 m-0 mt-3 d-flex justify-content-center">
-                            <qr-code *ngIf="isQrCode" [value]="'upi://pay?pa=intellemo@icici&pn=Intellemo&tn=cftrhwetaw4gta&am=' + fboForm.value.total_amount" size="300"></qr-code>
+                            <qr-code *ngIf="isQrCode" [value]="'upi://pay?pa=PGTESTPAYUAT93@ybl&pn=MERCHANT&am=2006.00&mam=2006.00&tr=4g0eie0vlp446jh3&tn=Payment%20for%204g0eie0vlp446jh3&mc=5311&mode=04&purpose=00&utm_campaign=B2B_PG&utm_medium=PGTESTPAYUAT93&utm_source=4g0eie0vlp446jh3'" size="300"></qr-code>
+
                     </div>
                 </div>
 
@@ -264,7 +265,7 @@
                         class="btn btn-sm btn-primary">Update</button>
 
                     <ng-template #otherContent>
-                        <button type="submit" class="btn btn-sm btn-primary">Register</button>
+                        <button type="submit" class="btn btn-sm btn-primary">Pay Now</button>
                     </ng-template>
                 </div>
                 <div class="col-6 d-grid gap-2 d-md-flex justify-content-md-end">

@@ -57,8 +57,11 @@ export interface fbo {
   payment_mode : string,
   licence_category : string,
   licence_duration : string,
-  total_amount: string,
-  createdBy: string
+  total_amount: number,
+  createdBy: string,
+  pincode: number, 
+  village: string, 
+  tehsil: string
 }
 
 export interface fboRecipient {

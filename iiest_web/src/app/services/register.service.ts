@@ -27,6 +27,14 @@ export class RegisterService {
         this.handleError
       ));
   }
+
+  public fboPayment(total_amount: number): Observable<any> {
+    const url = `${this.url}/fbopayment`;
+    return this.http.post<any>(url, {total_amount}).pipe(
+      catchError(
+        this.handleError
+      ));
+  }
   
   public addFbo(addFbo: fbo): Observable<any> {
     const url = `${this.url}/fboregister`

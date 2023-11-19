@@ -47,7 +47,7 @@ export class FboComponent implements OnInit {
     village: new FormControl(''),
     tehsil: new FormControl(''),
     address: new FormControl(''),
-    pin:new FormControl(''),
+    pincode: new FormControl(''),
     product_name: new FormControl(''),
     processing_amount: new FormControl(''),
     service_name: new FormControl(''),
@@ -95,7 +95,7 @@ export class FboComponent implements OnInit {
         address: ['', Validators.required],
         village: [''],
         tehsil: [''],
-        pin:[''],
+        pincode: [''],
         product_name: ['', Validators.required],
         processing_amount: ['', Validators.required],
         service_name: ['', Validators.required],
@@ -119,7 +119,7 @@ export class FboComponent implements OnInit {
   setRequired() {
     return [Validators.required];
   }
-  //Form Submit Methode
+  //Form Submit Method
   onSubmit() {
     this.submitted = true;
     if (this.fboForm.invalid) {
@@ -138,7 +138,17 @@ export class FboComponent implements OnInit {
       });
     }else{
       this.addFbo = this.fboForm.value;
-      this._registerService.addFbo(this.addFbo).subscribe({
+      if(this.addFbo.payment_mode === 'Pay Page'){
+        this._registerService.fboPayment(this.addFbo.total_amount).subscribe({
+          next: (res)=>{
+            console.log(res)
+          },
+          error: (err)=>{
+            console.log(err);
+          }
+        })
+      }else{
+        this._registerService.addFbo(this.addFbo).subscribe({
         next: (res)=>{
           if(res.success){
             this._toastrService.success('Record edited successfully', res.message);
@@ -158,6 +168,7 @@ export class FboComponent implements OnInit {
           }
         }
       })
+      }
     }
   }
 
@@ -305,7 +316,7 @@ export class FboComponent implements OnInit {
   }
 
   ModeofPayment(event: any){
-    if(this.fboForm.value.total_amount !== '' && event.target.value == 'UPI'){
+    if(this.fboForm.value.total_amount !== '' && event.target.value == 'Pay Page'){
       this.isQrCode = true;
     }else{
       this.isQrCode = false;
