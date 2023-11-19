@@ -18,9 +18,9 @@ exports.fboPayment = async(req, res)=>{
     "merchantTransactionId": tx_uuid,
     "merchantUserId": "MUID123",
     "amount": req.body.total_amount * 100,
-    "redirectUrl": "http://localhost:3000/iiest/pay-return-url",
+    "redirectUrl": "http://localhost:3000/iiest/fbo-pay-return",
     "redirectMode": "POST",
-    "callbackUrl": "http://localhost:3000/iiest/pay-return-url",
+    "callbackUrl": "http://localhost:3000/iiest/fbo-pay-return",
     "paymentInstrument": {
       "type": "PAY_PAGE"
     }
@@ -56,8 +56,36 @@ exports.fboPayment = async(req, res)=>{
 }
 
 exports.fboPayReturn = async(req, res)=>{
-  if (req.body.code == 'PAYMENT_SUCCESS' && req.body.merchantId && req.body.transactionId && req.body.providerReferenceId){
-      console.log(req.body);
+  try {
+
+    if (req.body.code == 'PAYMENT_SUCCESS' && req.body.merchantId && req.body.transactionId && req.body.providerReferenceId){
+      if (req.body.transactionId) {
+        res.redirect('http://localhost:4200/fbo');
+        // let saltKey = '875126e4-5a13-4dae-ad60-5b8c8b629035';
+        // let saltIndex = 1
+    
+        // let surl = 'https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/status/PGTESTPAYUAT93/' + req.body.transactionId;
+ 
+        // let string = '/pg/v1/status/PGTESTPAYUAT93/' + req.body.transactionId + saltKey;
+ 
+        // let sha256_val = sha256(string);
+        // let checksum = sha256_val + '###' + saltIndex;
+        
+        // axios.get(surl, {
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //     'X-VERIFY': checksum,
+        //     'X-MERCHANT-ID': req.body.transactionId
+        //   }
+        // }).then(function (response) {
+        //   console.log(response);
+        // }).catch(function (error) {
+        //   console.log(error);
+        // });
+      }
+    }
+  } catch (error) {
+    return res.status(500).json({message: "Internal Server Error"});
   }
 }
 
