@@ -44,7 +44,7 @@ exports.fboPayment = async(req, res)=>{
       'X-VERIFY': checksum,
       'accept': 'application/json'
     }
-  }).then(function (response) {
+  }).then(async function (response) {
     console.log(response.data.data.instrumentResponse.redirectInfo.url);
     res.redirect(response.data.data.instrumentResponse.redirectInfo.url);
   }).catch(function (error) {
@@ -60,6 +60,7 @@ exports.fboPayReturn = async(req, res)=>{
 
     if (req.body.code == 'PAYMENT_SUCCESS' && req.body.merchantId && req.body.transactionId && req.body.providerReferenceId){
       if (req.body.transactionId) {
+        res.setHeader('auth-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU1OWNhMWIyYjFmM2EzMmMzZjA0ZWUzIn0sImlhdCI6MTcwMDUxNjMzOX0.t-zllGb2dIm0qOZCXVlp8Asg3YCXlry68HNJE90Sd1M')
         res.redirect('http://localhost:4200/fbo');
         // let saltKey = '875126e4-5a13-4dae-ad60-5b8c8b629035';
         // let saltIndex = 1

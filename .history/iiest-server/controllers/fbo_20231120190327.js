@@ -44,7 +44,7 @@ exports.fboPayment = async(req, res)=>{
       'X-VERIFY': checksum,
       'accept': 'application/json'
     }
-  }).then(function (response) {
+  }).then(async function (response) {
     console.log(response.data.data.instrumentResponse.redirectInfo.url);
     res.redirect(response.data.data.instrumentResponse.redirectInfo.url);
   }).catch(function (error) {
