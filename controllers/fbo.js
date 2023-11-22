@@ -18,9 +18,9 @@ exports.fboPayment = async(req, res)=>{
     "merchantTransactionId": tx_uuid,
     "merchantUserId": "MUID123",
     "amount": req.body.total_amount * 100,
-    "redirectUrl": "http://localhost:3000/iiest/fbo-pay-return",
+    "redirectUrl": "https://iiest-server.onrender.com/iiest/fbo-pay-return",
     "redirectMode": "POST",
-    "callbackUrl": "http://localhost:3000/iiest/fbo-pay-return",
+    "callbackUrl": "https://iiest-server.onrender.com/iiest/fbo-pay-return",
     "paymentInstrument": {
       "type": "PAY_PAGE"
     }
@@ -60,7 +60,7 @@ exports.fboPayReturn = async(req, res)=>{
 
     if (req.body.code == 'PAYMENT_SUCCESS' && req.body.merchantId && req.body.transactionId && req.body.providerReferenceId){
       if (req.body.transactionId) {
-        res.redirect('http://localhost:4200/fbo');
+        res.redirect('https://iiest-server.onrender.com/fbo');
         // let saltKey = '875126e4-5a13-4dae-ad60-5b8c8b629035';
         // let saltIndex = 1
     
