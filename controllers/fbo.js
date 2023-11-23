@@ -45,8 +45,7 @@ exports.fboPayment = async(req, res)=>{
       'accept': 'application/json'
     }
   }).then(function (response) {
-    console.log(response.data.data.instrumentResponse.redirectInfo.url);
-    res.redirect(response.data.data.instrumentResponse.redirectInfo.url);
+    return res.status(200).json({redirectURL: response.data.data.instrumentResponse.redirectInfo.url});
   }).catch(function (error) {
     console.log(error);
   });
@@ -60,7 +59,7 @@ exports.fboPayReturn = async(req, res)=>{
 
     if (req.body.code == 'PAYMENT_SUCCESS' && req.body.merchantId && req.body.transactionId && req.body.providerReferenceId){
       if (req.body.transactionId) {
-        res.redirect('https://iiest-server.onrender.com/fbo');
+        res.redirect('https://iiest-web-parr.vercel.app/fbo');
         // let saltKey = '875126e4-5a13-4dae-ad60-5b8c8b629035';
         // let saltIndex = 1
     
