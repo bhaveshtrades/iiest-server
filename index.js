@@ -12,6 +12,8 @@ app.use(cors());
 const config = JSON.parse(process.env.CONFIG);
 const port = config.PORT || 3000;
 
+console.log(app.use('env'))
+
 app.use('/iiest', require('./routers/employeeRoute.js'));
 app.use('/iiest', require('./routers/fboRoute.js'));
 
