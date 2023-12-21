@@ -41,7 +41,7 @@ exports.addRecipient = async (req, res) => {
             }
     
             success = true;
-            return res.status(200).json({ success, message: 'Recipients added successfully', data: updatedFboData.recipientDetails });
+            return res.status(200).json({ success, message: 'Recipients added successfully', data: updatedFboData.recipientDetails, fileDetails: file });
 
         } else {
             const recipientBody = req.body;
